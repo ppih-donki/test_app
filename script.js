@@ -4,7 +4,7 @@ let scannedCodes = new Set();
 function isValidJAN(code) {
   code = String(code); // 常に文字列として扱う
 
-  if (!/^\d{8}$|^\d{13}$/.test(code)) return false;
+  if (!/^\d{13}$/.test(code)) return false; // 13桁のみ
 
   const digits = code.split("").map(Number);
   const checkDigit = digits[digits.length - 1];
@@ -12,18 +12,9 @@ function isValidJAN(code) {
 
   let sum = 0;
 
-  if (code.length === 8) {
-    // EAN-8: 奇数3倍・偶数そのまま
-    for (let i = 0; i < 7; i++) {
-      sum += baseDigits[i] * (i % 2 === 0 ? 3 : 1);
-    }
-  } else if (code.length === 13) {
-    // EAN-13: 奇数そのまま・偶数3倍
-    for (let i = 0; i < 12; i++) {
-      sum += baseDigits[i] * (i % 2 === 0 ? 1 : 3);
-    }
-  } else {
-    return false;
+  // EAN-13: 奇数そのまま・偶数3倍
+  for (let i = 0; i < 12; i++) {
+    sum += baseDigits[i] * (i % 2 === 0 ? 1 : 3);
   }
 
   const calcCheckDigit = (10 - (sum % 10)) % 10;
@@ -44,7 +35,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  document.getElementById("start-scan").addEventListener("click", () => {
+  document.getElementById("start-scan-13").addEventListener("click", () => {
     document.getElementById("error-message").textContent = "";
     document.getElementById("reader-container").style.display = "block";
 
@@ -58,7 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
         },
       },
       decoder: {
-        readers: ["ean_reader", "ean_8_reader"]
+        readers: ["ean_reader"] // 13桁専用
       }
     }, (err) => {
       if (err) {
