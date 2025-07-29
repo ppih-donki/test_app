@@ -30,37 +30,23 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  document.getElementById("start-scan-13").addEventListener("click", () => {
+  const videoContainer = document.getElementById("video-container");
+  const video = document.getElementById("video");
+
+  document.getElementById("start-scan-13").addEventListener("click", async () => {
     document.getElementById("error-message").textContent = "";
-    document.getElementById("reader-container").style.display = "block";
+    videoContainer.style.display = "block";
 
-    Quagga.init({
-      inputStream: {
-        name: "Live",
-        type: "LiveStream",
-        target: document.querySelector('#reader'),
-        constraints: {
-          facingMode: "environment"
-        },
-      },
-      decoder: {
-        readers: ["ean_reader"]
-      }
-    }, (err) => {
-      if (err) {
-        document.getElementById("error-message").textContent = "カメラの初期化に失敗しました: " + err;
-        console.error(err);
-        return;
-      }
-      Quagga.start();
-    });
-
-    Quagga.onDetected((data) => {
-      const code = data.codeResult.code;
-      console.log("Scanned code:", code, "typeof:", typeof code);
-      Quagga.stop();
-      document.getElementById("reader-container").style.display = "none";
-
+    // ZXingライブラリの準備
+    const codeReader = new ZXingBrowser.BrowserBarcodeReader();
+    try {
+      const result = await codeReader.decodeOnceFromVideoDevice(undefined, video, {
+        // EAN-13だけに限定
+        formats: [ZXingBrowser.BarcodeFormat.EAN_13]
+      });
+      videoContainer.style.display = "none";
+      
+      const code = result.text;
       if (isValidJAN(code)) {
         if (!scannedCodes.has(code)) {
           scannedCodes.add(code);
@@ -71,7 +57,12 @@ window.addEventListener("DOMContentLoaded", () => {
       } else {
         document.getElementById("error-message").textContent = "無効なJANコードです。再スキャンしてください。";
       }
-    });
+      codeReader.reset();
+    } catch (err) {
+      videoContainer.style.display = "none";
+      document.getElementById("error-message").textContent = "カメラの起動またはスキャンに失敗しました: " + (err && err.message ? err.message : err);
+      if (codeReader) codeReader.reset();
+    }
   });
 
   document.getElementById("download-csv").addEventListener("click", () => {
