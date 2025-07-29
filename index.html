@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>ZXing カメラスキャンテスト</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!-- ZXingのCDNは必ずmain.jsより先に読み込む！ -->
-  <script src="https://unpkg.com/@zxing/browser@latest"></script>
-  <script src="main.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow,noarchive,noimageindex,nosnippet" />
+  <meta name="googlebot" content="noindex,nofollow" />
+  <title>JANコードスキャナー（Google ML Kit）</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button id="start">カメラ起動</button>
-  <div id="video-container" style="display:none;">
-    <video id="video" width="320" height="240" style="border:1px solid #000"></video>
+  <h1>JANコードスキャナー</h1>
+  <button id="start-scan">カメラ起動</button>
+  <div id="reader-container">
+    <video id="camera-stream" autoplay playsinline></video>
+    <canvas id="capture-canvas" style="display:none;"></canvas>
   </div>
-  <div id="result"></div>
+  <p id="error-message"></p>
+  <ul id="code-list"></ul>
+  <button id="download-csv">CSV出力</button>
+  <script src="script.js"></script>
 </body>
 </html>
