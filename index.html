@@ -2,24 +2,24 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>13桁JANコードスキャナー</title>
+  <title>13桁JANコードスキャナー（ZXing-js版）</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     body { font-family: sans-serif; margin: 2em; }
-    #reader-container { display: none; margin: 1em 0; }
+    #video-container { display:none; margin: 1em 0; }
     #error-message { color: red; margin-top: 1em; }
     #code-list { margin-top: 1em; }
     button { margin: 0.5em 0; padding: 0.5em 1em; font-size: 1em; }
   </style>
-  <!-- QuaggaJSはmain.jsより前に読み込む -->
-  <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+  <!-- ZXing-js 読み込み -->
+  <script src="https://unpkg.com/@zxing/browser@latest"></script>
   <script src="main.js" defer></script>
 </head>
 <body>
-  <h1>13桁JANコードスキャナー</h1>
+  <h1>13桁JANコードスキャナー（ZXing-js）</h1>
   <button id="start-scan-13">13桁JANスキャン開始</button>
-  <div id="reader-container">
-    <div id="reader" style="width:100%;max-width:320px;height:240px;"></div>
+  <div id="video-container">
+    <video id="video" width="320" height="240" style="border:1px solid #000"></video>
   </div>
   <div id="error-message"></div>
   <ul id="code-list"></ul>
