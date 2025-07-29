@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +24,7 @@
       max-width: 420px;
       margin: 1rem auto;
       background: #222;
-      min-height: 200px;
+      min-height: 70px;
     }
     #result {
       margin-top: 1rem;
@@ -46,7 +47,6 @@
       button { font-size: 0.95rem; padding: 0.4rem; }
     }
   </style>
-  <!-- QuaggaJS CDNから直接読み込み -->
   <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.js"></script>
 </head>
 <body>
@@ -62,20 +62,19 @@
     let scanning = false;
     let scannedJANs = new Set();
 
-    // Quagga 設定
     const config = {
       inputStream : {
         name : "Live",
         type : "LiveStream",
         target: document.querySelector('#reader'),
         constraints: {
-          facingMode: "environment" // バックカメラ優先
+          facingMode: "environment"
         }
       },
       decoder : {
-        readers : ["ean_reader"] // JANコード(EAN-13)対応
+        readers : ["ean_reader", "ean_8_reader"]
       },
-      locate: true // バーコード自動検出
+      locate: true
     };
 
     function startCamera() {
@@ -102,7 +101,7 @@
 
     Quagga.onDetected(function(result) {
       let code = result.codeResult.code;
-      if (/^\d{13}$/.test(code) && !scannedJANs.has(code)) {
+      if (/^\d{8}$|^\d{13}$/.test(code) && !scannedJANs.has(code)) {
         scannedJANs.add(code);
         const resultDiv = document.getElementById("result");
         const entry = document.createElement("div");
@@ -125,8 +124,6 @@
 
     document.getElementById("start-btn").onclick = startCamera;
     document.getElementById("stop-btn").onclick = stopCamera;
-
-    // ページ離脱時にカメラ停止
     window.addEventListener("pagehide", stopCamera);
   </script>
 </body>
