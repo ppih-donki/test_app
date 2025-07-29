@@ -1,22 +1,17 @@
 let scannedCodes = new Set();
 
-// ✅ チェックデジット検証ロジック修正済み
 function isValidJAN(code) {
-  code = String(code); // 常に文字列として扱う
-
-  if (!/^\d{13}$/.test(code)) return false; // 13桁のみ
+  code = String(code);
+  if (!/^\d{13}$/.test(code)) return false;
 
   const digits = code.split("").map(Number);
   const checkDigit = digits[digits.length - 1];
   const baseDigits = digits.slice(0, -1);
 
   let sum = 0;
-
-  // EAN-13: 奇数そのまま・偶数3倍
   for (let i = 0; i < 12; i++) {
     sum += baseDigits[i] * (i % 2 === 0 ? 1 : 3);
   }
-
   const calcCheckDigit = (10 - (sum % 10)) % 10;
   return calcCheckDigit === checkDigit;
 }
@@ -49,10 +44,11 @@ window.addEventListener("DOMContentLoaded", () => {
         },
       },
       decoder: {
-        readers: ["ean_reader"] // 13桁専用
+        readers: ["ean_reader"]
       }
     }, (err) => {
       if (err) {
+        document.getElementById("error-message").textContent = "カメラの初期化に失敗しました: " + err;
         console.error(err);
         return;
       }
@@ -61,7 +57,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     Quagga.onDetected((data) => {
       const code = data.codeResult.code;
-      console.log("Scanned code:", code, "typeof:", typeof code); // デバッグ用
+      console.log("Scanned code:", code, "typeof:", typeof code);
       Quagga.stop();
       document.getElementById("reader-container").style.display = "none";
 
