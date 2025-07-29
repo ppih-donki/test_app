@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 🔒 検索エンジンにインデックスさせない -->
+  <meta name="robots" content="noindex,nofollow,noarchive,noimageindex,nosnippet" />
+  <meta name="googlebot" content="noindex,nofollow" />
+
+  <title>JANコードスキャナー</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 420px;
+      margin: 1rem auto;
+    }
+
+    #result {
+      margin-top: 1rem;
+    }
+
+    .jan-entry {
+      background: #fff;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    select, button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin: 0.5rem 0.25rem;
+    }
+
+    @media (max-width: 480px) {
+      h2 { font-size: 1.3rem; }
+      button, select { font-size: 0.95rem; padding: 0.4rem; }
+    }
+  </style>
+
+  <!-- 📦 ライブラリ（CDN） -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+
+  <h2>📷 JANコードスキャンツール</h2>
+
+  <div style="text-align:center;">
+    <select id="camera-select"></select>
+    <button onclick="startCamera()">📷 カメラを起動</button>
+  </div>
+
+  <div id="reader"></div>
+
+  <div id="result"></div>
+
+  <button onclick="exportJANs()">📤 スキャン済みJANをCSV出力</button>
+
+  <script>
+    let html5QrCode;
+    let currentCameraId = null;
+    const scannedJANs = new Set();
+
+    Html5Qrcode.getCameras().then(devices => {
+      const select = document.getElementById("camera-select");
+      if (devices.length) {
+        devices.forEach(d => {
+          const option = document.createElement("option");
+          option.value = d.id;
+          option.text = d.label || `Camera ${select.length + 1}`;
+          select.appendChild(option);
+        });
+        currentCameraId = devices[0].id;
+      } else {
+        alert("カメラが見つかりません");
+      }
+    }).catch(err => {
+      alert("カメラ取得に失敗：" + err);
+    });
+
+    function onScanSuccess(decodedText) {
+      if (/^\d{13}$/.test(decodedText) && !scannedJANs.has(decodedText)) {
+        scannedJANs.add(decodedText);
+        const resultDiv = document.getElementById("result");
+        const entry = document.createElement("div");
+        entry.className = "jan-entry";
+        entry.textContent = decodedText;
+        resultDiv.appendChild(entry);
+      }
+    }
+
+    function startCamera() {
+      currentCameraId = document.getElementById("camera-select").value;
+      if (!html5QrCode) {
+        html5QrCode = new Html5Qrcode("reader");
+      }
+      html5QrCode.start(
+        currentCameraId,
+        { fps: 10, qrbox: { width: 250, height: 150 } },
+        onScanSuccess
+      ).catch(err => {
+        alert("カメラ起動に失敗：" + err);
+      });
+    }
+
+    function exportJANs() {
+      const csv = Array.from(scannedJANs).join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "scanned_jans.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
