@@ -27,7 +27,11 @@ function isMobileOrTablet() {
 
 window.addEventListener("DOMContentLoaded", () => {
   if (!isMobileOrTablet()) {
-    document.body.innerHTML = "<h2 style='color:red;'>モバイル端末専用です。スマートフォンまたはタブレットでご利用ください。</h2>";
+    document.body.innerHTML = `
+      <h2 style="color:red;">モバイル端末専用です。スマートフォンまたはタブレットでご利用ください。</h2>
+      <p>以下のQRコードをスマートフォンでスキャンしてください：</p>
+      <img src="qr.mobile.png" alt="スマホで開くQRコード" style="max-width: 300px; width: 80%; margin-top: 1em;">
+    `;
     return;
   }
 
