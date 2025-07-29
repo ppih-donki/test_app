@@ -1,24 +1,31 @@
 let scannedCodes = new Set();
 
+// ✅ チェックデジット検証ロジック修正済み
 function isValidJAN(code) {
   if (!/^\d{8}$|^\d{13}$/.test(code)) return false;
+
   const digits = code.split("").map(Number);
-  const checkDigit = digits.pop();
+  const checkDigit = digits[digits.length - 1];
+  const baseDigits = digits.slice(0, -1);
+
   let sum = 0;
 
-  if (code.length === 7) {
+  if (code.length === 8) {
+    // EAN-8: 奇数3倍・偶数そのまま
     for (let i = 0; i < 7; i++) {
-      sum += digits[i] * (i % 2 === 0 ? 3 : 1);
+      sum += baseDigits[i] * (i % 2 === 0 ? 3 : 1);
     }
-    return (10 - (sum % 10)) % 10 === checkDigit;
-  } else if (code.length === 12) {
+  } else if (code.length === 13) {
+    // EAN-13: 奇数そのまま・偶数3倍
     for (let i = 0; i < 12; i++) {
-      sum += digits[i] * (i % 2 === 0 ? 1 : 3);
+      sum += baseDigits[i] * (i % 2 === 0 ? 1 : 3);
     }
-    return (10 - (sum % 10)) % 10 === checkDigit;
+  } else {
+    return false;
   }
 
-  return false;
+  const calcCheckDigit = (10 - (sum % 10)) % 10;
+  return calcCheckDigit === checkDigit;
 }
 
 function isMobileOrTablet() {
