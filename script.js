@@ -2,6 +2,8 @@ let scannedCodes = new Set();
 
 // ✅ チェックデジット検証ロジック修正済み
 function isValidJAN(code) {
+  code = String(code); // 常に文字列として扱う
+
   if (!/^\d{8}$|^\d{13}$/.test(code)) return false;
 
   const digits = code.split("").map(Number);
@@ -68,6 +70,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     Quagga.onDetected((data) => {
       const code = data.codeResult.code;
+      console.log("Scanned code:", code, "typeof:", typeof code); // デバッグ用
       Quagga.stop();
       document.getElementById("reader-container").style.display = "none";
 
@@ -85,7 +88,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("download-csv").addEventListener("click", () => {
-    const csvContent = "data:text/csv;charset=utf-8," + Array.from(scannedCodes).join("\\n");
+    const csvContent = "data:text/csv;charset=utf-8," + Array.from(scannedCodes).join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
