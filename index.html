@@ -2,27 +2,33 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>13桁JANコードスキャナー（ZXing-js版）</title>
+  <title>ZXing Camera Test</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body { font-family: sans-serif; margin: 2em; }
-    #video-container { display:none; margin: 1em 0; }
-    #error-message { color: red; margin-top: 1em; }
-    #code-list { margin-top: 1em; }
-    button { margin: 0.5em 0; padding: 0.5em 1em; font-size: 1em; }
-  </style>
-  <!-- ZXing-js 読み込み -->
   <script src="https://unpkg.com/@zxing/browser@latest"></script>
-  <script src="main.js" defer></script>
 </head>
 <body>
-  <h1>13桁JANコードスキャナー（ZXing-js）</h1>
-  <button id="start-scan-13">13桁JANスキャン開始</button>
-  <div id="video-container">
+  <button id="start">カメラ起動</button>
+  <div id="video-container" style="display:none;">
     <video id="video" width="320" height="240" style="border:1px solid #000"></video>
   </div>
-  <div id="error-message"></div>
-  <ul id="code-list"></ul>
-  <button id="download-csv">CSVダウンロード</button>
+  <div id="result"></div>
+  <script>
+    document.getElementById('start').addEventListener('click', async () => {
+      document.getElementById('video-container').style.display = 'block';
+      const video = document.getElementById('video');
+      // グローバル名は ZXing
+      const codeReader = new ZXing.BrowserBarcodeReader();
+      try {
+        const result = await codeReader.decodeOnceFromVideoDevice(undefined, video, {
+          formats: [ZXing.BarcodeFormat.EAN_13]
+        });
+        document.getElementById('result').textContent = 'スキャン結果: ' + result.text;
+        codeReader.reset();
+      } catch (e) {
+        document.getElementById('result').textContent = 'エラー: ' + (e && e.message ? e.message : e);
+        codeReader.reset();
+      }
+    });
+  </script>
 </body>
 </html>
