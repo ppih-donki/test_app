@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #f0f0f0;
+  margin: 0;
+  padding: 1em;
+}
+#reader-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 1em auto;
+  display: none;
+}
+#reader {
+  width: 100%;
+  aspect-ratio: 3/2;
+  background: #000;
+  position: relative;
+}
+/* 🔻 黒い四角（Quaggaのcanvas）を非表示 */
+#reader canvas {
+  display: none !important;
+}
+
+ul#code-list {
+  list-style: none;
+  padding: 0;
+}
+ul#code-list li {
+  background: #fff;
+  margin: 0.25em auto;
+  padding: 0.5em;
+  width: 60%;
+  border-radius: 5px;
+}
+#error-message {
+  color: red;
+  font-weight: bold;
+}
