@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex,nofollow,noarchive,noimageindex,nosnippet" />
-  <meta name="googlebot" content="noindex,nofollow" />
-  <title>JANコードスキャナー</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+  <meta charset="UTF-8">
+  <title>13桁JANコードスキャナー</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    #reader-container { display: none; margin: 1em 0; }
+    #error-message { color: red; margin-top: 1em; }
+    #code-list { margin-top: 1em; }
+    button { margin: 0.5em 0; padding: 0.5em 1em; font-size: 1em; }
+  </style>
+  <!-- QuaggaJS CDN（必要に応じてバージョンを確認してください） -->
+  <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+  <script src="main.js" defer></script>
 </head>
 <body>
-  <h1>JANコードスキャナー</h1>
-  <button id="start-scan">カメラ起動</button>
+  <h1>13桁JANコードスキャナー</h1>
+  <button id="start-scan-13">13桁JANスキャン開始</button>
   <div id="reader-container">
-    <div id="reader"></div>
+    <div id="reader" style="width:100%;max-width:320px;height:240px;"></div>
   </div>
-  <p id="error-message"></p>
+  <div id="error-message"></div>
   <ul id="code-list"></ul>
-  <button id="download-csv">CSV出力</button>
-  <script src="script.js"></script>
+  <button id="download-csv">CSVダウンロード</button>
 </body>
 </html>
