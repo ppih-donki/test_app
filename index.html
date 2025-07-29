@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ZXing Camera Test</title>
+  <title>ZXing カメラスキャンテスト</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!-- ZXingは必ず先に読み込む -->
+  <!-- ZXingのCDNは必ずmain.jsより先に読み込む！ -->
   <script src="https://unpkg.com/@zxing/browser@latest"></script>
+  <script src="main.js" defer></script>
 </head>
 <body>
   <button id="start">カメラ起動</button>
@@ -13,24 +14,5 @@
     <video id="video" width="320" height="240" style="border:1px solid #000"></video>
   </div>
   <div id="result"></div>
-  <!-- JSはZXingの後に書く -->
-  <script>
-    document.getElementById('start').addEventListener('click', async () => {
-      document.getElementById('video-container').style.display = 'block';
-      const video = document.getElementById('video');
-      // グローバルはZXing
-      const codeReader = new ZXing.BrowserBarcodeReader();
-      try {
-        const result = await codeReader.decodeOnceFromVideoDevice(undefined, video, {
-          formats: [ZXing.BarcodeFormat.EAN_13]
-        });
-        document.getElementById('result').textContent = 'スキャン結果: ' + result.text;
-        codeReader.reset();
-      } catch (e) {
-        document.getElementById('result').textContent = 'エラー: ' + (e && e.message ? e.message : e);
-        codeReader.reset();
-      }
-    });
-  </script>
 </body>
 </html>
