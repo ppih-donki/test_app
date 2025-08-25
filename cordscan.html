@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>JANスキャナ（GitHub Pages / iOS+Android）</title>
 
-<!-- ① 検索避け（GitHub Pages公開でもインデックスさせない） -->
+<!-- 検索避け -->
 <meta name="robots" content="noindex,nofollow,noarchive" />
 <meta name="googlebot" content="noindex,nofollow,noarchive" />
 
 <style>
-  :root{ --bg:#0b0b0b; --panel:#131313; --fg:#fff; --muted:#bdbdbd; --acc:#3dd5f3; --ok:#25d366; --ng:#ff4757;}
+  :root{ --bg:#0b0b0b; --panel:#131313; --fg:#fff; --muted:#bdbdbd; --acc:#3dd5f3; --ok:#25d366;}
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif}
   header{padding:14px 16px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
@@ -32,7 +32,7 @@
   video{width:100%;max-height:60vh;border-radius:12px;background:#000;object-fit:cover}
   .overlay{position:relative}
   .guide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(80%,520px);height:120px;border:2px dashed rgba(255,255,255,.35);border-radius:10px}
-  .guide::after{content:"ここにバーコードを合わせる";position:absolute;left:50%;top:-24px;transform:translateX(-50%);font-size:12px;color:var(--muted);background:rgba(0,0,0,.6);padding:2px 8px;border-radius:8px}
+  .guide::after{content:"ここにバーコードを合わせる";position:absolute;left:50%;top:-24px;transform:translateX(-50%);font-size:12px;color:#aaa;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:8px}
   .list{max-height:55vh;overflow:auto;border-radius:12px;border:1px solid #1e1e1e}
   table{width:100%;border-collapse:collapse;font-size:14px}
   th,td{padding:8px 10px;border-bottom:1px solid #1e1e1e}
@@ -46,7 +46,7 @@
   .mono{font-family:ui-monospace, SFMono, Menlo, Consolas, monospace}
 </style>
 
-<!-- ② Import Map（将来の自己ホスト差替えが楽） -->
+<!-- Import Map：将来的に自己ホストURLへ差替え可 -->
 <script type="importmap">
 {
   "imports": {
@@ -81,7 +81,7 @@
         <div class="guide" aria-hidden="true"></div>
       </div>
       <div class="label" id="hint">
-        ※ iPhoneのChrome（CriOS）はWebKitのため、BarcodeDetectorのEANが未対応のことがあります。iOS系はZXingで読み取ります。
+        ※ iPhone系は BarcodeDetector の EAN が未対応のことがあるため、ZXingを使用します（Android ChromeはBD優先→自動フォールバック）。
       </div>
     </div>
   </section>
@@ -127,7 +127,7 @@
 </main>
 
 <footer>
-  GitHub Pagesはhttps配信。iOS系はZXing、Android ChromeはBarcodeDetector→ZXingの順で使用します。
+  GitHub Pagesでhttps配信。CDN不可環境なら ImportMap のURLを社内CDNへ差し替えてください。
 </footer>
 
 <audio id="beepAudio" preload="auto">
@@ -166,18 +166,6 @@ const mode   = document.getElementById('mode');
 const formatsOut = document.getElementById('formats');
 let history = [];
 
-/* ========= ZXing ローダ（CDNフェイルオーバー付き） ========= */
-let ZX = null;
-async function loadZXing(){
-  try {
-    // 1) jsDelivr +esm（国内で安定しがち）
-    ZX = await import('https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/+esm');
-  } catch (e1) {
-    // 2) unpkg ?module（内部依存をURLに書き換え）
-    ZX = await import('https://unpkg.com/@zxing/browser@0.1.5?module');
-  }
-}
-
 /* ========= 実装選定 ========= */
 (async function chooseImpl(){
   if(forceZXingOnIOSChrome){
@@ -197,8 +185,6 @@ async function loadZXing(){
   implBadge.textContent = '実装: ' + (impl==='BD' ? 'BarcodeDetector（標準）' : 'ZXing');
   implBadge.className = 'badge ' + (impl==='BD' ? 'ok' : '');
   mode.textContent = impl;
-
-  if(impl === 'ZXING'){ await loadZXing(); }
 })();
 
 /* ========= 権限表示 ========= */
@@ -213,7 +199,7 @@ async function loadZXing(){
   }
 })();
 
-/* ========= ユーティリティ ========= */
+/* ========= 共通ユーティリティ ========= */
 function pad2(n){return String(n).padStart(2,'0')}
 function nowStr(){ const d=new Date(); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;}
 
@@ -262,8 +248,7 @@ async function openCamera(){
   const constraints = {
     video: {
       facingMode:{ideal:'environment'},
-      // iOSは1080p指定が安定しやすい
-      width:{ideal:1920}, height:{ideal:1080}
+      width:{ideal:1920}, height:{ideal:1080}  // iOSは1080pが安定しやすい
     },
     audio:false
   };
@@ -296,7 +281,7 @@ async function waitVideoReady(){
   vstate.textContent = String(video.readyState);
 }
 
-/* ========= BD ループ ========= */
+/* ========= BarcodeDetector ループ ========= */
 async function runBD(){
   detector = new window.BarcodeDetector({formats:['ean_13','ean_8']});
   const loop = async ()=>{
@@ -315,13 +300,34 @@ async function runBD(){
   rafId = requestAnimationFrame(loop);
 }
 
-/* ========= ZXing ループ ========= */
+/* ========= ZXing ループ（@zxing/libraryを明示import） ========= */
 let zxingReader = null, zxingControls = null;
 async function runZX(){
-  if(!ZX){ await loadZXing(); }
-  const { BrowserMultiFormatContinuousReader, NotFoundException, BarcodeFormat, DecodeHintType } = ZX;
-  const hints = new Map();
-  hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8]);
+  // 1) ブラウザ実装（リーダ）を読み込み
+  const { BrowserMultiFormatContinuousReader, NotFoundException } = await import('@zxing/browser').catch(async () => {
+    // CDNブロック時のフェイルオーバー
+    return await import('https://unpkg.com/@zxing/browser@0.1.5?module');
+  });
+
+  // 2) エンム類は library から **直接** 取得
+  let BarcodeFormat, DecodeHintType;
+  try {
+    const lib = await import('@zxing/library');
+    BarcodeFormat   = lib.BarcodeFormat;
+    DecodeHintType  = lib.DecodeHintType;
+  } catch (e) {
+    // さらにCDNが塞がれた場合の保険
+    const lib = await import('https://unpkg.com/@zxing/library@0.20.0?module');
+    BarcodeFormat   = lib.BarcodeFormat;
+    DecodeHintType  = lib.DecodeHintType;
+  }
+
+  // 3) ヒント（未定義ならフォールバック）
+  let hints;
+  if (DecodeHintType && BarcodeFormat) {
+    hints = new Map();
+    hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8]);
+  }
 
   zxingReader = new BrowserMultiFormatContinuousReader(hints);
   zxingControls = await zxingReader.decodeFromStream(stream, video, (result, err) => {
