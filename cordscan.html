@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>JANスキャナ（BarcodeDetector + ZXing Fallback）</title>
+<meta name="robots" content="noindex,nofollow" />
+<style>
+  :root{
+    --bg:#0b0b0b; --panel:#131313; --fg:#fff; --muted:#bdbdbd; --acc:#3dd5f3; --ok:#25d366; --ng:#ff4757;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif}
+  header{padding:14px 16px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
+  header h1{margin:0;font-size:18px;font-weight:700}
+  main{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;padding:12px}
+  @media (max-width:920px){ main{grid-template-columns:1fr;}}
+  .card{background:var(--panel);border:1px solid #1e1e1e;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+  .card h2{margin:0;padding:12px 14px;font-size:14px;border-bottom:1px solid #1e1e1e;color:#ddd}
+  .card .content{padding:12px}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  button,.btn{appearance:none;border:1px solid #2a2a2a;background:#1a1a1a;color:#fff;padding:10px 12px;border-radius:12px;cursor:pointer}
+  button.primary{background:var(--acc);border-color:#1b8ea3;color:#00141a;font-weight:700}
+  button.danger{background:#2b0f12;border-color:#5b1f24}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .label{font-size:12px;color:var(--muted)}
+  video{width:100%;max-height:60vh;border-radius:12px;background:#000;object-fit:cover}
+  .overlay{position:relative}
+  .guide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(80%,520px);height:120px;border:2px dashed rgba(255,255,255,.35);border-radius:10px}
+  .guide::after{content:"ここにバーコードを合わせる";position:absolute;left:50%;top:-24px;transform:translateX(-50%);font-size:12px;color:var(--muted);background:rgba(0,0,0,.6);padding:2px 8px;border-radius:8px}
+  .badge{display:inline-flex;gap:6px;align-items:center;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #2a2a2a;background:#111;color:#ddd}
+  .badge.ok{border-color:#0f3; color:#9f9}
+  .list{max-height:55vh;overflow:auto;border-radius:12px;border:1px solid #1e1e1e}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:8px 10px;border-bottom:1px solid #1e1e1e}
+  tr:last-child td{border-bottom:none}
+  .code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+  .pill{padding:2px 8px;border-radius:999px;font-size:11px;border:1px solid #2a2a2a;color:#bbb}
+  .pill.ean13{border-color:#3a7; color:#9fb}
+  .pill.ean8{border-color:#a73; color:#fbb}
+  footer{padding:10px 14px;border-top:1px solid #222;color:#888;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>JANスキャナ（社内端末用）</h1>
+  <div class="row">
+    <span id="implBadge" class="badge">初期化中…</span>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>カメラ</h2>
+    <div class="content">
+      <div class="controls">
+        <button id="btnStart" class="primary">START</button>
+        <button id="btnStop" class="danger" disabled>STOP</button>
+        <button id="btnTorch" disabled>ライト</button>
+        <label class="badge"><input type="checkbox" id="beep" checked> ビープ</label>
+        <label class="badge"><input type="checkbox" id="vibrate" checked> バイブ</label>
+        <span class="badge" id="envInfo">環境: -</span>
+      </div>
+      <div class="overlay">
+        <video id="video" playsinline autoplay muted></video>
+        <div class="guide" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>読み取り履歴</h2>
+    <div class="content">
+      <div class="controls">
+        <button id="btnClear">履歴クリア</button>
+        <button id="btnExport">CSVエクスポート</button>
+        <span class="label" id="stat">待機中</span>
+      </div>
+      <div class="list">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:120px;">時刻</th>
+              <th>コード</th>
+              <th style="width:90px;">形式</th>
+              <th style="width:70px;">確度</th>
+              <th style="width:70px;">確定</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Android Chrome は BarcodeDetector を使用。未対応環境（例：iOS Safari）では自動で ZXing を読み込みます。https 配信とユーザー操作後のカメラ起動が必要です。
+</footer>
+
+<audio id="beepAudio" preload="auto">
+  <source src="data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEARKwAAB9AAACABAAZGF0YQwAAAAA/////wAAAP///wAAAA==" type="audio/wav">
+</audio>
+
+<script>
+(function(){
+  // --------- 状態 -----------
+  let useBarcodeDetector = ('BarcodeDetector' in window);
+  let detector = null;
+  let stream = null;
+  let track = null;
+  let torchAvailable = false;
+  let rafId = null;
+  let running = false;
+  let impl = 'init';
+  let lastValue = null;
+  let stableCount = 0;
+  const STABLE_NEED = 3; // 同一値が連続3回で確定
+  const tbody = document.getElementById('tbody');
+  const video = document.getElementById('video');
+  const stat = document.getElementById('stat');
+  const implBadge = document.getElementById('implBadge');
+  const envInfo = document.getElementById('envInfo');
+  const beep = document.getElementById('beep');
+  const vibrate = document.getElementById('vibrate');
+  const beepAudio = document.getElementById('beepAudio');
+  let history = []; // {ts, code, format, confidence, confirmed}
+
+  // --------- UI 初期化 -----------
+  updateImplBadge();
+
+  function updateImplBadge(){
+    if(useBarcodeDetector){
+      impl = 'BarcodeDetector';
+      implBadge.textContent = '実装: BarcodeDetector（標準）';
+      implBadge.className = 'badge ok';
+    }else{
+      impl = 'ZXing（自動フォールバック待機）';
+      implBadge.textContent = '実装: ZXing フォールバック';
+      implBadge.className = 'badge';
+    }
+  }
+
+  function pad2(n){return String(n).padStart(2,'0')}
+  function nowStr(){
+    const d = new Date();
+    return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+  }
+
+  // --------- チェックデジット検証 -----------
+  function validEAN13(code){
+    if(!/^\d{13}$/.test(code)) return false;
+    const digits = code.split('').map(Number);
+    const check = digits.pop();
+    let sum = 0;
+    for(let i=0;i<12;i++){
+      sum += digits[i] * (i%2===0 ? 1 : 3);
+    }
+    const calc = (10 - (sum % 10)) % 10;
+    return calc === check;
+  }
+  function validEAN8(code){
+    if(!/^\d{8}$/.test(code)) return false;
+    const digits = code.split('').map(Number);
+    const check = digits.pop();
+    let sum = 0;
+    for(let i=0;i<7;i++){
+      sum += digits[i] * ([3,1,3,1,3,1,3][i]);
+    }
+    const calc = (10 - (sum % 10)) % 10;
+    return calc === check;
+  }
+  function isJAN(format, code){
+    if(format === 'ean_13' || format === 'EAN_13') return validEAN13(code);
+    if(format === 'ean_8'  || format === 'EAN_8')  return validEAN8(code);
+    return false;
+  }
+
+  // --------- 履歴操作 -----------
+  function pushHistory(code, format, confidence, confirmed){
+    const row = {ts: nowStr(), code, format, confidence: confidence ?? '-', confirmed: confirmed ? '✓' : ''};
+    history.unshift(row);
+    renderHistory();
+  }
+  function renderHistory(){
+    tbody.innerHTML = history.map(r => `
+      <tr>
+        <td>${r.ts}</td>
+        <td class="code">${r.code}</td>
+        <td><span class="pill ${r.format.toLowerCase().includes('13')?'ean13':'ean8'}">${r.format}</span></td>
+        <td>${r.confidence}</td>
+        <td>${r.confirmed}</td>
+      </tr>
+    `).join('');
+  }
+  function clearHistory(){
+    history = [];
+    renderHistory();
+  }
+
+  // --------- ビープ/バイブ -----------
+  function notifyHit(){
+    if(beep.checked) { try{ beepAudio.currentTime = 0; beepAudio.play(); }catch(e){} }
+    if(vibrate.checked && 'vibrate' in navigator){ navigator.vibrate?.(80); }
+  }
+
+  // --------- カメラ起動 -----------
+  async function openCamera(){
+    const constraints = { video: { facingMode: { ideal: 'environment' } , width: { ideal: 1280 }, height: { ideal: 720 } }, audio:false };
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    video.srcObject = stream;
+    track = stream.getVideoTracks()[0];
+
+    // torch可否チェック
+    torchAvailable = false;
+    try{
+      const capabilities = track.getCapabilities?.();
+      if(capabilities && 'torch' in capabilities){
+        torchAvailable = true;
+        document.getElementById('btnTorch').disabled = false;
+      }else{
+        document.getElementById('btnTorch').disabled = true;
+      }
+    }catch(e){
+      document.getElementById('btnTorch').disabled = true;
+    }
+    const settings = track.getSettings?.() || {};
+    envInfo.textContent = `環境: ${settings.width||'-'}x${settings.height||'-'} ${settings.frameRate?settings.frameRate+'fps':''}`;
+  }
+
+  async function closeCamera(){
+    try{
+      if(track){ await track.applyConstraints?.({advanced:[{torch:false}]}); }
+    }catch(e){}
+    if(stream){
+      stream.getTracks().forEach(t=>t.stop());
+      stream = null; track = null;
+    }
+    video.srcObject = null;
+  }
+
+  // --------- BarcodeDetector モード -----------
+  async function runBarcodeDetector(){
+    detector = new window.BarcodeDetector({ formats: ['ean_13','ean_8'] });
+    const process = async ()=>{
+      if(!running) return;
+      try{
+        const barcodes = await detector.detect(video);
+        if(barcodes && barcodes.length){
+          // BarcodeDetectorの返却は: { rawValue, format, cornerPoints }
+          const b = barcodes[0];
+          const fmt = b.format; // 'ean_13' / 'ean_8'
+          const val = (b.rawValue || '').trim();
+          const ok = isJAN(fmt, val);
+          if(ok){
+            handleCandidate(val, fmt, 1.0); // confidence を 1.0 扱い
+          }else{
+            // 検出はしたがチェック失敗 → 履歴には未確定で残さない（安定化優先）
+          }
+        }
+      }catch(e){
+        console.warn('detect error', e);
+      }
+      rafId = requestAnimationFrame(process);
+    };
+    rafId = requestAnimationFrame(process);
+  }
+
+  // --------- ZXing フォールバック -----------
+  let zxingControls = null;
+  async function runZXing(){
+    const { BrowserMultiFormatReader, NotFoundException } = await import('https://unpkg.com/@zxing/browser@0.1.5/esm/index.js');
+    const reader = new BrowserMultiFormatReader();
+    // ヒントでEAN優先にもできるが、ここではシンプルに連続デコード
+    const decodeLoop = async ()=>{
+      if(!running) return;
+      try{
+        const result = await reader.decodeOnceFromVideoDevice(undefined, 'video'); // 1回読めるまで待つ
+        if(result){
+          // ZXing の result: { text, barcodeFormat, ... }
+          const fmt = String(result.barcodeFormat || '');
+          let format = fmt.includes('EAN_13') ? 'EAN_13' : fmt.includes('EAN_8') ? 'EAN_8' : fmt;
+          const val = (result.text || '').trim();
+          const ok = isJAN(format, val);
+          if(ok){
+            handleCandidate(val, format, 0.99);
+          }
+        }
+      }catch(e){
+        if(!(e instanceof NotFoundException)){
+          console.warn('ZXing decode error', e);
+        }
+      }
+      if(running) requestAnimationFrame(decodeLoop);
+    };
+    zxingControls = { reader };
+    decodeLoop();
+  }
+
+  function stopAllLoops(){
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+  }
+
+  // --------- ヒステリシス確定ロジック -----------
+  function handleCandidate(val, format, confidence){
+    if(val === lastValue){
+      stableCount++;
+    }else{
+      lastValue = val;
+      stableCount = 1;
+      pushHistory(val, format, confidence.toFixed(2), false);
+    }
+    stat.textContent = `検出中: ${val} (${stableCount}/${STABLE_NEED})`;
+    if(stableCount >= STABLE_NEED){
+      notifyHit();
+      // 最新の同一値の行に確定フラグを付け直す（単純に先頭を上書き）
+      history = history.map((r, i) => (i===0 && r.code===val) ? {...r, confirmed:'✓'} : r);
+      renderHistory();
+      stableCount = 0; // 次の検出に備える
+      lastValue = null;
+    }
+  }
+
+  // --------- ボタン動作 -----------
+  const btnStart = document.getElementById('btnStart');
+  const btnStop = document.getElementById('btnStop');
+  const btnTorch = document.getElementById('btnTorch');
+
+  btnStart.addEventListener('click', async ()=>{
+    if(running) return;
+    try{
+      await openCamera();
+      running = true;
+      btnStart.disabled = true; btnStop.disabled = false;
+      stat.textContent = 'スキャン開始';
+      if(useBarcodeDetector){
+        await runBarcodeDetector();
+      }else{
+        await runZXing();
+      }
+    }catch(e){
+      console.error(e);
+      stat.textContent = 'カメラ起動に失敗（https配信・権限・端末対応を確認）';
+    }
+  });
+
+  btnStop.addEventListener('click', async ()=>{
+    running = false;
+    stopAllLoops();
+    await closeCamera();
+    btnStart.disabled = false; btnStop.disabled = true;
+    stat.textContent = '停止中';
+  });
+
+  btnTorch.addEventListener('click', async ()=>{
+    if(!track) return;
+    if(!torchAvailable){ stat.textContent = 'この端末はライト非対応'; return; }
+    // 現在の設定を読み取れない端末もあるためトグル適用
+    try{
+      // 簡易トグル: 一旦ON→OFFの判定が難しいため、直前状態を保持せずトライ
+      const settings = track.getSettings?.() || {};
+      const wantOn = !settings.torch;
+      await track.applyConstraints({ advanced: [{ torch: wantOn }] });
+      stat.textContent = `ライト: ${wantOn?'ON':'OFF'}`;
+    }catch(e){
+      stat.textContent = 'ライト切替に失敗';
+    }
+  });
+
+  // --------- 履歴クリア/CSV -----------
+  document.getElementById('btnClear').addEventListener('click', ()=>{
+    clearHistory();
+    stat.textContent = '履歴をクリアしました';
+  });
+
+  document.getElementById('btnExport').addEventListener('click', ()=>{
+    if(history.length===0){ stat.textContent='エクスポート対象なし'; return; }
+    const header = ['time','code','format','confidence','confirmed'];
+    const rows = history.map(r=>[r.ts,r.code,r.format,r.confidence,r.confirmed?'true':'']);
+    const csv = [header,...rows].map(cols=>cols.map(escapeCSV).join(',')).join('\r\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const d = new Date();
+    a.href = url;
+    a.download = `scan_${d.getFullYear()}${pad2(d.getMonth()+1)}${pad2(d.getDate())}_${pad2(d.getHours())}${pad2(d.getMinutes())}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    stat.textContent = 'CSVを保存しました';
+  });
+
+  function escapeCSV(v){
+    const s = String(v??'');
+    if(/[",\n]/.test(s)) return `"${s.replace(/"/g,'""')}"`;
+    return s;
+  }
+
+  // --------- ページ離脱時の後始末 -----------
+  window.addEventListener('pagehide', ()=>{ if(running){ btnStop.click(); } });
+
+})();
+</script>
+</body>
+</html>
