@@ -2,19 +2,19 @@
 // core
 export { BarcodeFormat } from '@zxing/library';
 // common
-export * from './common/HTMLCanvasElementLuminanceSource';
-export * from './common/HTMLVisualMediaElement';
-export * from './common/IScannerControls';
+export * from './common/HTMLCanvasElementLuminanceSource.js';
+export * from './common/HTMLVisualMediaElement.js';
+export * from './common/IScannerControls.js';
 // readers
-export * from './readers/BrowserAztecCodeReader';
-export * from './readers/BrowserMultiFormatOneDReader';
-export * from './readers/BrowserCodeReader';
-export * from './readers/BrowserDatamatrixCodeReader';
-export * from './readers/BrowserMultiFormatReader';
-export * from './readers/BrowserPDF417Reader';
-export * from './readers/BrowserQRCodeReader';
-export * from './readers/IBrowserCodeReaderOptions';
+export * from './readers/BrowserAztecCodeReader.js';
+export * from './readers/BrowserMultiFormatOneDReader.js';
+export * from './readers/BrowserCodeReader.js';
+export * from './readers/BrowserDatamatrixCodeReader.js';
+export * from './readers/BrowserMultiFormatReader.js';
+export * from './readers/BrowserPDF417Reader.js';
+export * from './readers/BrowserQRCodeReader.js';
+export * from './readers/IBrowserCodeReaderOptions.js';
 // writers
-export * from './writers/BrowserCodeSvgWriter';
-export * from './writers/BrowserQRCodeSvgWriter';
+export * from './writers/BrowserCodeSvgWriter.js';
+export * from './writers/BrowserQRCodeSvgWriter.js';
 //# sourceMappingURL=index.js.map
