@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>JANスキャナ（シャッター方式 / vendorのみ）</title>
+<title>JANスキャナ（連続スキャン / vendorのみ）</title>
+
+<!-- 検索避け（必要なら外してOK） -->
 <meta name="robots" content="noindex,nofollow,noarchive" />
 <meta name="googlebot" content="noindex,nofollow,noarchive" />
+
 <style>
   :root{ --bg:#0b0b0b; --panel:#131313; --fg:#fff; --muted:#bdbdbd; --acc:#3dd5f3; --ok:#25d366; --ng:#ff4757;}
   *{box-sizing:border-box}
@@ -26,7 +29,7 @@
   .badge{display:inline-flex;gap:6px;align-items:center;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #2a2a2a;background:#111;color:#ddd}
   .badge.ok{border-color:#0f3;color:#9f9}
   .label{font-size:12px;color:var(--muted)}
-  video,canvas,.snap{width:100%;max-height:60vh;border-radius:12px;background:#000;object-fit:cover}
+  video{width:100%;max-height:60vh;border-radius:12px;background:#000;object-fit:cover}
   .overlay{position:relative}
   .guide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(80%,520px);height:120px;border:2px dashed rgba(255,255,255,.35);border-radius:10px}
   .guide::after{content:"ここにバーコードを合わせる";position:absolute;left:50%;top:-24px;transform:translateX(-50%);font-size:12px;color:#aaa;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:8px}
@@ -41,8 +44,9 @@
   footer{padding:10px 14px;border-top:1px solid #222;color:#888;font-size:12px}
   .kv{display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:12px;color:#aaa}
   .mono{font-family:ui-monospace, SFMono, Menlo, Consolas, monospace}
-  .snap{display:none;margin-top:8px}
 </style>
+
+<!-- Import Map（vendorのみ / サブパスでもOKな相対パス） -->
 <script type="importmap">
 {
   "imports": {
@@ -54,7 +58,7 @@
 </head>
 <body>
 <header>
-  <h1>JANスキャナ（シャッター方式 / vendorのみ）</h1>
+  <h1>JANスキャナ（連続スキャン / vendorのみ）</h1>
   <div class="row">
     <span id="implBadge" class="badge">実装: チェック中…</span>
   </div>
@@ -66,9 +70,10 @@
     <div class="content">
       <div class="controls">
         <button id="btnStart" class="primary">START</button>
-        <button id="btnShutter" disabled>SHUTTER</button>
         <button id="btnStop" class="danger" disabled>STOP</button>
         <button id="btnTorch" disabled>ライト</button>
+        <label class="badge"><input type="checkbox" id="autoStop" checked> 読み取り後に自動停止</label>
+        <label class="badge"><input type="checkbox" id="blockDup" checked> 直前と同一JANを無視</label>
         <label class="badge"><input type="checkbox" id="beep" checked> ビープ</label>
         <label class="badge"><input type="checkbox" id="vibrate" checked> バイブ</label>
         <span class="badge" id="envInfo">環境: -</span>
@@ -77,10 +82,10 @@
         <video id="video" playsinline autoplay muted></video>
         <div class="guide" aria-hidden="true"></div>
       </div>
-      <img id="snapshot" class="snap" alt="snapshot preview" />
       <div class="label" id="hint">
-        ※ iPhone系は BarcodeDetector の EAN が未対応のことがあるため ZXing で解析します。Android Chrome は BD 優先→自動フォールバック。
+        ※ iPhone系は BarcodeDetector の EAN が未対応のことがあるため ZXing で解析します。Android Chrome は BD 優先→未対応は ZXing に自動フォールバック。
       </div>
+      <div class="label" id="stat">待機中</div>
     </div>
   </section>
 
@@ -90,7 +95,6 @@
       <div class="controls">
         <button id="btnClear">履歴クリア</button>
         <button id="btnExport">CSVエクスポート</button>
-        <span class="label" id="stat">待機中</span>
       </div>
       <div class="list">
         <table>
@@ -100,7 +104,7 @@
               <th>コード</th>
               <th style="width:90px;">形式</th>
               <th style="width:70px;">確度</th>
-              <th style="width:70px;">確定</th>
+              <th style="width:110px;">備考</th>
             </tr>
           </thead>
           <tbody id="tbody"></tbody>
@@ -131,18 +135,26 @@
 </audio>
 
 <script type="module">
+/* ========= UA診断 ========= */
 const uaStr = navigator.userAgent || '';
 const isIPhone = /iPhone/i.test(uaStr);
-const isCriOS  = /CriOS/i.test(uaStr);
+const isCriOS  = /CriOS/i.test(uaStr); // iOS版Chrome
 const forceZXingOnIOSChrome = isIPhone && isCriOS;
 
 document.getElementById('ua').textContent = uaStr;
 document.getElementById('https').textContent = location.protocol === 'https:' ? 'OK（https）' : 'NG（https必須）';
 
-let impl = 'checking';
+/* ========= 状態 ========= */
+let impl = 'checking'; // 'BD' | 'ZXING'
 let detector = null;
 let stream = null, track = null;
 let running = false;
+let scanning = false;         // 連続スキャンのループフラグ
+let zxingReader = null;       // ZXingの連続デコーダ
+let lastCode = null;          // 直前の確定コード（連続重複をブロック）
+let lastScanAt = 0;           // 直近ヒット時刻
+const DUP_COOLDOWN_MS = 800;  // 早すぎる再通知を抑制
+
 const tbody = document.getElementById('tbody');
 const video = document.getElementById('video');
 const stat  = document.getElementById('stat');
@@ -157,10 +169,12 @@ const mode   = document.getElementById('mode');
 const formatsOut = document.getElementById('formats');
 const btnStart = document.getElementById('btnStart');
 const btnStop  = document.getElementById('btnStop');
-const btnShutter = document.getElementById('btnShutter');
-const snapshotImg = document.getElementById('snapshot');
+const autoStop = document.getElementById('autoStop');
+const blockDup = document.getElementById('blockDup');
+
 let history = [];
 
+/* ========= 実装選定 ========= */
 (async function chooseImpl(){
   if(forceZXingOnIOSChrome){
     impl = 'ZXING';
@@ -181,6 +195,7 @@ let history = [];
   mode.textContent = impl;
 })();
 
+/* ========= 権限表示 ========= */
 (async function permCheck(){
   try{
     if(!navigator.permissions){ document.getElementById('perm').textContent = '不明（Permissions API非対応）'; return; }
@@ -192,6 +207,7 @@ let history = [];
   }
 })();
 
+/* ========= ユーティリティ ========= */
 function pad2(n){return String(n).padStart(2,'0')}
 function nowStr(){ const d=new Date(); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;}
 
@@ -214,36 +230,38 @@ function isJAN(format, code){
   return false;
 }
 
-function pushHistory(code, format, confidence, confirmed){
-  history.unshift({ts:nowStr(), code, format, confidence:confidence??'-', confirmed: confirmed?'✓':''});
-  renderHistory();
-}
-function renderHistory(){
+function pushHistory(code, format, conf, note){
+  history.unshift({ts:nowStr(), code, format, confidence:(conf??'-'), note:note||''});
   tbody.innerHTML = history.map(r=>`
     <tr>
       <td>${r.ts}</td>
       <td class="code">${r.code}</td>
       <td><span class="pill ${String(r.format).toUpperCase().includes('13')?'ean13':'ean8'}">${r.format}</span></td>
-      <td>${r.confidence}</td>
-      <td>${r.confirmed}</td>
+      <td>${typeof r.confidence==='number' ? r.confidence.toFixed(2) : r.confidence}</td>
+      <td>${r.note||''}</td>
     </tr>`).join('');
 }
-function clearHistory(){ history=[]; renderHistory(); }
 
 function notifyHit(){
   if(beep.checked){ try{beepAudio.currentTime=0; beepAudio.play();}catch(e){} }
   if(vibrate.checked && 'vibrate' in navigator){ navigator.vibrate?.(80); }
 }
 
+/* ========= カメラ ========= */
 async function openCamera(){
   const constraints = {
-    video: { facingMode:{ideal:'environment'}, width:{ideal:1920}, height:{ideal:1080} },
+    video: {
+      facingMode:{ideal:'environment'},
+      width:{ideal:1920}, height:{ideal:1080}
+    },
     audio:false
   };
   const streamLocal = await navigator.mediaDevices.getUserMedia(constraints);
   video.srcObject = streamLocal;
   stream = streamLocal;
   track = stream.getVideoTracks()[0];
+
+  // torch 可否
   btnTorch.disabled = true;
   try{
     const caps = track.getCapabilities?.();
@@ -252,119 +270,146 @@ async function openCamera(){
   const s = track.getSettings?.()||{};
   envInfo.textContent = `環境: ${s.width||'-'}x${s.height||'-'} ${s.frameRate? s.frameRate+'fps' : ''}`;
 }
+
 async function closeCamera(){
   try{ if(track){ await track.applyConstraints?.({advanced:[{torch:false}]}); } }catch(e){}
   if(stream){ stream.getTracks().forEach(t=>t.stop()); }
   stream = null; track = null; video.srcObject = null;
 }
-async function waitVideoReady(){
-  const HAVE_ENOUGH_DATA = 4;
-  let tries = 0;
-  while(video.readyState < HAVE_ENOUGH_DATA && tries < 200){
-    vstate.textContent = String(video.readyState);
-    await new Promise(r=>setTimeout(r,40));
-    tries++;
-  }
-  vstate.textContent = String(video.readyState);
-}
 
-function takeSnapshotToCanvas(){
-  const cvs = document.createElement('canvas');
-  const vw = video.videoWidth || 1280;
-  const vh = video.videoHeight || 720;
-  cvs.width = vw; cvs.height = vh;
-  const ctx = cvs.getContext('2d');
-  ctx.drawImage(video, 0, 0, vw, vh);
-  try { const img = document.getElementById('snapshot'); img.src = cvs.toDataURL('image/jpeg', 0.7); img.style.display = 'block'; } catch(e) {}
-  return cvs;
-}
+/* ========= 連続スキャン起動 ========= */
+async function startScanning(){
+  if(scanning) return;
+  scanning = true;
+  lastCode = null; // 直前コードはリセット（重複ブロックは「直前のみ」に適用）
+  stat.textContent = `スキャン中…（${impl}）`;
 
-async function decodeOnceFromCanvas(canvas){
   if(impl==='BD'){
-    try{
-      if(!detector){ detector = new window.BarcodeDetector({formats:['ean_13','ean_8']}); }
-      const res = await detector.detect(canvas);
-      if(res && res.length){
-        const b = res[0];
-        const fmt = b.format;
-        const val = String(b.rawValue||'').trim();
-        if(isJAN(fmt,val)){ return {code:val, format:fmt, conf:1.0}; }
+    // BarcodeDetector ループ（キャンバスに投影して検出）
+    if(!('BarcodeDetector' in window)){ impl='ZXING'; return startScanning(); }
+    detector = detector || new window.BarcodeDetector({formats:['ean_13','ean_8']});
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const TICK_MS = 120; // スキャン間隔（重すぎを回避）
+    const loop = async ()=>{
+      if(!scanning) return;
+      // readyState更新
+      vstate.textContent = String(video.readyState);
+      if(video.readyState >= 2){ // HAVE_CURRENT_DATA以上
+        const vw = video.videoWidth || 1280;
+        const vh = video.videoHeight || 720;
+        canvas.width = vw; canvas.height = vh;
+        ctx.drawImage(video, 0, 0, vw, vh);
+        try{
+          const res = await detector.detect(canvas);
+          if(res && res.length){
+            const b = res[0];
+            const fmt = String(b.format||'');
+            const val = String(b.rawValue||'').trim();
+            if(isJAN(fmt,val)){
+              onScanHit(val, fmt, 1.0);
+              return; // autoStopの場合はここで止まる
+            }
+          }
+        }catch(e){
+          // BD失敗→ZXingに切替
+          impl = 'ZXING'; mode.textContent = impl; implBadge.textContent = '実装: ZXing';
+          return startScanning();
+        }
       }
-      return null;
-    }catch(e){
-      return await decodeWithZXing(canvas);
-    }
+      setTimeout(loop, TICK_MS);
+    };
+    loop();
   }else{
-    return await decodeWithZXing(canvas);
+    // ZXing の decodeFromVideoDevice（コールバックで連続）
+    const { BrowserMultiFormatReader } = await import('@zxing/browser');
+    const { BarcodeFormat, DecodeHintType } = await import('@zxing/library');
+    const hints = new Map([[DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8]]]);
+    zxingReader = new BrowserMultiFormatReader(hints);
+    try{
+      await zxingReader.decodeFromVideoDevice(undefined, video, (result, err, controls)=>{
+        vstate.textContent = String(video.readyState);
+        if(!scanning){ try{controls.stop();}catch(e){} return; }
+        if(result){
+          const val = String(result.text||'').trim();
+          // ZXingのformat列挙 → 文字に
+          const fmt = String(result.barcodeFormat||'');
+          const format = fmt.includes('EAN_13') ? 'EAN_13' : (fmt.includes('EAN_8') ? 'EAN_8' : fmt);
+          if(isJAN(format,val)){
+            onScanHit(val, format, 0.99);
+          }
+        }
+        // errはデコード未検出のたびに来ることがあるので握りつぶす
+      });
+    }catch(e){
+      stat.textContent = 'ZXing初期化に失敗';
+      scanning = false;
+    }
   }
 }
 
-async function decodeWithZXing(canvas){
-  const browser = await import('@zxing/browser');
-  const lib = await import('@zxing/library');
-  const { BrowserMultiFormatReader } = browser;
-  const { BarcodeFormat, DecodeHintType } = lib;
-  const hints = (DecodeHintType && BarcodeFormat)
-    ? new Map([[DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8]]])
-    : undefined;
+function stopScanning(){
+  scanning = false;
+  try{ zxingReader?.reset?.(); }catch(e){}
+}
 
-  const reader = new BrowserMultiFormatReader(hints);
-  try{
-    const result = await reader.decodeFromCanvas(canvas);
-    const val = String(result.text||'').trim();
-    const fmt = String(result.barcodeFormat||'');
-    const format = fmt.includes('EAN_13') ? 'EAN_13' : (fmt.includes('EAN_8') ? 'EAN_8' : fmt);
-    if(isJAN(format,val)){ return {code:val, format, conf:0.99}; }
-    return null;
-  }catch(e){
-    return null;
-  }finally{
-    reader.reset?.();
+/* ========= ヒット時の共通処理 ========= */
+async function onScanHit(code, format, conf){
+  const now = Date.now();
+
+  // 直前コードと同じ & ブロックON なら無視
+  if(blockDup.checked && lastCode && lastCode === code){
+    if(now - lastScanAt > 500){ // ログだけ軽く残す
+      pushHistory(code, format, conf, '重複（直前と同一）無視');
+    }
+    return;
+  }
+  // 連打抑制
+  if(now - lastScanAt < DUP_COOLDOWN_MS){
+    return;
+  }
+
+  lastCode = code; lastScanAt = now;
+
+  pushHistory(code, format, conf, autoStop.checked ? '自動停止' : '');
+  notifyHit();
+  stat.textContent = `確定: ${code} (${format})`;
+
+  if(autoStop.checked){
+    // 連続スキャン停止 & カメラオフ
+    stopScanning();
+    await closeCamera();
+    btnStart.disabled = false;
+    btnStop.disabled = true;
   }
 }
 
+/* ========= ボタン ========= */
 btnStart.addEventListener('click', async ()=>{
   if(running) return;
   try{
     await openCamera();
-    await waitVideoReady();
+    // videoが動き出すのを軽く待つ
+    let tries=0; const HAVE_CURRENT_DATA=2;
+    while(video.readyState < HAVE_CURRENT_DATA && tries<100){ await new Promise(r=>setTimeout(r,40)); tries++; }
     running = true;
     btnStart.disabled = true;
     btnStop.disabled = false;
-    btnShutter.disabled = true;
-    stat.textContent = '初期化中…';
-    await import('@zxing/browser');
-    await import('@zxing/library');
-    btnShutter.disabled = false;
-    stat.textContent = '起動しました（シャッターで1枚解析）';
+    stat.textContent = 'スキャン初期化…';
+    await startScanning();
   }catch(e){
     console.error(e);
-    stat.textContent = 'カメラ起動に失敗（https配信・権限・端末対応を確認）';
+    stat.textContent = 'カメラ起動に失敗（https・権限・端末対応を確認）';
   }
 });
 
 btnStop.addEventListener('click', async ()=>{
+  stopScanning();
   running = false;
   await closeCamera();
   btnStart.disabled = false;
   btnStop.disabled = true;
-  btnShutter.disabled = true;
   stat.textContent = '停止中';
-});
-
-btnShutter.addEventListener('click', async ()=>{
-  if(!running){ stat.textContent='カメラ未起動'; return; }
-  stat.textContent = '解析中…';
-  const canvas = takeSnapshotToCanvas();
-  const out = await decodeOnceFromCanvas(canvas);
-  if(out){
-    pushHistory(out.code, out.format, out.conf.toFixed(2), true);
-    if(beep.checked){ try{beepAudio.currentTime=0; beepAudio.play();}catch(e){} }
-    if(vibrate.checked && 'vibrate' in navigator){ navigator.vibrate?.(80); }
-    stat.textContent = `確定: ${out.code} (${out.format})`;
-  }else{
-    stat.textContent = '未検出（ピント/明るさ/距離を調整して再撮影）';
-  }
 });
 
 btnTorch.addEventListener('click', async ()=>{
@@ -378,12 +423,14 @@ btnTorch.addEventListener('click', async ()=>{
   }catch(e){ stat.textContent = 'ライト切替に失敗'; }
 });
 
-document.getElementById('btnClear').addEventListener('click', ()=>{ clearHistory(); stat.textContent='履歴をクリアしました'; });
+document.getElementById('btnClear').addEventListener('click', ()=>{
+  history = []; tbody.innerHTML = ''; stat.textContent='履歴をクリアしました';
+});
 
 document.getElementById('btnExport').addEventListener('click', ()=>{
   if(history.length===0){ stat.textContent='エクスポート対象なし'; return; }
-  const header = ['time','code','format','confidence','confirmed'];
-  const rows = history.map(r=>[r.ts,r.code,r.format,r.confidence,r.confirmed?'true':'']);
+  const header = ['time','code','format','confidence','note'];
+  const rows = history.map(r=>[r.ts,r.code,r.format,typeof r.confidence==='number'?r.confidence.toFixed(2):r.confidence,r.note||'']);
   const csv = [header,...rows].map(cols=>cols.map(escCSV).join(',')).join('\r\n');
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
