@@ -3,12 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>JANスキャナ（シャッター方式 / GitHub Pages対応）</title>
-
-<!-- 検索避け（必要なければ削除OK） -->
+<title>JANスキャナ（シャッター方式 / vendorのみ）</title>
 <meta name="robots" content="noindex,nofollow,noarchive" />
 <meta name="googlebot" content="noindex,nofollow,noarchive" />
-
 <style>
   :root{ --bg:#0b0b0b; --panel:#131313; --fg:#fff; --muted:#bdbdbd; --acc:#3dd5f3; --ok:#25d366; --ng:#ff4757;}
   *{box-sizing:border-box}
@@ -46,10 +43,18 @@
   .mono{font-family:ui-monospace, SFMono, Menlo, Consolas, monospace}
   .snap{display:none;margin-top:8px}
 </style>
+<script type="importmap">
+{
+  "imports": {
+    "@zxing/browser": "vendor/zxing/browser/0.1.5/esm/index.js",
+    "@zxing/library": "vendor/zxing/library/0.20.0/esm/index.js"
+  }
+}
+</script>
 </head>
 <body>
 <header>
-  <h1>JANスキャナ（シャッター方式）</h1>
+  <h1>JANスキャナ（シャッター方式 / vendorのみ）</h1>
   <div class="row">
     <span id="implBadge" class="badge">実装: チェック中…</span>
   </div>
@@ -119,26 +124,22 @@
   </section>
 </main>
 
-<footer>
-  GitHub Pagesでhttps配信。CDN不可なら vendor/ に自己ホスト版ZXingを置けばCDNなしで動きます。
-</footer>
+<footer>完全自己ホスト（vendorのみ）。外部CDNへはアクセスしません。</footer>
 
 <audio id="beepAudio" preload="auto">
   <source src="data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEARKwAAB9AAACABAAZGF0YQwAAAAA/////wAAAP///wAAAA==" type="audio/wav">
 </audio>
 
 <script type="module">
-/* ========= UA診断 ========= */
 const uaStr = navigator.userAgent || '';
 const isIPhone = /iPhone/i.test(uaStr);
-const isCriOS  = /CriOS/i.test(uaStr); // iOS版Chrome
+const isCriOS  = /CriOS/i.test(uaStr);
 const forceZXingOnIOSChrome = isIPhone && isCriOS;
 
 document.getElementById('ua').textContent = uaStr;
 document.getElementById('https').textContent = location.protocol === 'https:' ? 'OK（https）' : 'NG（https必須）';
 
-/* ========= 状態 ========= */
-let impl = 'checking'; // 'BD' | 'ZXING'
+let impl = 'checking';
 let detector = null;
 let stream = null, track = null;
 let running = false;
@@ -160,25 +161,6 @@ const btnShutter = document.getElementById('btnShutter');
 const snapshotImg = document.getElementById('snapshot');
 let history = [];
 
-/* ========= ZXingローダ（ローカル→CDNフェイルオーバー） ========= */
-async function loadZXingBrowser(){
-  const local = 'vendor/zxing/browser/0.1.5/esm/index.js';
-  try { return await import(`./${local}`); }
-  catch(e1){
-    try { return await import('https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/+esm'); }
-    catch(e2){ return await import('https://unpkg.com/@zxing/browser@0.1.5?module'); }
-  }
-}
-async function loadZXingLibrary(){
-  const local = 'vendor/zxing/library/0.20.0/esm/index.js';
-  try { return await import(`./${local}`); }
-  catch(e1){
-    try { return await import('https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/+esm'); }
-    catch(e2){ return await import('https://unpkg.com/@zxing/library@0.20.0?module'); }
-  }
-}
-
-/* ========= 実装選定 ========= */
 (async function chooseImpl(){
   if(forceZXingOnIOSChrome){
     impl = 'ZXING';
@@ -199,7 +181,6 @@ async function loadZXingLibrary(){
   mode.textContent = impl;
 })();
 
-/* ========= 権限表示 ========= */
 (async function permCheck(){
   try{
     if(!navigator.permissions){ document.getElementById('perm').textContent = '不明（Permissions API非対応）'; return; }
@@ -211,7 +192,6 @@ async function loadZXingLibrary(){
   }
 })();
 
-/* ========= ユーティリティ ========= */
 function pad2(n){return String(n).padStart(2,'0')}
 function nowStr(){ const d=new Date(); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;}
 
@@ -255,21 +235,15 @@ function notifyHit(){
   if(vibrate.checked && 'vibrate' in navigator){ navigator.vibrate?.(80); }
 }
 
-/* ========= カメラ ========= */
 async function openCamera(){
   const constraints = {
-    video: {
-      facingMode:{ideal:'environment'},
-      width:{ideal:1920}, height:{ideal:1080}  // iOSは1080pが安定しやすい
-    },
+    video: { facingMode:{ideal:'environment'}, width:{ideal:1920}, height:{ideal:1080} },
     audio:false
   };
   const streamLocal = await navigator.mediaDevices.getUserMedia(constraints);
   video.srcObject = streamLocal;
   stream = streamLocal;
   track = stream.getVideoTracks()[0];
-
-  // torch 可否
   btnTorch.disabled = true;
   try{
     const caps = track.getCapabilities?.();
@@ -294,7 +268,6 @@ async function waitVideoReady(){
   vstate.textContent = String(video.readyState);
 }
 
-/* ========= シャッター：1フレームスナップショット ========= */
 function takeSnapshotToCanvas(){
   const cvs = document.createElement('canvas');
   const vw = video.videoWidth || 1280;
@@ -302,16 +275,10 @@ function takeSnapshotToCanvas(){
   cvs.width = vw; cvs.height = vh;
   const ctx = cvs.getContext('2d');
   ctx.drawImage(video, 0, 0, vw, vh);
-  // プレビュー用
-  try {
-    const img = document.getElementById('snapshot');
-    img.src = cvs.toDataURL('image/jpeg', 0.7);
-    img.style.display = 'block';
-  } catch(e) {}
+  try { const img = document.getElementById('snapshot'); img.src = cvs.toDataURL('image/jpeg', 0.7); img.style.display = 'block'; } catch(e) {}
   return cvs;
 }
 
-/* ========= 解析：BD or ZXing（キャンバス入力） ========= */
 async function decodeOnceFromCanvas(canvas){
   if(impl==='BD'){
     try{
@@ -333,10 +300,10 @@ async function decodeOnceFromCanvas(canvas){
 }
 
 async function decodeWithZXing(canvas){
-  const { BrowserMultiFormatReader } = await loadZXingBrowser();
-  // enum は library から直接
-  let BarcodeFormat, DecodeHintType;
-  try { ({ BarcodeFormat, DecodeHintType } = await loadZXingLibrary()); } catch (e) {}
+  const browser = await import('@zxing/browser');
+  const lib = await import('@zxing/library');
+  const { BrowserMultiFormatReader } = browser;
+  const { BarcodeFormat, DecodeHintType } = lib;
   const hints = (DecodeHintType && BarcodeFormat)
     ? new Map([[DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13, BarcodeFormat.EAN_8]]])
     : undefined;
@@ -356,7 +323,6 @@ async function decodeWithZXing(canvas){
   }
 }
 
-/* ========= ボタン ========= */
 btnStart.addEventListener('click', async ()=>{
   if(running) return;
   try{
@@ -365,10 +331,10 @@ btnStart.addEventListener('click', async ()=>{
     running = true;
     btnStart.disabled = true;
     btnStop.disabled = false;
-    btnShutter.disabled = true; // 解析ローダの初回遅延を隠すため一瞬disable
+    btnShutter.disabled = true;
     stat.textContent = '初期化中…';
-    // 先にZXingをロード（iOS系での初回遅延対策）
-    if(impl!=='BD'){ await loadZXingBrowser(); await loadZXingLibrary(); }
+    await import('@zxing/browser');
+    await import('@zxing/library');
     btnShutter.disabled = false;
     stat.textContent = '起動しました（シャッターで1枚解析）';
   }catch(e){
@@ -424,7 +390,7 @@ document.getElementById('btnExport').addEventListener('click', ()=>{
   const a = document.createElement('a');
   const d = new Date();
   a.href = url;
-  a.download = `scan_${d.getFullYear()}${pad2(d.getMonth()+1)}${pad2(d.getDate())}_${pad2(d.getHours())}${pad2(d.getMinutes())}.csv`;
+  a.download = `scan_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}.csv`;
   document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
   stat.textContent = 'CSVを保存しました';
