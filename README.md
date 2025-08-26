@@ -1,38 +1,21 @@
-# JANスキャナ（シャッター方式 / GitHub Pages）
+# JANスキャナ（シャッター方式 / 完全自己ホスト）
 
-- iOS/Android の混在端末向けに、**ZXing（iOS系）** と **BarcodeDetector（Android Chrome優先）** を自動切替
-- **シャッター方式**（1枚スナップショットを解析）
-- **自己ホスト対応**：`vendor/zxing/...` に ESM を置けば **CDN不要**で動作
-- 置かなくても、**jsDelivr → unpkg** の順でCDNフェイルオーバーして動作
+この版は **vendor フォルダのみ**を使い、外部CDNへは一切アクセスしません。
 
-## ディレクトリ構成
+## 必須配置
 ```
-/
-├─ index.html
-├─ robots.txt            # 検索避け（必要なければ削除）
-└─ vendor/
-   └─ zxing/
-      ├─ browser/0.1.5/esm/index.js   # 置けばCDN無しで動作
-      └─ library/0.20.0/esm/index.js  # 同上
+vendor/
+└─ zxing/
+   ├─ browser/0.1.5/esm/   # @zxing/browser の esm 一式
+   └─ library/0.20.0/esm/   # @zxing/library の esm 一式
 ```
+> `index.js` だけでは動きません。`esm/` ディレクトリ内の **すべての .js** を置いてください。
 
-### ZXingの自己ホスト方法
-```bash
-mkdir -p vendor/zxing/browser/0.1.5/esm vendor/zxing/library/0.20.0/esm
+## 取得方法（tarball 推奨）
+- https://registry.npmjs.org/@zxing/browser/-/browser-0.1.5.tgz
+- https://registry.npmjs.org/@zxing/library/-/library-0.20.0.tgz
 
-curl -L 'https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/esm/index.js'   -o vendor/zxing/browser/0.1.5/esm/index.js
+ダウンロード→解凍すると `package/esm/` が出ます。**そのフォルダを丸ごと**上記の場所へコピーします。
 
-curl -L 'https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/esm/index.js'   -o vendor/zxing/library/0.20.0/esm/index.js
-```
-
-> Apache-2.0 ライセンス。リポジトリ同梱可。
-
-## GitHub Pages に公開
-- リポジトリの `Settings > Pages` でブランチを指定
-- 公開URLにアクセスし **START** を押してカメラ権限を許可
-- iOSでは ZXing で解析、Android Chrome は BarcodeDetector 優先→未対応は ZXing
-
-## 注意
-- 端末カメラは **https** でのみ起動します（PagesはOK）
-- 暗所や近すぎは失敗率↑。**少し引いてから寄せる**とAF安定
-- iOSは torch 非対応端末が多いです
+## GitHub Pages の公開パスに注意
+プロジェクトページ（例: `.../test_app/`）でも動くように、ImportMap は **相対パス**になっています。
