@@ -25,11 +25,11 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.qrcode.detector {*/
-import DecodeHintType from '../../DecodeHintType';
-import ResultPoint from '../../ResultPoint';
-import FinderPattern from './FinderPattern';
-import FinderPatternInfo from './FinderPatternInfo';
-import NotFoundException from '../../NotFoundException';
+import DecodeHintType from '../../DecodeHintType.js';
+import ResultPoint from '../../ResultPoint.js';
+import FinderPattern from './FinderPattern.js';
+import FinderPatternInfo from './FinderPatternInfo.js';
+import NotFoundException from '../../NotFoundException.js';
 /*import java.io.Serializable;*/
 /*import java.util.ArrayList;*/
 /*import java.util.Collections;*/

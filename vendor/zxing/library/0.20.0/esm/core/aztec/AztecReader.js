@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Result from '../Result';
-import BarcodeFormat from '../BarcodeFormat';
-import DecodeHintType from '../DecodeHintType';
-import ResultMetadataType from '../ResultMetadataType';
-import System from '../util/System';
-import Decoder from './decoder/Decoder';
-import Detector from './detector/Detector';
+import Result from '../Result.js';
+import BarcodeFormat from '../BarcodeFormat.js';
+import DecodeHintType from '../DecodeHintType.js';
+import ResultMetadataType from '../ResultMetadataType.js';
+import System from '../util/System.js';
+import Decoder from './decoder/Decoder.js';
+import Detector from './detector/Detector.js';
 // import java.util.List;
 // import java.util.Map;
 /**

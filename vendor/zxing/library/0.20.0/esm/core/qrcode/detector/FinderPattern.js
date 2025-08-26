@@ -27,7 +27,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.qrcode.detector {*/
-import ResultPoint from '../../ResultPoint';
+import ResultPoint from '../../ResultPoint.js';
 /**
  * <p>Encapsulates a finder pattern, which are the three square patterns found in
  * the corners of QR Codes. It also encapsulates a count of similar finder patterns,

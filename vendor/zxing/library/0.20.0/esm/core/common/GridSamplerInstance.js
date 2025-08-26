@@ -1,4 +1,4 @@
-import DefaultGridSampler from './DefaultGridSampler';
+import DefaultGridSampler from './DefaultGridSampler.js';
 var GridSamplerInstance = /** @class */ (function () {
     function GridSamplerInstance() {
     }

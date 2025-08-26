@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import DataCharacter from './DataCharacter';
+import DataCharacter from './DataCharacter.js';
 var Pair = /** @class */ (function (_super) {
     __extends(Pair, _super);
     function Pair(value, checksumPortion, finderPattern) {

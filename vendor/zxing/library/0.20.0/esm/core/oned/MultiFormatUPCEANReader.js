@@ -37,15 +37,15 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import BarcodeFormat from '../BarcodeFormat';
-import DecodeHintType from '../DecodeHintType';
-import Result from '../Result';
-import OneDReader from './OneDReader';
-import EAN13Reader from './EAN13Reader';
-import EAN8Reader from './EAN8Reader';
-import UPCAReader from './UPCAReader';
-import NotFoundException from '../NotFoundException';
-import UPCEReader from './UPCEReader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import DecodeHintType from '../DecodeHintType.js';
+import Result from '../Result.js';
+import OneDReader from './OneDReader.js';
+import EAN13Reader from './EAN13Reader.js';
+import EAN8Reader from './EAN8Reader.js';
+import UPCAReader from './UPCAReader.js';
+import NotFoundException from '../NotFoundException.js';
+import UPCEReader from './UPCEReader.js';
 /**
  * <p>A reader that can read all available UPC/EAN formats. If a caller wants to try to
  * read all such formats, it is most efficient to use this implementation rather than invoke

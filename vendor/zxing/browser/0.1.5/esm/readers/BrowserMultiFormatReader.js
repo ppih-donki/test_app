@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { DecodeHintType, MultiFormatReader, } from '@zxing/library';
-import { BrowserCodeReader } from './BrowserCodeReader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
 var BrowserMultiFormatReader = /** @class */ (function (_super) {
     __extends(BrowserMultiFormatReader, _super);
     function BrowserMultiFormatReader(hints, options) {

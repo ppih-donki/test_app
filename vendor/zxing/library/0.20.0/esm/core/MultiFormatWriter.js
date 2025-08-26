@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// import DataMatrixWriter from './datamatrix/DataMatrixWriter'
-// import CodaBarWriter from './oned/CodaBarWriter'
-// import Code128Writer from './oned/Code128Writer'
-// import Code39Writer from './oned/Code39Writer'
-// import Code93Writer from './oned/Code93Writer'
-// import EAN13Writer from './oned/EAN13Writer'
-// import EAN8Writer from './oned/EAN8Writer'
-// import ITFWriter from './oned/ITFWriter'
-// import UPCAWriter from './oned/UPCAWriter'
-// import UPCEWriter from './oned/UPCEWriter'
-// import PDF417Writer from './pdf417/PDF417Writer'
-import QRCodeWriter from './qrcode/QRCodeWriter';
-import BarcodeFormat from './BarcodeFormat';
-import IllegalArgumentException from './IllegalArgumentException';
+// import DataMatrixWriter from './datamatrix/DataMatrixWriter.js'
+// import CodaBarWriter from './oned/CodaBarWriter.js'
+// import Code128Writer from './oned/Code128Writer.js'
+// import Code39Writer from './oned/Code39Writer.js'
+// import Code93Writer from './oned/Code93Writer.js'
+// import EAN13Writer from './oned/EAN13Writer.js'
+// import EAN8Writer from './oned/EAN8Writer.js'
+// import ITFWriter from './oned/ITFWriter.js'
+// import UPCAWriter from './oned/UPCAWriter.js'
+// import UPCEWriter from './oned/UPCEWriter.js'
+// import PDF417Writer from './pdf417/PDF417Writer.js'
+import QRCodeWriter from './qrcode/QRCodeWriter.js';
+import BarcodeFormat from './BarcodeFormat.js';
+import IllegalArgumentException from './IllegalArgumentException.js';
 /*import java.util.Map;*/
 /**
  * This is a factory class which finds the appropriate Writer subclass for the BarcodeFormat

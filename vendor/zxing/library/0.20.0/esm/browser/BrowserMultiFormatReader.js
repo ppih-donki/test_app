@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BrowserCodeReader } from './BrowserCodeReader';
-import MultiFormatReader from '../core/MultiFormatReader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
+import MultiFormatReader from '../core/MultiFormatReader.js';
 var BrowserMultiFormatReader = /** @class */ (function (_super) {
     __extends(BrowserMultiFormatReader, _super);
     function BrowserMultiFormatReader(hints, timeBetweenScansMillis) {

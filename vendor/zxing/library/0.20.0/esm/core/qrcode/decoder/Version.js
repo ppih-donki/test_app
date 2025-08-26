@@ -25,12 +25,12 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.qrcode.decoder {*/
-import BitMatrix from '../../common/BitMatrix';
-import FormatInformation from './FormatInformation';
-import ECBlocks from './ECBlocks';
-import ECB from './ECB';
-import FormatException from '../../FormatException';
-import IllegalArgumentException from '../../IllegalArgumentException';
+import BitMatrix from '../../common/BitMatrix.js';
+import FormatInformation from './FormatInformation.js';
+import ECBlocks from './ECBlocks.js';
+import ECB from './ECB.js';
+import FormatException from '../../FormatException.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /**
  * See ISO 18004:2006 Annex D
  *

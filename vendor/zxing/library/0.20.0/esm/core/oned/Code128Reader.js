@@ -27,16 +27,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import ChecksumException from '../ChecksumException';
-import DecodeHintType from '../DecodeHintType';
-import FormatException from '../FormatException';
-import NotFoundException from '../NotFoundException';
-// import Reader from '../Reader';
-import Result from '../Result';
-// import ResultMetadataType from '../ResultMetadataType';
-import ResultPoint from '../ResultPoint';
-import OneDReader from './OneDReader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import ChecksumException from '../ChecksumException.js';
+import DecodeHintType from '../DecodeHintType.js';
+import FormatException from '../FormatException.js';
+import NotFoundException from '../NotFoundException.js';
+// import Reader from '../Reader.js';
+import Result from '../Result.js';
+// import ResultMetadataType from '../ResultMetadataType.js';
+import ResultPoint from '../ResultPoint.js';
+import OneDReader from './OneDReader.js';
 /**
  * <p>Decodes Code 128 barcodes.</p>
  *

@@ -22,11 +22,11 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import MathUtils from '../../common/detector/MathUtils';
-import NotFoundException from '../../NotFoundException';
-import OneDReader from '../OneDReader';
-// import Integer from '../../util/Integer';
-// import Float from '../../util/Float';
+import MathUtils from '../../common/detector/MathUtils.js';
+import NotFoundException from '../../NotFoundException.js';
+import OneDReader from '../OneDReader.js';
+// import Integer from '../../util/Integer.js';
+// import Float from '../../util/Float.js';
 var AbstractRSSReader = /** @class */ (function (_super) {
     __extends(AbstractRSSReader, _super);
     function AbstractRSSReader() {

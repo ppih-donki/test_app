@@ -26,7 +26,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import DetectorResult from '../common/DetectorResult';
+import DetectorResult from '../common/DetectorResult.js';
 /**
  * <p>Extends {@link DetectorResult} with more information specific to the Aztec format,
  * like the number of layers and whether it's compact.</p>

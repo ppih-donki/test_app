@@ -42,10 +42,10 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
-import { MACRO_05_HEADER, MACRO_06_HEADER, MACRO_TRAILER, } from './constants';
-import HighLevelEncoder from './HighLevelEncoder';
-import { MinimalECIInput } from '../../common/MinimalECIInput';
-import Integer from '../../util/Integer';
+import { MACRO_05_HEADER, MACRO_06_HEADER, MACRO_TRAILER, } from './constants.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
+import { MinimalECIInput } from '../../common/MinimalECIInput.js';
+import Integer from '../../util/Integer.js';
 var Mode;
 (function (Mode) {
     Mode[Mode["ASCII"] = 0] = "ASCII";

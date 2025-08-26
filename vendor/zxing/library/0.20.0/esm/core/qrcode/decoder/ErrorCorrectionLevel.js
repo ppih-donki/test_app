@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.qrcode.decoder {*/
-import ArgumentException from '../../ArgumentException';
-import IllegalArgumentException from '../../IllegalArgumentException';
+import ArgumentException from '../../ArgumentException.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 export var ErrorCorrectionLevelValues;
 (function (ErrorCorrectionLevelValues) {
     ErrorCorrectionLevelValues[ErrorCorrectionLevelValues["L"] = 0] = "L";

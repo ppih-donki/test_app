@@ -26,8 +26,8 @@ var __values = (this && this.__values) || function(o) {
 };
 // package com.google.zxing.pdf417.decoder;
 // import com.google.zxing.pdf417.PDF417Common;
-import PDF417Common from '../PDF417Common';
-import Formatter from '../../util/Formatter';
+import PDF417Common from '../PDF417Common.js';
+import Formatter from '../../util/Formatter.js';
 /**
  * @author Guenther Grau
  */

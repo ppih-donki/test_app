@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import MathUtils from '../../common/detector/MathUtils';
-import DetectorResult from '../../common/DetectorResult';
-// import GridSampler from '../../common/GridSampler';
-import GridSamplerInstance from '../../common/GridSamplerInstance';
-import PerspectiveTransform from '../../common/PerspectiveTransform';
-import DecodeHintType from '../../DecodeHintType';
-import NotFoundException from '../../NotFoundException';
-import ResultPoint from '../../ResultPoint';
-import Version from '../decoder/Version';
-import AlignmentPatternFinder from './AlignmentPatternFinder';
-import FinderPatternFinder from './FinderPatternFinder';
+import MathUtils from '../../common/detector/MathUtils.js';
+import DetectorResult from '../../common/DetectorResult.js';
+// import GridSampler from '../../common/GridSampler.js';
+import GridSamplerInstance from '../../common/GridSamplerInstance.js';
+import PerspectiveTransform from '../../common/PerspectiveTransform.js';
+import DecodeHintType from '../../DecodeHintType.js';
+import NotFoundException from '../../NotFoundException.js';
+import ResultPoint from '../../ResultPoint.js';
+import Version from '../decoder/Version.js';
+import AlignmentPatternFinder from './AlignmentPatternFinder.js';
+import FinderPatternFinder from './FinderPatternFinder.js';
 /*import java.util.Map;*/
 /**
  * <p>Encapsulates logic that can detect a QR Code in an image, even if the QR Code

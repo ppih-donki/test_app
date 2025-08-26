@@ -37,13 +37,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 // package java.io;
 // import java.util.Arrays;
-import Arrays from './Arrays';
-import OutputStream from './OutputStream';
-import Integer from './Integer';
-import IllegalArgumentException from '../IllegalArgumentException';
-import OutOfMemoryError from '../OutOfMemoryError';
-import System from './System';
-import IndexOutOfBoundsException from '../IndexOutOfBoundsException';
+import Arrays from './Arrays.js';
+import OutputStream from './OutputStream.js';
+import Integer from './Integer.js';
+import IllegalArgumentException from '../IllegalArgumentException.js';
+import OutOfMemoryError from '../OutOfMemoryError.js';
+import System from './System.js';
+import IndexOutOfBoundsException from '../IndexOutOfBoundsException.js';
 /**
  * This class implements an output stream in which the data is
  * written into a byte array. The buffer automatically grows as data

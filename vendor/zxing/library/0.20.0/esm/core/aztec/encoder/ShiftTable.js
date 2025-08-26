@@ -9,8 +9,8 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import Arrays from '../../util/Arrays';
-import * as C from './EncoderConstants';
+import Arrays from '../../util/Arrays.js';
+import * as C from './EncoderConstants.js';
 export function static_SHIFT_TABLE(SHIFT_TABLE) {
     var e_1, _a;
     try {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.common.detector {*/
-import ResultPoint from '../../ResultPoint';
-import MathUtils from './MathUtils';
-import NotFoundException from '../../NotFoundException';
+import ResultPoint from '../../ResultPoint.js';
+import MathUtils from './MathUtils.js';
+import NotFoundException from '../../NotFoundException.js';
 /**
  * <p>
  * Detects a candidate barcode-like rectangular region within an image. It

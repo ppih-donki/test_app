@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ResultPoint from '../../ResultPoint';
-import AztecDetectorResult from '../AztecDetectorResult';
-import MathUtils from '../../common/detector/MathUtils';
-import WhiteRectangleDetector from '../../common/detector/WhiteRectangleDetector';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder';
-import NotFoundException from '../../NotFoundException';
-import GridSamplerInstance from '../../common/GridSamplerInstance';
-import Integer from '../../util/Integer';
+import ResultPoint from '../../ResultPoint.js';
+import AztecDetectorResult from '../AztecDetectorResult.js';
+import MathUtils from '../../common/detector/MathUtils.js';
+import WhiteRectangleDetector from '../../common/detector/WhiteRectangleDetector.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder.js';
+import NotFoundException from '../../NotFoundException.js';
+import GridSamplerInstance from '../../common/GridSamplerInstance.js';
+import Integer from '../../util/Integer.js';
 var Point = /** @class */ (function () {
     function Point(x, y) {
         this.x = x;

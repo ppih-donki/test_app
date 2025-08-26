@@ -26,8 +26,8 @@ var __values = (this && this.__values) || function(o) {
 };
 /*namespace com.google.zxing.qrcode.encoder {*/
 /*import java.util.Arrays;*/
-import Arrays from '../../util/Arrays';
-import StringBuilder from '../../util/StringBuilder';
+import Arrays from '../../util/Arrays.js';
+import StringBuilder from '../../util/StringBuilder.js';
 /**
  * JAVAPORT: The original code was a 2D array of ints, but since it only ever gets assigned
  * -1, 0, and 1, I'm going to use less memory and go with bytes.

@@ -9,15 +9,15 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import BitArray from '../../common/BitArray';
-import IllegalArgumentException from '../../IllegalArgumentException';
-import StringUtils from '../../common/StringUtils';
-import BitMatrix from '../../common/BitMatrix';
-import AztecCode from './AztecCode';
-import ReedSolomonEncoder from '../../common/reedsolomon/ReedSolomonEncoder';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import HighLevelEncoder from './HighLevelEncoder';
-import Integer from '../../util/Integer';
+import BitArray from '../../common/BitArray.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
+import StringUtils from '../../common/StringUtils.js';
+import BitMatrix from '../../common/BitMatrix.js';
+import AztecCode from './AztecCode.js';
+import ReedSolomonEncoder from '../../common/reedsolomon/ReedSolomonEncoder.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
+import Integer from '../../util/Integer.js';
 /*
  * Copyright 2013 ZXing authors
  *

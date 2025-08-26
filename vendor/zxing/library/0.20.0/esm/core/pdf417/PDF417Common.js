@@ -26,10 +26,10 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 // import java.util.Arrays;
-import Arrays from '../util/Arrays';
+import Arrays from '../util/Arrays.js';
 // import java.util.Collection;
 // import com.google.zxing.common.detector.MathUtils;
-import MathUtils from '../common/detector/MathUtils';
+import MathUtils from '../common/detector/MathUtils.js';
 /**
  * @author SITA Lab (kevin.osullivan@sita.aero)
  * @author Guenther Grau

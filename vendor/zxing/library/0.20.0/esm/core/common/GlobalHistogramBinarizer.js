@@ -27,10 +27,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.common {*/
-import Binarizer from '../Binarizer';
-import BitArray from './BitArray';
-import BitMatrix from './BitMatrix';
-import NotFoundException from '../NotFoundException';
+import Binarizer from '../Binarizer.js';
+import BitArray from './BitArray.js';
+import BitMatrix from './BitMatrix.js';
+import NotFoundException from '../NotFoundException.js';
 /**
  * This Binarizer implementation uses the old ZXing global histogram approach. It is suitable
  * for low-end mobile devices which don't have enough CPU or memory to use a local thresholding

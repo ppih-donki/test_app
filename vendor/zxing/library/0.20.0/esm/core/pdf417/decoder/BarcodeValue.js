@@ -42,7 +42,7 @@ var __read = (this && this.__read) || function (o, n) {
 };
 // package com.google.zxing.pdf417.decoder;
 // import com.google.zxing.pdf417.PDF417Common;
-import PDF417Common from '../PDF417Common';
+import PDF417Common from '../PDF417Common.js';
 // import java.util.ArrayList;
 // import java.util.Collection;
 // import java.util.HashMap;

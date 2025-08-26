@@ -1,4 +1,4 @@
-import GeneralAppIdDecoder from './GeneralAppIdDecoder';
+import GeneralAppIdDecoder from './GeneralAppIdDecoder.js';
 var AbstractExpandedDecoder = /** @class */ (function () {
     function AbstractExpandedDecoder(information) {
         this.information = information;

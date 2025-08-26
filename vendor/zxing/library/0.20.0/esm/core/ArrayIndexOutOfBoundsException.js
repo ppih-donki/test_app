@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import IndexOutOfBoundsException from './IndexOutOfBoundsException';
+import IndexOutOfBoundsException from './IndexOutOfBoundsException.js';
 /**
  * Custom Error class of type Exception.
  */

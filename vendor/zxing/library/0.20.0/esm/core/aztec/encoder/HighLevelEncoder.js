@@ -26,15 +26,15 @@ var __values = (this && this.__values) || function(o) {
 };
 // import java.util.Collection;
 // import java.util.Collections;
-import Collections from '../../util/Collections';
+import Collections from '../../util/Collections.js';
 // import java.util.Comparator;
 // import java.util.Iterator;
 // import java.util.LinkedList;
-import State from './State';
-import * as C from './EncoderConstants';
-import * as CharMap from './CharMap';
-import * as ShiftTable from './ShiftTable';
-import StringUtils from '../../common/StringUtils';
+import State from './State.js';
+import * as C from './EncoderConstants.js';
+import * as CharMap from './CharMap.js';
+import * as ShiftTable from './ShiftTable.js';
+import StringUtils from '../../common/StringUtils.js';
 /**
  * This produces nearly optimal encodings of text into the first-level of
  * encoding used by Aztec code.

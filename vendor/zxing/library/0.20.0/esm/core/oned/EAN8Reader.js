@@ -37,8 +37,8 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import BarcodeFormat from '../BarcodeFormat';
-import UPCEANReader from './UPCEANReader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import UPCEANReader from './UPCEANReader.js';
 /**
  * <p>Implements decoding of the EAN-8 format.</p>
  *

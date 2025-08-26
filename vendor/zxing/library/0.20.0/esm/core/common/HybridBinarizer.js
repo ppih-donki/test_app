@@ -26,8 +26,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import GlobalHistogramBinarizer from './GlobalHistogramBinarizer';
-import BitMatrix from './BitMatrix';
+import GlobalHistogramBinarizer from './GlobalHistogramBinarizer.js';
+import BitMatrix from './BitMatrix.js';
 /**
  * This class implements a local thresholding algorithm, which while slower than the
  * GlobalHistogramBinarizer, is fairly efficient for what it does. It is designed for

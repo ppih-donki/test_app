@@ -23,10 +23,10 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import Charset from '../util/Charset';
-import StandardCharsets from '../util/StandardCharsets';
-import StringEncoding from '../util/StringEncoding';
-import StringUtils from './StringUtils';
+import Charset from '../util/Charset.js';
+import StandardCharsets from '../util/StandardCharsets.js';
+import StringEncoding from '../util/StringEncoding.js';
+import StringUtils from './StringUtils.js';
 var CharsetEncoder = /** @class */ (function () {
     function CharsetEncoder(charset) {
         this.charset = charset;

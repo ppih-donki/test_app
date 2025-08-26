@@ -25,20 +25,20 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.qrcode.encoder {*/
-import EncodeHintType from '../../EncodeHintType';
-import BitArray from '../../common/BitArray';
-import CharacterSetECI from '../../common/CharacterSetECI';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import ReedSolomonEncoder from '../../common/reedsolomon/ReedSolomonEncoder';
-import Mode from '../decoder/Mode';
-import Version from '../decoder/Version';
-import MaskUtil from './MaskUtil';
-import ByteMatrix from './ByteMatrix';
-import QRCode from './QRCode';
-import MatrixUtil from './MatrixUtil';
-import StringEncoding from '../../util/StringEncoding';
-import BlockPair from './BlockPair';
-import WriterException from '../../WriterException';
+import EncodeHintType from '../../EncodeHintType.js';
+import BitArray from '../../common/BitArray.js';
+import CharacterSetECI from '../../common/CharacterSetECI.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import ReedSolomonEncoder from '../../common/reedsolomon/ReedSolomonEncoder.js';
+import Mode from '../decoder/Mode.js';
+import Version from '../decoder/Version.js';
+import MaskUtil from './MaskUtil.js';
+import ByteMatrix from './ByteMatrix.js';
+import QRCode from './QRCode.js';
+import MatrixUtil from './MatrixUtil.js';
+import StringEncoding from '../../util/StringEncoding.js';
+import BlockPair from './BlockPair.js';
+import WriterException from '../../WriterException.js';
 /*import java.io.UnsupportedEncodingException;*/
 /*import java.util.ArrayList;*/
 /*import java.util.Collection;*/

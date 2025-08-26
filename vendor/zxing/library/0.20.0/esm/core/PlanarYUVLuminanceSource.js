@@ -27,10 +27,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing {*/
-import System from './util/System';
-import LuminanceSource from './LuminanceSource';
-import InvertedLuminanceSource from './InvertedLuminanceSource';
-import IllegalArgumentException from './IllegalArgumentException';
+import System from './util/System.js';
+import LuminanceSource from './LuminanceSource.js';
+import InvertedLuminanceSource from './InvertedLuminanceSource.js';
+import IllegalArgumentException from './IllegalArgumentException.js';
 /**
  * This object extends LuminanceSource around an array of YUV data returned from the camera driver,
  * with the option to crop to a rectangle within the full data. This can be used to exclude

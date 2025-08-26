@@ -26,10 +26,10 @@ var __values = (this && this.__values) || function(o) {
 };
 // import com.google.zxing.NotFoundException;
 // import com.google.zxing.ResultPoint;
-import ResultPoint from '../../ResultPoint';
-import System from '../../util/System';
-import Arrays from '../../util/Arrays';
-import PDF417DetectorResult from './PDF417DetectorResult';
+import ResultPoint from '../../ResultPoint.js';
+import System from '../../util/System.js';
+import Arrays from '../../util/Arrays.js';
+import PDF417DetectorResult from './PDF417DetectorResult.js';
 // import java.util.ArrayList;
 // import java.util.Arrays;
 // import java.util.List;

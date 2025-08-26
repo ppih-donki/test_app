@@ -27,11 +27,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import NotFoundException from '../NotFoundException';
-import OneDReader from './OneDReader';
-import Result from '../Result';
-import ResultPoint from '../ResultPoint';
+import BarcodeFormat from '../BarcodeFormat.js';
+import NotFoundException from '../NotFoundException.js';
+import OneDReader from './OneDReader.js';
+import Result from '../Result.js';
+import ResultPoint from '../ResultPoint.js';
 /**
  * <p>Decodes CodaBar barcodes. </p>
  *

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import IllegalArgumentException from './IllegalArgumentException';
+import IllegalArgumentException from './IllegalArgumentException.js';
 var BinaryBitmap = /** @class */ (function () {
     function BinaryBitmap(binarizer) {
         this.binarizer = binarizer;

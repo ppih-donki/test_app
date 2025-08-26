@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import StringBuilder from '../../../../util/StringBuilder';
-import AbstractExpandedDecoder from './AbstractExpandedDecoder';
+import StringBuilder from '../../../../util/StringBuilder.js';
+import AbstractExpandedDecoder from './AbstractExpandedDecoder.js';
 var AnyAIDecoder = /** @class */ (function (_super) {
     __extends(AnyAIDecoder, _super);
     function AnyAIDecoder(information) {

@@ -15,22 +15,22 @@
 */
 // package com.google.zxing.aztec;
 // import com.google.zxing.BarcodeFormat;
-import BarcodeFormat from '../BarcodeFormat';
+import BarcodeFormat from '../BarcodeFormat.js';
 // import com.google.zxing.EncodeHintType;
-import EncodeHintType from '../EncodeHintType';
+import EncodeHintType from '../EncodeHintType.js';
 // import com.google.zxing.aztec.encoder.Encoder;
-import Encoder from './encoder/Encoder';
+import Encoder from './encoder/Encoder.js';
 // import com.google.zxing.common.BitMatrix;
-import BitMatrix from '../common/BitMatrix';
+import BitMatrix from '../common/BitMatrix.js';
 // import java.nio.charset.Charset;
-import Charset from '../util/Charset';
+import Charset from '../util/Charset.js';
 // import java.nio.charset.StandardCharsets;
-import StandardCharsets from '../util/StandardCharsets';
+import StandardCharsets from '../util/StandardCharsets.js';
 // import java.util.Map;
-import Integer from '../util/Integer';
-import IllegalStateException from '../IllegalStateException';
-import IllegalArgumentException from '../IllegalArgumentException';
-import StringUtils from '../common/StringUtils';
+import Integer from '../util/Integer.js';
+import IllegalStateException from '../IllegalStateException.js';
+import IllegalArgumentException from '../IllegalArgumentException.js';
+import StringUtils from '../common/StringUtils.js';
 /**
  * Renders an Aztec code as a {@link BitMatrix}.
  */

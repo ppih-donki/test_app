@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { QRCodeReader } from '@zxing/library';
-import { BrowserCodeReader } from './BrowserCodeReader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
 /**
  * QR Code reader to use from browser.
  */

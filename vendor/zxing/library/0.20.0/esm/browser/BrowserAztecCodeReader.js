@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BrowserCodeReader } from './BrowserCodeReader';
-import AztecReader from '../core/aztec/AztecReader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
+import AztecReader from '../core/aztec/AztecReader.js';
 /**
  * Aztec Code reader to use from browser.
  *

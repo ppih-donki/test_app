@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import AbstractExpandedDecoder from './AbstractExpandedDecoder';
+import AbstractExpandedDecoder from './AbstractExpandedDecoder.js';
 var AI01decoder = /** @class */ (function (_super) {
     __extends(AI01decoder, _super);
     function AI01decoder(information) {

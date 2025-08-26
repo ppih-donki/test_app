@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ResultPoint from '../../ResultPoint';
-import NotFoundException from '../../NotFoundException';
+import ResultPoint from '../../ResultPoint.js';
+import NotFoundException from '../../NotFoundException.js';
 /**
  * @author Mariusz Dąbrowski
  */

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import DecodedObject from './DecodedObject';
+import DecodedObject from './DecodedObject.js';
 var DecodedInformation = /** @class */ (function (_super) {
     __extends(DecodedInformation, _super);
     function DecodedInformation(newPosition, newString, remainingValue) {

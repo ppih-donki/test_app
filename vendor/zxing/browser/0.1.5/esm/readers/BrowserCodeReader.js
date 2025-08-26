@@ -57,8 +57,8 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 import { ArgumentException, BinaryBitmap, ChecksumException, DecodeHintType, FormatException, HybridBinarizer, NotFoundException, } from '@zxing/library';
-import { HTMLCanvasElementLuminanceSource } from '../common/HTMLCanvasElementLuminanceSource';
-import { canEnumerateDevices, hasNavigator } from '../common/navigator-utils';
+import { HTMLCanvasElementLuminanceSource } from '../common/HTMLCanvasElementLuminanceSource.js';
+import { canEnumerateDevices, hasNavigator } from '../common/navigator-utils.js';
 var defaultOptions = {
     delayBetweenScanAttempts: 500,
     delayBetweenScanSuccess: 500,

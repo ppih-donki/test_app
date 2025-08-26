@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import DecoderResult from '../../common/DecoderResult';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder';
-import IllegalStateException from '../../IllegalStateException';
-import FormatException from '../../FormatException';
-import StringUtils from '../../common/StringUtils';
-import Integer from '../../util/Integer';
+import DecoderResult from '../../common/DecoderResult.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder.js';
+import IllegalStateException from '../../IllegalStateException.js';
+import FormatException from '../../FormatException.js';
+import StringUtils from '../../common/StringUtils.js';
+import Integer from '../../util/Integer.js';
 // import java.util.Arrays;
 var Table;
 (function (Table) {

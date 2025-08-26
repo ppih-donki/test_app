@@ -1,7 +1,7 @@
-import BitMatrix from '../../common/BitMatrix';
-import Version from './Version';
-import FormatException from '../../FormatException';
-import IllegalArgumentException from '../../IllegalArgumentException';
+import BitMatrix from '../../common/BitMatrix.js';
+import Version from './Version.js';
+import FormatException from '../../FormatException.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /*
  * Copyright 2007 ZXing authors
  *

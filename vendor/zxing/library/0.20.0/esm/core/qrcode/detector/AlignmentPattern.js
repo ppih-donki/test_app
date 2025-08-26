@@ -27,7 +27,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.qrcode.detector {*/
-import ResultPoint from '../../ResultPoint';
+import ResultPoint from '../../ResultPoint.js';
 /**
  * <p>Encapsulates an alignment pattern, which are the smaller square patterns found in
  * all but the simplest QR Codes.</p>

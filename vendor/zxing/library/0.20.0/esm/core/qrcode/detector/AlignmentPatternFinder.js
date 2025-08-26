@@ -24,8 +24,8 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import AlignmentPattern from './AlignmentPattern';
-import NotFoundException from '../../NotFoundException';
+import AlignmentPattern from './AlignmentPattern.js';
+import NotFoundException from '../../NotFoundException.js';
 /*import java.util.ArrayList;*/
 /*import java.util.List;*/
 /**

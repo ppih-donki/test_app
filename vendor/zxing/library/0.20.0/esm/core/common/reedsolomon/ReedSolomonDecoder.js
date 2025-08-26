@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.common.reedsolomon {*/
-import GenericGF from './GenericGF';
-import GenericGFPoly from './GenericGFPoly';
-import ReedSolomonException from '../../ReedSolomonException';
-import IllegalStateException from '../../IllegalStateException';
+import GenericGF from './GenericGF.js';
+import GenericGFPoly from './GenericGFPoly.js';
+import ReedSolomonException from '../../ReedSolomonException.js';
+import IllegalStateException from '../../IllegalStateException.js';
 /**
  * <p>Implements Reed-Solomon decoding, as the name implies.</p>
  *

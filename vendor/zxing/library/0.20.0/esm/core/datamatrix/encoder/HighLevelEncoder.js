@@ -1,19 +1,19 @@
 // tslint:disable-next-line:no-circular-imports
-import { ASCIIEncoder } from './ASCIIEncoder';
+import { ASCIIEncoder } from './ASCIIEncoder.js';
 // tslint:disable-next-line:no-circular-imports
-import { Base256Encoder } from './Base256Encoder';
+import { Base256Encoder } from './Base256Encoder.js';
 // tslint:disable-next-line:no-circular-imports
-import { C40Encoder } from './C40Encoder';
-import { ASCII_ENCODATION, BASE256_ENCODATION, C40_ENCODATION, EDIFACT_ENCODATION, MACRO_05, MACRO_05_HEADER, MACRO_06, MACRO_06_HEADER, MACRO_TRAILER, PAD, TEXT_ENCODATION, X12_ENCODATION, } from './constants';
+import { C40Encoder } from './C40Encoder.js';
+import { ASCII_ENCODATION, BASE256_ENCODATION, C40_ENCODATION, EDIFACT_ENCODATION, MACRO_05, MACRO_05_HEADER, MACRO_06, MACRO_06_HEADER, MACRO_TRAILER, PAD, TEXT_ENCODATION, X12_ENCODATION, } from './constants.js';
 // tslint:disable-next-line:no-circular-imports
-import { EdifactEncoder } from './EdifactEncoder';
-import { EncoderContext } from './EncoderContext';
+import { EdifactEncoder } from './EdifactEncoder.js';
+import { EncoderContext } from './EncoderContext.js';
 // tslint:disable-next-line:no-circular-imports
-import { X12Encoder } from './X12Encoder';
+import { X12Encoder } from './X12Encoder.js';
 // tslint:disable-next-line:no-circular-imports
-import { TextEncoder } from './TextEncoder';
-import Arrays from '../../util/Arrays';
-import Integer from '../../util/Integer';
+import { TextEncoder } from './TextEncoder.js';
+import Arrays from '../../util/Arrays.js';
+import Integer from '../../util/Integer.js';
 /**
  * DataMatrix ECC 200 data encoder following the algorithm described in ISO/IEC 16022:200(E) in
  * annex S.

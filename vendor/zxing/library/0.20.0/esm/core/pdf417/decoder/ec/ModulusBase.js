@@ -1,5 +1,5 @@
-import IllegalArgumentException from '../../../IllegalArgumentException';
-import ArithmeticException from '../../../ArithmeticException';
+import IllegalArgumentException from '../../../IllegalArgumentException.js';
+import ArithmeticException from '../../../ArithmeticException.js';
 var ModulusBase = /** @class */ (function () {
     function ModulusBase() {
     }

@@ -25,8 +25,8 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.qrcode.decoder {*/
-import ErrorCorrectionLevel from './ErrorCorrectionLevel';
-import Integer from '../../util/Integer';
+import ErrorCorrectionLevel from './ErrorCorrectionLevel.js';
+import Integer from '../../util/Integer.js';
 /**
  * <p>Encapsulates a QR Code's format information, including the data mask used and
  * error correction level.</p>

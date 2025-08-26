@@ -11,9 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import AI01weightDecoder from './AI01weightDecoder';
-import NotFoundException from '../../../../NotFoundException';
-import StringBuilder from '../../../../util/StringBuilder';
+import AI01weightDecoder from './AI01weightDecoder.js';
+import NotFoundException from '../../../../NotFoundException.js';
+import StringBuilder from '../../../../util/StringBuilder.js';
 var AI013x0x1xDecoder = /** @class */ (function (_super) {
     __extends(AI013x0x1xDecoder, _super);
     function AI013x0x1xDecoder(information, firstAIdigits, dateCode) {

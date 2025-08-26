@@ -24,15 +24,15 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import DecodeHintType from './DecodeHintType';
-import BarcodeFormat from './BarcodeFormat';
-import QRCodeReader from './qrcode/QRCodeReader';
-import AztecReader from './aztec/AztecReader';
-import MultiFormatOneDReader from './oned/MultiFormatOneDReader';
-import DataMatrixReader from './datamatrix/DataMatrixReader';
-import NotFoundException from './NotFoundException';
-import PDF417Reader from './pdf417/PDF417Reader';
-import ReaderException from './ReaderException';
+import DecodeHintType from './DecodeHintType.js';
+import BarcodeFormat from './BarcodeFormat.js';
+import QRCodeReader from './qrcode/QRCodeReader.js';
+import AztecReader from './aztec/AztecReader.js';
+import MultiFormatOneDReader from './oned/MultiFormatOneDReader.js';
+import DataMatrixReader from './datamatrix/DataMatrixReader.js';
+import NotFoundException from './NotFoundException.js';
+import PDF417Reader from './pdf417/PDF417Reader.js';
+import ReaderException from './ReaderException.js';
 /*namespace com.google.zxing {*/
 /**
  * MultiFormatReader is a convenience class and the main entry point into the library for most uses.

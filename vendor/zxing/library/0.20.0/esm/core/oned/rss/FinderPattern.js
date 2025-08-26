@@ -1,4 +1,4 @@
-import ResultPoint from '../../ResultPoint';
+import ResultPoint from '../../ResultPoint.js';
 var FinderPattern = /** @class */ (function () {
     function FinderPattern(value, startEnd, start, end, rowNumber) {
         this.value = value;

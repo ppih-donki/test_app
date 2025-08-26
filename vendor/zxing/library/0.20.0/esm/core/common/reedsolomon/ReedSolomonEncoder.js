@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import GenericGFPoly from './GenericGFPoly';
-import System from '../../util/System';
-import IllegalArgumentException from '../../IllegalArgumentException';
+import GenericGFPoly from './GenericGFPoly.js';
+import System from '../../util/System.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /**
  * <p>Implements Reed-Solomon encoding, as the name implies.</p>
  *

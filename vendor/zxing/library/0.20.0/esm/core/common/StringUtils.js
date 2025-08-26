@@ -16,9 +16,9 @@
 /*namespace com.google.zxing.common {*/
 /*import java.nio.charset.Charset;*/
 /*import java.util.Map;*/
-import DecodeHintType from '../DecodeHintType';
-import CharacterSetECI from './CharacterSetECI';
-import StringEncoding from '../util/StringEncoding';
+import DecodeHintType from '../DecodeHintType.js';
+import CharacterSetECI from './CharacterSetECI.js';
+import StringEncoding from '../util/StringEncoding.js';
 /**
  * Common string-related functions.
  *

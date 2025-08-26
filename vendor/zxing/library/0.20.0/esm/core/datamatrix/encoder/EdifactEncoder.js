@@ -1,7 +1,7 @@
-import StringUtils from '../../common/StringUtils';
-import StringBuilder from '../../util/StringBuilder';
-import { EDIFACT_ENCODATION, ASCII_ENCODATION } from './constants';
-import HighLevelEncoder from './HighLevelEncoder';
+import StringUtils from '../../common/StringUtils.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import { EDIFACT_ENCODATION, ASCII_ENCODATION } from './constants.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
 var EdifactEncoder = /** @class */ (function () {
     function EdifactEncoder() {
     }

@@ -1,7 +1,7 @@
-import StringUtils from '../../common/StringUtils';
-import StringBuilder from '../../util/StringBuilder';
-import HighLevelEncoder from './HighLevelEncoder';
-import { BASE256_ENCODATION, ASCII_ENCODATION } from './constants';
+import StringUtils from '../../common/StringUtils.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
+import { BASE256_ENCODATION, ASCII_ENCODATION } from './constants.js';
 var Base256Encoder = /** @class */ (function () {
     function Base256Encoder() {
     }

@@ -1,4 +1,4 @@
-import StringUtils from '../common/StringUtils';
+import StringUtils from '../common/StringUtils.js';
 var StringBuilder = /** @class */ (function () {
     function StringBuilder(value) {
         if (value === void 0) { value = ''; }

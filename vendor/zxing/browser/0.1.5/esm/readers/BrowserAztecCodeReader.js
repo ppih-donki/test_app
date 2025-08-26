@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { AztecCodeReader } from '@zxing/library';
-import { BrowserCodeReader } from './BrowserCodeReader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
 /**
  * Aztec Code reader to use from browser.
  *

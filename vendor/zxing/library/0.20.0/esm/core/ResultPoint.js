@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing {*/
-import MathUtils from './common/detector/MathUtils';
-import Float from './util/Float';
+import MathUtils from './common/detector/MathUtils.js';
+import Float from './util/Float.js';
 /**
  * <p>Encapsulates a point of interest in an image containing a barcode. Typically, this
  * would be the location of a finder pattern or the corner of the barcode, for example.</p>

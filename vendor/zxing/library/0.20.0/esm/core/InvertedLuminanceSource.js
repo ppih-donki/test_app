@@ -26,7 +26,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import LuminanceSource from './LuminanceSource';
+import LuminanceSource from './LuminanceSource.js';
 /*namespace com.google.zxing {*/
 /**
  * A wrapper implementation of {@link LuminanceSource} which inverts the luminances it returns -- black becomes

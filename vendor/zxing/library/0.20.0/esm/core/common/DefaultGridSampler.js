@@ -27,10 +27,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.common {*/
-import GridSampler from './GridSampler';
-import BitMatrix from './BitMatrix';
-import PerspectiveTransform from './PerspectiveTransform';
-import NotFoundException from '../NotFoundException';
+import GridSampler from './GridSampler.js';
+import BitMatrix from './BitMatrix.js';
+import PerspectiveTransform from './PerspectiveTransform.js';
+import NotFoundException from '../NotFoundException.js';
 /**
  * @author Sean Owen
  */

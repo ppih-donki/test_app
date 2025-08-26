@@ -15,11 +15,11 @@
  */
 /*namespace com.google.zxing.common {*/
 /*import java.util.Arrays;*/
-import BitArray from './BitArray';
-import System from '../util/System';
-import Arrays from '../util/Arrays';
-import StringBuilder from '../util/StringBuilder';
-import IllegalArgumentException from '../IllegalArgumentException';
+import BitArray from './BitArray.js';
+import System from '../util/System.js';
+import Arrays from '../util/Arrays.js';
+import StringBuilder from '../util/StringBuilder.js';
+import IllegalArgumentException from '../IllegalArgumentException.js';
 /**
  * <p>Represents a 2D matrix of bits. In function arguments below, and throughout the common
  * module, x is the column position, and y is the row position. The ordering is always x, y.

@@ -9,12 +9,12 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import ChecksumException from '../../ChecksumException';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder';
-import BitMatrixParser from './BitMatrixParser';
-import DataBlock from './DataBlock';
-import DecodedBitStreamParser from './DecodedBitStreamParser';
+import ChecksumException from '../../ChecksumException.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder.js';
+import BitMatrixParser from './BitMatrixParser.js';
+import DataBlock from './DataBlock.js';
+import DecodedBitStreamParser from './DecodedBitStreamParser.js';
 /*
  * Copyright 2007 ZXing authors
  *

@@ -26,9 +26,9 @@ var __values = (this && this.__values) || function(o) {
 };
 // package com.google.zxing.pdf417.decoder.ec;
 // import com.google.zxing.ChecksumException;
-import ChecksumException from '../../../ChecksumException';
-import ModulusPoly from './ModulusPoly';
-import ModulusGF from './ModulusGF';
+import ChecksumException from '../../../ChecksumException.js';
+import ModulusPoly from './ModulusPoly.js';
+import ModulusGF from './ModulusGF.js';
 /**
  * <p>PDF417 error correction implementation.</p>
  *

@@ -11,11 +11,11 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import StringUtils from '../../common/StringUtils';
-import StringBuilder from '../../util/StringBuilder';
-import { C40Encoder } from './C40Encoder';
-import HighLevelEncoder from './HighLevelEncoder';
-import { X12_ENCODATION, ASCII_ENCODATION, X12_UNLATCH } from './constants';
+import StringUtils from '../../common/StringUtils.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import { C40Encoder } from './C40Encoder.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
+import { X12_ENCODATION, ASCII_ENCODATION, X12_UNLATCH } from './constants.js';
 var X12Encoder = /** @class */ (function (_super) {
     __extends(X12Encoder, _super);
     function X12Encoder() {

@@ -24,12 +24,12 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import BarcodeFormat from '../BarcodeFormat';
-import AbstractUPCEANReader from './AbstractUPCEANReader';
-import Result from '../Result';
-import ResultPoint from '../ResultPoint';
-import ResultMetadataType from '../ResultMetadataType';
-import NotFoundException from '../NotFoundException';
+import BarcodeFormat from '../BarcodeFormat.js';
+import AbstractUPCEANReader from './AbstractUPCEANReader.js';
+import Result from '../Result.js';
+import ResultPoint from '../ResultPoint.js';
+import ResultMetadataType from '../ResultMetadataType.js';
+import NotFoundException from '../NotFoundException.js';
 /**
  * @see UPCEANExtension5Support
  */

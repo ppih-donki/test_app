@@ -1,8 +1,8 @@
-import WhiteRectangleDetector from '../../common/detector/WhiteRectangleDetector';
-import DetectorResult from '../../common/DetectorResult';
-import GridSamplerInstance from '../../common/GridSamplerInstance';
-import NotFoundException from '../../NotFoundException';
-import ResultPoint from '../../ResultPoint';
+import WhiteRectangleDetector from '../../common/detector/WhiteRectangleDetector.js';
+import DetectorResult from '../../common/DetectorResult.js';
+import GridSamplerInstance from '../../common/GridSamplerInstance.js';
+import NotFoundException from '../../NotFoundException.js';
+import ResultPoint from '../../ResultPoint.js';
 /*
  * Copyright 2008 ZXing authors
  *

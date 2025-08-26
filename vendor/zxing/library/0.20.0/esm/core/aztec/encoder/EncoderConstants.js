@@ -1,4 +1,4 @@
-import SimpleToken from './SimpleToken';
+import SimpleToken from './SimpleToken.js';
 export var /*final*/ MODE_NAMES = [
     'UPPER',
     'LOWER',

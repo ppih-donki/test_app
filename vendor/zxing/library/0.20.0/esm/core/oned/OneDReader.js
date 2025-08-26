@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import BitArray from '../common/BitArray';
-import DecodeHintType from '../DecodeHintType';
-import ResultMetadataType from '../ResultMetadataType';
-import ResultPoint from '../ResultPoint';
-import NotFoundException from '../NotFoundException';
+import BitArray from '../common/BitArray.js';
+import DecodeHintType from '../DecodeHintType.js';
+import ResultMetadataType from '../ResultMetadataType.js';
+import ResultPoint from '../ResultPoint.js';
+import NotFoundException from '../NotFoundException.js';
 /**
  * Encapsulates functionality and implementation that is common to all families
  * of one-dimensional barcodes.

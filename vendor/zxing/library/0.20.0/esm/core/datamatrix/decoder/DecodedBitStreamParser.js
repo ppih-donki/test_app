@@ -1,10 +1,10 @@
-import DecoderResult from '../../common/DecoderResult';
-import BitSource from '../../common/BitSource';
-import StringBuilder from '../../util/StringBuilder';
-import StringEncoding from '../../util/StringEncoding';
-import StringUtils from '../../common/StringUtils';
-import FormatException from '../../FormatException';
-import IllegalStateException from '../../IllegalStateException';
+import DecoderResult from '../../common/DecoderResult.js';
+import BitSource from '../../common/BitSource.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import StringEncoding from '../../util/StringEncoding.js';
+import StringUtils from '../../common/StringUtils.js';
+import FormatException from '../../FormatException.js';
+import IllegalStateException from '../../IllegalStateException.js';
 /*
  * Copyright 2008 ZXing authors
  *

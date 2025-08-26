@@ -1,6 +1,6 @@
-import { ASCII_ENCODATION, BASE256_ENCODATION, C40_ENCODATION, EDIFACT_ENCODATION, LATCH_TO_ANSIX12, LATCH_TO_BASE256, LATCH_TO_C40, LATCH_TO_EDIFACT, LATCH_TO_TEXT, TEXT_ENCODATION, UPPER_SHIFT, X12_ENCODATION, } from './constants';
+import { ASCII_ENCODATION, BASE256_ENCODATION, C40_ENCODATION, EDIFACT_ENCODATION, LATCH_TO_ANSIX12, LATCH_TO_BASE256, LATCH_TO_C40, LATCH_TO_EDIFACT, LATCH_TO_TEXT, TEXT_ENCODATION, UPPER_SHIFT, X12_ENCODATION, } from './constants.js';
 // tslint:disable-next-line:no-circular-imports
-import HighLevelEncoder from './HighLevelEncoder';
+import HighLevelEncoder from './HighLevelEncoder.js';
 var ASCIIEncoder = /** @class */ (function () {
     function ASCIIEncoder() {
     }

@@ -1,11 +1,11 @@
-import FormatException from '../../../../FormatException';
-import IllegalStateException from '../../../../IllegalStateException';
-import StringBuilder from '../../../../util/StringBuilder';
-import BlockParsedResult from './BlockParsedResult';
-import DecodedChar from './DecodedChar';
-import DecodedInformation from './DecodedInformation';
-import DecodedNumeric from './DecodedNumeric';
-import FieldParser from './FieldParser';
+import FormatException from '../../../../FormatException.js';
+import IllegalStateException from '../../../../IllegalStateException.js';
+import StringBuilder from '../../../../util/StringBuilder.js';
+import BlockParsedResult from './BlockParsedResult.js';
+import DecodedChar from './DecodedChar.js';
+import DecodedInformation from './DecodedInformation.js';
+import DecodedNumeric from './DecodedNumeric.js';
+import FieldParser from './FieldParser.js';
 var GeneralAppIdDecoder = /** @class */ (function () {
     function GeneralAppIdDecoder(information) {
         this.buffer = new StringBuilder();

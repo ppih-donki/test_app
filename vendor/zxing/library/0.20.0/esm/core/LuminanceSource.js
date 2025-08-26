@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import StringBuilder from './util/StringBuilder';
-import UnsupportedOperationException from './UnsupportedOperationException';
+import StringBuilder from './util/StringBuilder.js';
+import UnsupportedOperationException from './UnsupportedOperationException.js';
 /*namespace com.google.zxing {*/
 /**
  * The purpose of this class hierarchy is to abstract different bitmap implementations across

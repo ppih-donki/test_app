@@ -26,8 +26,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import Token from './Token';
-import Integer from '../../util/Integer';
+import Token from './Token.js';
+import Integer from '../../util/Integer.js';
 var SimpleToken = /** @class */ (function (_super) {
     __extends(SimpleToken, _super);
     function SimpleToken(previous, value, bitCount) {

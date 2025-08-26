@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.qrcode.decoder {*/
-import BitSource from '../../common/BitSource';
-import CharacterSetECI from '../../common/CharacterSetECI';
-import DecoderResult from '../../common/DecoderResult';
-import StringUtils from '../../common/StringUtils';
-import FormatException from '../../FormatException';
-import StringBuilder from '../../util/StringBuilder';
-import StringEncoding from '../../util/StringEncoding';
-import Mode from './Mode';
+import BitSource from '../../common/BitSource.js';
+import CharacterSetECI from '../../common/CharacterSetECI.js';
+import DecoderResult from '../../common/DecoderResult.js';
+import StringUtils from '../../common/StringUtils.js';
+import FormatException from '../../FormatException.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import StringEncoding from '../../util/StringEncoding.js';
+import Mode from './Mode.js';
 /*import java.io.UnsupportedEncodingException;*/
 /*import java.util.ArrayList;*/
 /*import java.util.Collection;*/

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import System from './util/System';
+import System from './util/System.js';
 /**
  * <p>Encapsulates the result of decoding a barcode within an image.</p>
  *

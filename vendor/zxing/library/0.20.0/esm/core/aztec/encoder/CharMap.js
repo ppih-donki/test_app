@@ -1,6 +1,6 @@
-import * as C from './EncoderConstants';
-import Arrays from '../../util/Arrays';
-import StringUtils from '../../common/StringUtils';
+import * as C from './EncoderConstants.js';
+import Arrays from '../../util/Arrays.js';
+import StringUtils from '../../common/StringUtils.js';
 export function static_CHAR_MAP(CHAR_MAP) {
     var spaceCharCode = StringUtils.getCharCode(' ');
     var pointCharCode = StringUtils.getCharCode('.');

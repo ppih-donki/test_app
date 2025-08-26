@@ -28,10 +28,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 // package com.google.zxing.pdf417.decoder.ec;
 // import com.google.zxing.pdf417.PDF417Common;
-import PDF417Common from '../../PDF417Common';
-import ModulusPoly from './ModulusPoly';
-import IllegalArgumentException from '../../../IllegalArgumentException';
-import ModulusBase from './ModulusBase';
+import PDF417Common from '../../PDF417Common.js';
+import ModulusPoly from './ModulusPoly.js';
+import IllegalArgumentException from '../../../IllegalArgumentException.js';
+import ModulusBase from './ModulusBase.js';
 /**
  * <p>A field based on powers of a generator integer, modulo some modulus.</p>
  *

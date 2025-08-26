@@ -1,5 +1,5 @@
-import UnsupportedOperationException from '../UnsupportedOperationException';
-import CharacterSetECI from '../common/CharacterSetECI';
+import UnsupportedOperationException from '../UnsupportedOperationException.js';
+import CharacterSetECI from '../common/CharacterSetECI.js';
 /**
  * Responsible for en/decoding strings.
  */

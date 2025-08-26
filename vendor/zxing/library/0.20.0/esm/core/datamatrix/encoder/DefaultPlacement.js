@@ -1,4 +1,4 @@
-import Arrays from '../../util/Arrays';
+import Arrays from '../../util/Arrays.js';
 /**
  * Symbol Character Placement Program. Adapted from Annex M.1 in ISO/IEC 16022:2000(E).
  */

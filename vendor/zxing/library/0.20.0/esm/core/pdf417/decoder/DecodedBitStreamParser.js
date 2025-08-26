@@ -15,24 +15,24 @@
  */
 // package com.google.zxing.pdf417.decoder;
 // import com.google.zxing.FormatException;
-import FormatException from '../../FormatException';
+import FormatException from '../../FormatException.js';
 // import com.google.zxing.common.CharacterSetECI;
-import CharacterSetECI from '../../common/CharacterSetECI';
+import CharacterSetECI from '../../common/CharacterSetECI.js';
 // import com.google.zxing.common.DecoderResult;
-import DecoderResult from '../../common/DecoderResult';
+import DecoderResult from '../../common/DecoderResult.js';
 // import com.google.zxing.pdf417.PDF417ResultMetadata;
-import PDF417ResultMetadata from '../PDF417ResultMetadata';
+import PDF417ResultMetadata from '../PDF417ResultMetadata.js';
 // import java.io.ByteArrayOutputStream;
 // import java.math.BigInteger;
 // import java.nio.charset.Charset;
 // import java.nio.charset.StandardCharsets;
 // import java.util.Arrays;
-import Arrays from '../../util/Arrays';
-import StringBuilder from '../../util/StringBuilder';
-import Integer from '../../util/Integer';
-import Long from '../../util/Long';
-import ByteArrayOutputStream from '../../util/ByteArrayOutputStream';
-import StringEncoding from '../../util/StringEncoding';
+import Arrays from '../../util/Arrays.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import Integer from '../../util/Integer.js';
+import Long from '../../util/Long.js';
+import ByteArrayOutputStream from '../../util/ByteArrayOutputStream.js';
+import StringEncoding from '../../util/StringEncoding.js';
 /*private*/ var Mode;
 (function (Mode) {
     Mode[Mode["ALPHA"] = 0] = "ALPHA";

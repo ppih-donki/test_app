@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.qrcode.encoder {*/
-import BitArray from '../../common/BitArray';
-import Integer from '../../util/Integer';
-import QRCode from './QRCode';
-import MaskUtil from './MaskUtil';
-import WriterException from '../../WriterException';
-import IllegalArgumentException from '../../IllegalArgumentException';
+import BitArray from '../../common/BitArray.js';
+import Integer from '../../util/Integer.js';
+import QRCode from './QRCode.js';
+import MaskUtil from './MaskUtil.js';
+import WriterException from '../../WriterException.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator
  * @author dswitkin@google.com (Daniel Switkin) - ported from C++

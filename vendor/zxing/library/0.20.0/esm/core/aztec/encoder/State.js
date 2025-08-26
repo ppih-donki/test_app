@@ -28,12 +28,12 @@ var __values = (this && this.__values) || function(o) {
 // import java.util.Deque;
 // import java.util.LinkedList;
 // import com.google.zxing.common.BitArray;
-import BitArray from '../../common/BitArray';
-import * as TokenHelpers from './TokenHelpers';
-import * as C from './EncoderConstants';
-import * as LatchTable from './LatchTable';
-import * as ShiftTable from './ShiftTable';
-import StringUtils from '../../common/StringUtils';
+import BitArray from '../../common/BitArray.js';
+import * as TokenHelpers from './TokenHelpers.js';
+import * as C from './EncoderConstants.js';
+import * as LatchTable from './LatchTable.js';
+import * as ShiftTable from './ShiftTable.js';
+import StringUtils from '../../common/StringUtils.js';
 /**
  * State represents all information about a sequence necessary to generate the current output.
  * Note that a state is immutable.

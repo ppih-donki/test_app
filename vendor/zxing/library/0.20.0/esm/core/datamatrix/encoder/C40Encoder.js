@@ -1,6 +1,6 @@
-import StringBuilder from '../../util/StringBuilder';
-import HighLevelEncoder from './HighLevelEncoder';
-import { C40_ENCODATION, LATCH_TO_C40, ASCII_ENCODATION, C40_UNLATCH, } from './constants';
+import StringBuilder from '../../util/StringBuilder.js';
+import HighLevelEncoder from './HighLevelEncoder.js';
+import { C40_ENCODATION, LATCH_TO_C40, ASCII_ENCODATION, C40_UNLATCH, } from './constants.js';
 var C40Encoder = /** @class */ (function () {
     function C40Encoder() {
     }

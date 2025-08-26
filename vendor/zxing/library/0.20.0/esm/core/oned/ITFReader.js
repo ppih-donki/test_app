@@ -38,15 +38,15 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import DecodeHintType from '../DecodeHintType';
-import FormatException from '../FormatException';
-import NotFoundException from '../NotFoundException';
-import Result from '../Result';
-import ResultPoint from '../ResultPoint';
-import StringBuilder from '../util/StringBuilder';
-import System from '../util/System';
-import OneDReader from './OneDReader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import DecodeHintType from '../DecodeHintType.js';
+import FormatException from '../FormatException.js';
+import NotFoundException from '../NotFoundException.js';
+import Result from '../Result.js';
+import ResultPoint from '../ResultPoint.js';
+import StringBuilder from '../util/StringBuilder.js';
+import System from '../util/System.js';
+import OneDReader from './OneDReader.js';
 /**
  * <p>Decodes ITF barcodes.</p>
  *

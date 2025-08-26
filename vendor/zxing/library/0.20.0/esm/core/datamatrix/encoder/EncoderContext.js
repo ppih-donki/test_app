@@ -1,5 +1,5 @@
-import StringBuilder from '../../util/StringBuilder';
-import SymbolInfo from './SymbolInfo';
+import StringBuilder from '../../util/StringBuilder.js';
+import SymbolInfo from './SymbolInfo.js';
 var EncoderContext = /** @class */ (function () {
     function EncoderContext(msg) {
         this.msg = msg;

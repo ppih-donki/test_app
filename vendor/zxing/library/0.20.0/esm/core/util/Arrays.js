@@ -9,9 +9,9 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import System from './System';
-import IllegalArgumentException from '../IllegalArgumentException';
-import ArrayIndexOutOfBoundsException from '../ArrayIndexOutOfBoundsException';
+import System from './System.js';
+import IllegalArgumentException from '../IllegalArgumentException.js';
+import ArrayIndexOutOfBoundsException from '../ArrayIndexOutOfBoundsException.js';
 var Arrays = /** @class */ (function () {
     function Arrays() {
     }

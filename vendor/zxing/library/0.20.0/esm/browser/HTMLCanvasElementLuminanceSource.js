@@ -11,9 +11,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import InvertedLuminanceSource from '../core/InvertedLuminanceSource';
-import LuminanceSource from '../core/LuminanceSource';
-import IllegalArgumentException from '../core/IllegalArgumentException';
+import InvertedLuminanceSource from '../core/InvertedLuminanceSource.js';
+import LuminanceSource from '../core/LuminanceSource.js';
+import IllegalArgumentException from '../core/IllegalArgumentException.js';
 /**
  * @deprecated Moving to @zxing/browser
  */

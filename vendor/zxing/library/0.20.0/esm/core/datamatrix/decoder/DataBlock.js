@@ -9,7 +9,7 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import IllegalArgumentException from '../../IllegalArgumentException';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /*
  * Copyright 2008 ZXing authors
  *

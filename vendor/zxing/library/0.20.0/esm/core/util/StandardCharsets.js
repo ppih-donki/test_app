@@ -1,4 +1,4 @@
-import CharacterSetECI from '../common/CharacterSetECI';
+import CharacterSetECI from '../common/CharacterSetECI.js';
 /**
  * Just to make a shortcut between Java code and TS code.
  */

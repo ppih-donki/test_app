@@ -1,9 +1,9 @@
-import BarcodeFormat from '../BarcodeFormat';
-import BitMatrix from '../common/BitMatrix';
-import EncodeHintType from '../EncodeHintType';
-import ByteMatrix from '../qrcode/encoder/ByteMatrix';
-import Charset from '../util/Charset';
-import { DefaultPlacement, ErrorCorrection, HighLevelEncoder, MinimalEncoder, SymbolInfo, } from './encoder';
+import BarcodeFormat from '../BarcodeFormat.js';
+import BitMatrix from '../common/BitMatrix.js';
+import EncodeHintType from '../EncodeHintType.js';
+import ByteMatrix from '../qrcode/encoder/ByteMatrix.js';
+import Charset from '../util/Charset.js';
+import { DefaultPlacement, ErrorCorrection, HighLevelEncoder, MinimalEncoder, SymbolInfo, } from './encoder.js';
 var DataMatrixWriter = /** @class */ (function () {
     function DataMatrixWriter() {
     }

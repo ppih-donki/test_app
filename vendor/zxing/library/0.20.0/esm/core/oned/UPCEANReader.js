@@ -26,16 +26,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import BarcodeFormat from '../BarcodeFormat';
-import DecodeHintType from '../DecodeHintType';
-import Result from '../Result';
-import ResultMetadataType from '../ResultMetadataType';
-import ResultPoint from '../ResultPoint';
-import UPCEANExtensionSupport from './UPCEANExtensionSupport';
-import AbstractUPCEANReader from './AbstractUPCEANReader';
-import NotFoundException from '../NotFoundException';
-import FormatException from '../FormatException';
-import ChecksumException from '../ChecksumException';
+import BarcodeFormat from '../BarcodeFormat.js';
+import DecodeHintType from '../DecodeHintType.js';
+import Result from '../Result.js';
+import ResultMetadataType from '../ResultMetadataType.js';
+import ResultPoint from '../ResultPoint.js';
+import UPCEANExtensionSupport from './UPCEANExtensionSupport.js';
+import AbstractUPCEANReader from './AbstractUPCEANReader.js';
+import NotFoundException from '../NotFoundException.js';
+import FormatException from '../FormatException.js';
+import ChecksumException from '../ChecksumException.js';
 /**
  * <p>Encapsulates functionality and implementation that is common to UPC and EAN families
  * of one-dimensional barcodes.</p>

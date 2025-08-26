@@ -26,7 +26,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import SimpleToken from './SimpleToken';
+import SimpleToken from './SimpleToken.js';
 var BinaryShiftToken = /** @class */ (function (_super) {
     __extends(BinaryShiftToken, _super);
     function BinaryShiftToken(previous, binaryShiftStart, binaryShiftByteCount) {

@@ -1,8 +1,8 @@
-import EncodeHintType from '../core/EncodeHintType';
-import Encoder from '../core/qrcode/encoder/Encoder';
-import ErrorCorrectionLevel from '../core/qrcode/decoder/ErrorCorrectionLevel';
-import IllegalArgumentException from '../core/IllegalArgumentException';
-import IllegalStateException from '../core/IllegalStateException';
+import EncodeHintType from '../core/EncodeHintType.js';
+import Encoder from '../core/qrcode/encoder/Encoder.js';
+import ErrorCorrectionLevel from '../core/qrcode/decoder/ErrorCorrectionLevel.js';
+import IllegalArgumentException from '../core/IllegalArgumentException.js';
+import IllegalStateException from '../core/IllegalStateException.js';
 /**
  * @deprecated Moving to @zxing/browser
  */

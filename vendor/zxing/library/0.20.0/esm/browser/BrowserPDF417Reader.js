@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BrowserCodeReader } from './BrowserCodeReader';
-import PDF417Reader from '../core/pdf417/PDF417Reader';
+import { BrowserCodeReader } from './BrowserCodeReader.js';
+import PDF417Reader from '../core/pdf417/PDF417Reader.js';
 /**
  * @deprecated Moving to @zxing/browser
  *

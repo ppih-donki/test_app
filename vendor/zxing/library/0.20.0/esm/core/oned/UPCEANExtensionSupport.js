@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import AbstractUPCEANReader from './AbstractUPCEANReader';
-import UPCEANExtension5Support from './UPCEANExtension5Support';
-import UPCEANExtension2Support from './UPCEANExtension2Support';
+import AbstractUPCEANReader from './AbstractUPCEANReader.js';
+import UPCEANExtension5Support from './UPCEANExtension5Support.js';
+import UPCEANExtension2Support from './UPCEANExtension2Support.js';
 var UPCEANExtensionSupport = /** @class */ (function () {
     function UPCEANExtensionSupport() {
     }

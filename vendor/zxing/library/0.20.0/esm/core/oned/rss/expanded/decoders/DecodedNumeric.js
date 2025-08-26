@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import FormatException from '../../../../FormatException';
-import DecodedObject from './DecodedObject';
+import FormatException from '../../../../FormatException.js';
+import DecodedObject from './DecodedObject.js';
 var DecodedNumeric = /** @class */ (function (_super) {
     __extends(DecodedNumeric, _super);
     function DecodedNumeric(newPosition, firstDigit, secondDigit) {

@@ -27,18 +27,18 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import DecodeHintType from '../DecodeHintType';
-import NotFoundException from '../NotFoundException';
-import Code128Reader from './Code128Reader';
-import Code39Reader from './Code39Reader';
-import Code93Reader from './Code93Reader';
-import ITFReader from './ITFReader';
-import MultiFormatUPCEANReader from './MultiFormatUPCEANReader';
-import OneDReader from './OneDReader';
-import CodaBarReader from './CodaBarReader';
-import RSSExpandedReader from './rss/expanded/RSSExpandedReader';
-import RSS14Reader from './rss/RSS14Reader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import DecodeHintType from '../DecodeHintType.js';
+import NotFoundException from '../NotFoundException.js';
+import Code128Reader from './Code128Reader.js';
+import Code39Reader from './Code39Reader.js';
+import Code93Reader from './Code93Reader.js';
+import ITFReader from './ITFReader.js';
+import MultiFormatUPCEANReader from './MultiFormatUPCEANReader.js';
+import OneDReader from './OneDReader.js';
+import CodaBarReader from './CodaBarReader.js';
+import RSSExpandedReader from './rss/expanded/RSSExpandedReader.js';
+import RSS14Reader from './rss/RSS14Reader.js';
 /**
  * @author Daniel Switkin <dswitkin@google.com>
  * @author Sean Owen

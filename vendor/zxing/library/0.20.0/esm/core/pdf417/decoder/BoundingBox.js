@@ -15,9 +15,9 @@
 */
 // package com.google.zxing.pdf417.decoder;
 // import com.google.zxing.NotFoundException;
-import NotFoundException from '../../NotFoundException';
+import NotFoundException from '../../NotFoundException.js';
 // import com.google.zxing.ResultPoint;
-import ResultPoint from '../../ResultPoint';
+import ResultPoint from '../../ResultPoint.js';
 /**
  * @author Guenther Grau
  */

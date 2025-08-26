@@ -38,10 +38,10 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 // import com.google.zxing.pdf417.PDF417Common;
-import PDF417Common from '../PDF417Common';
-import BarcodeMetadata from './BarcodeMetadata';
-import DetectionResultColumn from './DetectionResultColumn';
-import BarcodeValue from './BarcodeValue';
+import PDF417Common from '../PDF417Common.js';
+import BarcodeMetadata from './BarcodeMetadata.js';
+import DetectionResultColumn from './DetectionResultColumn.js';
+import BarcodeValue from './BarcodeValue.js';
 /**
  * @author Guenther Grau
  */

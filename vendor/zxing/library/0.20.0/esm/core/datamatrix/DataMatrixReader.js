@@ -1,12 +1,12 @@
-import BarcodeFormat from '../BarcodeFormat';
-import BitMatrix from '../common/BitMatrix';
-import DecodeHintType from '../DecodeHintType';
-import NotFoundException from '../NotFoundException';
-import Result from '../Result';
-import ResultMetadataType from '../ResultMetadataType';
-import System from '../util/System';
-import Decoder from './decoder/Decoder';
-import Detector from './detector/Detector';
+import BarcodeFormat from '../BarcodeFormat.js';
+import BitMatrix from '../common/BitMatrix.js';
+import DecodeHintType from '../DecodeHintType.js';
+import NotFoundException from '../NotFoundException.js';
+import Result from '../Result.js';
+import ResultMetadataType from '../ResultMetadataType.js';
+import System from '../util/System.js';
+import Decoder from './decoder/Decoder.js';
+import Detector from './detector/Detector.js';
 /*
  * Copyright 2007 ZXing authors
  *

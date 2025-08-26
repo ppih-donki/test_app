@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /*namespace com.google.zxing.common.reedsolomon {*/
-// import GenericGF from './GenericGF';
-import AbstractGenericGF from './AbstractGenericGF';
+// import GenericGF from './GenericGF.js';
+import AbstractGenericGF from './AbstractGenericGF.js';
 /**
  * <p>Represents a polynomial whose coefficients are elements of a GF.
  * Instances of this class are immutable.</p>

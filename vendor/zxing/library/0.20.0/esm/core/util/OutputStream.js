@@ -1,5 +1,5 @@
-import IndexOutOfBoundsException from '../IndexOutOfBoundsException';
-import NullPointerException from '../NullPointerException';
+import IndexOutOfBoundsException from '../IndexOutOfBoundsException.js';
+import NullPointerException from '../NullPointerException.js';
 /*
  * Copyright (c) 1994, 2004, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.

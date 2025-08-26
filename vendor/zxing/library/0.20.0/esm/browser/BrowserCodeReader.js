@@ -45,14 +45,14 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import ArgumentException from '../core/ArgumentException';
-import BinaryBitmap from '../core/BinaryBitmap';
-import ChecksumException from '../core/ChecksumException';
-import HybridBinarizer from '../core/common/HybridBinarizer';
-import FormatException from '../core/FormatException';
-import NotFoundException from '../core/NotFoundException';
-import { HTMLCanvasElementLuminanceSource } from './HTMLCanvasElementLuminanceSource';
-import { VideoInputDevice } from './VideoInputDevice';
+import ArgumentException from '../core/ArgumentException.js';
+import BinaryBitmap from '../core/BinaryBitmap.js';
+import ChecksumException from '../core/ChecksumException.js';
+import HybridBinarizer from '../core/common/HybridBinarizer.js';
+import FormatException from '../core/FormatException.js';
+import NotFoundException from '../core/NotFoundException.js';
+import { HTMLCanvasElementLuminanceSource } from './HTMLCanvasElementLuminanceSource.js';
+import { VideoInputDevice } from './VideoInputDevice.js';
 /**
  * @deprecated Moving to @zxing/browser
  *

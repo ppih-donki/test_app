@@ -1,5 +1,5 @@
-import StringBuilder from '../../util/StringBuilder';
-import { ALOG, FACTORS, FACTOR_SETS, LOG } from './constants';
+import StringBuilder from '../../util/StringBuilder.js';
+import { ALOG, FACTORS, FACTOR_SETS, LOG } from './constants.js';
 /**
  * Error Correction Code for ECC200.
  */

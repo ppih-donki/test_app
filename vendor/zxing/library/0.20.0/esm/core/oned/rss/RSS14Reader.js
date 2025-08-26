@@ -22,20 +22,20 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import AbstractRSSReader from './AbstractRSSReader';
-import Pair from './Pair';
-import Result from '../../Result';
-import DecodeHintType from '../../DecodeHintType';
-import NotFoundException from '../../NotFoundException';
-import StringBuilder from '../../util/StringBuilder';
-import BarcodeFormat from '../../BarcodeFormat';
-import ResultPoint from '../../ResultPoint';
-import FinderPattern from './FinderPattern';
-import DataCharacter from './DataCharacter';
-import MathUtils from '../../common/detector/MathUtils';
-import RSSUtils from './RSSUtils';
-import System from '../../util/System';
-import OneDReader from '../OneDReader';
+import AbstractRSSReader from './AbstractRSSReader.js';
+import Pair from './Pair.js';
+import Result from '../../Result.js';
+import DecodeHintType from '../../DecodeHintType.js';
+import NotFoundException from '../../NotFoundException.js';
+import StringBuilder from '../../util/StringBuilder.js';
+import BarcodeFormat from '../../BarcodeFormat.js';
+import ResultPoint from '../../ResultPoint.js';
+import FinderPattern from './FinderPattern.js';
+import DataCharacter from './DataCharacter.js';
+import MathUtils from '../../common/detector/MathUtils.js';
+import RSSUtils from './RSSUtils.js';
+import System from '../../util/System.js';
+import OneDReader from '../OneDReader.js';
 var RSS14Reader = /** @class */ (function (_super) {
     __extends(RSS14Reader, _super);
     function RSS14Reader() {

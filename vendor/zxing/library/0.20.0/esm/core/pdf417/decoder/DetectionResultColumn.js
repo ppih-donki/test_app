@@ -26,8 +26,8 @@ var __values = (this && this.__values) || function(o) {
 };
 // package com.google.zxing.pdf417.decoder;
 // import java.util.Formatter;
-import Formatter from '../../util/Formatter';
-import BoundingBox from './BoundingBox';
+import Formatter from '../../util/Formatter.js';
+import BoundingBox from './BoundingBox.js';
 /**
  * @author Guenther Grau
  */

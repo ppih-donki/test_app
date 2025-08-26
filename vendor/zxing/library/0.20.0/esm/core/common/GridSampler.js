@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import NotFoundException from '../NotFoundException';
+import NotFoundException from '../NotFoundException.js';
 /**
  * Implementations of this class can, given locations of finder patterns for a QR code in an
  * image, sample the right points in the image to reconstruct the QR code, accounting for

@@ -1,6 +1,6 @@
-import { ECIEncoderSet } from './ECIEncoderSet';
-import Integer from '../util/Integer';
-import StringBuilder from '../util/StringBuilder';
+import { ECIEncoderSet } from './ECIEncoderSet.js';
+import Integer from '../util/Integer.js';
+import StringBuilder from '../util/StringBuilder.js';
 var COST_PER_ECI = 3; // approximated (latch + 2 codewords)
 var MinimalECIInput = /** @class */ (function () {
     /**

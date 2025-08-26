@@ -26,9 +26,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import OneDReader from './OneDReader';
-import NotFoundException from '../NotFoundException';
-import FormatException from '../FormatException';
+import OneDReader from './OneDReader.js';
+import NotFoundException from '../NotFoundException.js';
+import FormatException from '../FormatException.js';
 /**
  * <p>Encapsulates functionality and implementation that is common to UPC and EAN families
  * of one-dimensional barcodes.</p>

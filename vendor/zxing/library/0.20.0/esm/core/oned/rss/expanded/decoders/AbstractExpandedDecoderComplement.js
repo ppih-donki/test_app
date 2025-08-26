@@ -1,12 +1,12 @@
-import IllegalStateException from '../../../../IllegalStateException';
-import GeneralAppIdDecoder from './GeneralAppIdDecoder';
-import AI01AndOtherAIs from './AI01AndOtherAIs';
-import AnyAIDecoder from './AnyAIDecoder';
-import AI013103decoder from './AI013103decoder';
-import AI01320xDecoder from './AI01320xDecoder';
-import AI01392xDecoder from './AI01392xDecoder';
-import AI01393xDecoder from './AI01393xDecoder';
-import AI013x0x1xDecoder from './AI013x0x1xDecoder';
+import IllegalStateException from '../../../../IllegalStateException.js';
+import GeneralAppIdDecoder from './GeneralAppIdDecoder.js';
+import AI01AndOtherAIs from './AI01AndOtherAIs.js';
+import AnyAIDecoder from './AnyAIDecoder.js';
+import AI013103decoder from './AI013103decoder.js';
+import AI01320xDecoder from './AI01320xDecoder.js';
+import AI01392xDecoder from './AI01392xDecoder.js';
+import AI01393xDecoder from './AI01393xDecoder.js';
+import AI013x0x1xDecoder from './AI013x0x1xDecoder.js';
 export function createDecoder(information) {
     try {
         if (information.get(1)) {

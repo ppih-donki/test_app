@@ -15,10 +15,10 @@
  */
 /*namespace com.google.zxing.common {*/
 /*import java.util.Arrays;*/
-import IllegalArgumentException from '../IllegalArgumentException';
-import Arrays from '../util/Arrays';
-import Integer from '../util/Integer';
-import System from '../util/System';
+import IllegalArgumentException from '../IllegalArgumentException.js';
+import Arrays from '../util/Arrays.js';
+import Integer from '../util/Integer.js';
+import System from '../util/System.js';
 /**
  * <p>A simple, fast array of bits, represented compactly by an array of ints internally.</p>
  *

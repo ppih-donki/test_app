@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Version from './Version';
-import FormatInformation from './FormatInformation';
-import DataMask from './DataMask';
-import FormatException from '../../FormatException';
+import Version from './Version.js';
+import FormatInformation from './FormatInformation.js';
+import DataMask from './DataMask.js';
+import FormatException from '../../FormatException.js';
 /**
  * @author Sean Owen
  */

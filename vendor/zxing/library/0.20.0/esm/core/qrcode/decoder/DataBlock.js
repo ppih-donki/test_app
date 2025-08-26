@@ -24,7 +24,7 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import IllegalArgumentException from '../../IllegalArgumentException';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 /**
  * <p>Encapsulates a block of data within a QR Code. QR Codes may split their data into
  * multiple blocks, each of which is a unit of data and error-correction codewords. Each

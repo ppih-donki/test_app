@@ -25,9 +25,9 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 // package com.google.zxing.pdf417.decoder.ec;
-import IllegalArgumentException from '../../../IllegalArgumentException';
-import System from '../../../util/System';
-import StringBuilder from '../../../util/StringBuilder';
+import IllegalArgumentException from '../../../IllegalArgumentException.js';
+import System from '../../../util/System.js';
+import StringBuilder from '../../../util/StringBuilder.js';
 /**
  * @author Sean Owen
  * @see com.google.zxing.common.reedsolomon.GenericGFPoly

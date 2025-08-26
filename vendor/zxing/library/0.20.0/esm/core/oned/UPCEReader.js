@@ -37,10 +37,10 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import UPCEANReader from './UPCEANReader';
-import StringBuilder from '../util/StringBuilder';
-import NotFoundException from '../NotFoundException';
-import BarcodeFormat from '../BarcodeFormat';
+import UPCEANReader from './UPCEANReader.js';
+import StringBuilder from '../util/StringBuilder.js';
+import NotFoundException from '../NotFoundException.js';
+import BarcodeFormat from '../BarcodeFormat.js';
 // package com.google.zxing.oned;
 // import com.google.zxing.BarcodeFormat;
 // import com.google.zxing.FormatException;

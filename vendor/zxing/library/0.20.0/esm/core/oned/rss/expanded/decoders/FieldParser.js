@@ -9,7 +9,7 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-import NotFoundException from '../../../../NotFoundException';
+import NotFoundException from '../../../../NotFoundException.js';
 var FieldParser = /** @class */ (function () {
     function FieldParser() {
     }

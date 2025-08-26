@@ -1,4 +1,4 @@
-import BitArray from '../../../common/BitArray';
+import BitArray from '../../../common/BitArray.js';
 var BitArrayBuilder = /** @class */ (function () {
     function BitArrayBuilder() {
     }

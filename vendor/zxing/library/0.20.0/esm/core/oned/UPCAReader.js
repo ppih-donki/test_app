@@ -27,11 +27,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import Result from '../Result';
-import NotFoundException from '../NotFoundException';
-import EAN13Reader from './EAN13Reader';
-import UPCEANReader from './UPCEANReader';
+import BarcodeFormat from '../BarcodeFormat.js';
+import Result from '../Result.js';
+import NotFoundException from '../NotFoundException.js';
+import EAN13Reader from './EAN13Reader.js';
+import UPCEANReader from './UPCEANReader.js';
 /**
  * Encapsulates functionality and implementation that is common to all families
  * of one-dimensional barcodes.

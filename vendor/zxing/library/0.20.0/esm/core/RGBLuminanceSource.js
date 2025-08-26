@@ -28,10 +28,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 /*namespace com.google.zxing {*/
 import './InvertedLuminanceSource'; // required because of circular dependencies between LuminanceSource and InvertedLuminanceSource
-import InvertedLuminanceSource from './InvertedLuminanceSource';
-import LuminanceSource from './LuminanceSource';
-import System from './util/System';
-import IllegalArgumentException from './IllegalArgumentException';
+import InvertedLuminanceSource from './InvertedLuminanceSource.js';
+import LuminanceSource from './LuminanceSource.js';
+import System from './util/System.js';
+import IllegalArgumentException from './IllegalArgumentException.js';
 /**
  * This class is used to help decode images from files which arrive as RGB data from
  * an ARGB pixel array. It does not support rotation.

@@ -25,14 +25,14 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.qrcode.decoder {*/
-import ChecksumException from '../../ChecksumException';
-import BitMatrix from '../../common/BitMatrix';
-import GenericGF from '../../common/reedsolomon/GenericGF';
-import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder';
-import BitMatrixParser from './BitMatrixParser';
-import DataBlock from './DataBlock';
-import DecodedBitStreamParser from './DecodedBitStreamParser';
-import QRCodeDecoderMetaData from './QRCodeDecoderMetaData';
+import ChecksumException from '../../ChecksumException.js';
+import BitMatrix from '../../common/BitMatrix.js';
+import GenericGF from '../../common/reedsolomon/GenericGF.js';
+import ReedSolomonDecoder from '../../common/reedsolomon/ReedSolomonDecoder.js';
+import BitMatrixParser from './BitMatrixParser.js';
+import DataBlock from './DataBlock.js';
+import DecodedBitStreamParser from './DecodedBitStreamParser.js';
+import QRCodeDecoderMetaData from './QRCodeDecoderMetaData.js';
 /*import java.util.Map;*/
 /**
  * <p>The main class which implements QR Code decoding -- as opposed to locating and extracting

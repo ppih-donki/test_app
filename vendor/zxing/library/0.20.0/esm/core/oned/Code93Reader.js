@@ -38,14 +38,14 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 /*namespace com.google.zxing.oned {*/
-import BarcodeFormat from '../BarcodeFormat';
-import ChecksumException from '../ChecksumException';
-import FormatException from '../FormatException';
-import NotFoundException from '../NotFoundException';
-import OneDReader from './OneDReader';
-import Result from '../Result';
+import BarcodeFormat from '../BarcodeFormat.js';
+import ChecksumException from '../ChecksumException.js';
+import FormatException from '../FormatException.js';
+import NotFoundException from '../NotFoundException.js';
+import OneDReader from './OneDReader.js';
+import Result from '../Result.js';
 //import com.google.zxing.ResultMetadataType;
-import ResultPoint from '../ResultPoint';
+import ResultPoint from '../ResultPoint.js';
 /**
  * <p>Decodes Code 93 barcodes.</p>
  *

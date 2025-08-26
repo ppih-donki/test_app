@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import IllegalArgumentException from '../../IllegalArgumentException';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
 export var ModeValues;
 (function (ModeValues) {
     ModeValues[ModeValues["TERMINATOR"] = 0] = "TERMINATOR";

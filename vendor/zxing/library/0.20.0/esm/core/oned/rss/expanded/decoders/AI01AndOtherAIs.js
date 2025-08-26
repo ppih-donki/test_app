@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import AI01decoder from './AI01decoder';
-import StringBuilder from '../../../../util/StringBuilder';
+import AI01decoder from './AI01decoder.js';
+import StringBuilder from '../../../../util/StringBuilder.js';
 var AI01AndOtherAIs = /** @class */ (function (_super) {
     __extends(AI01AndOtherAIs, _super);
     // the second one is the encodation method, and the other two are for the variable length

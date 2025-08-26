@@ -27,11 +27,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing.common.reedsolomon {*/
-import GenericGFPoly from './GenericGFPoly';
-import AbstractGenericGF from './AbstractGenericGF';
-import Integer from '../../util/Integer';
-import IllegalArgumentException from '../../IllegalArgumentException';
-import ArithmeticException from '../../ArithmeticException';
+import GenericGFPoly from './GenericGFPoly.js';
+import AbstractGenericGF from './AbstractGenericGF.js';
+import Integer from '../../util/Integer.js';
+import IllegalArgumentException from '../../IllegalArgumentException.js';
+import ArithmeticException from '../../ArithmeticException.js';
 /**
  * <p>This class contains utility methods for performing mathematical operations over
  * the Galois Fields. Operations use a given primitive polynomial in calculations.</p>

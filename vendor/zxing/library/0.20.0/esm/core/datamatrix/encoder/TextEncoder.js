@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { C40Encoder } from './C40Encoder';
-import { TEXT_ENCODATION } from './constants';
+import { C40Encoder } from './C40Encoder.js';
+import { TEXT_ENCODATION } from './constants.js';
 var TextEncoder = /** @class */ (function (_super) {
     __extends(TextEncoder, _super);
     function TextEncoder() {

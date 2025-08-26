@@ -15,10 +15,10 @@
 */
 // package com.google.zxing.pdf417.decoder;
 // import com.google.zxing.common.detector.MathUtils;
-import MathUtils from '../../common/detector/MathUtils';
+import MathUtils from '../../common/detector/MathUtils.js';
 // import com.google.zxing.pdf417.PDF417Common;
-import PDF417Common from '../PDF417Common';
-import Float from '../../util/Float';
+import PDF417Common from '../PDF417Common.js';
+import Float from '../../util/Float.js';
 /**
  * @author Guenther Grau
  * @author creatale GmbH (christoph.schulz@creatale.de)
