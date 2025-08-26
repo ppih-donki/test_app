@@ -1,8 +1,11 @@
-
 name: Patch ZXing ESM
 
 on:
-  workflow_dispatch: {}   # 手動実行ボタン
+  workflow_dispatch: {}
+
+permissions:
+  contents: write    # ← これが無いと push できない
+
 jobs:
   patch:
     runs-on: ubuntu-latest
@@ -11,7 +14,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Pages が vendor/ を配信できるように .nojekyll を置く
       - name: Ensure .nojekyll
         run: |
           [ -f .nojekyll ] || touch .nojekyll
@@ -20,7 +22,6 @@ jobs:
         with:
           node-version: '18'
 
-      # 拡張子なしの相対 import に .js を付けるスクリプトを作成
       - name: Write patch script
         run: |
           mkdir -p tools
@@ -66,7 +67,7 @@ jobs:
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add .nojekyll tools vendor/zxing/browser/0.1.5/esm vendor/zxing/library/0.20.0/esm
-            git commit -m "chore(pages): add .nojekyll & patch ZXing ESM imports"
+            git commit -m "chore(pages): patch ZXing ESM imports"
             git push
           else
             echo "No changes to commit."
