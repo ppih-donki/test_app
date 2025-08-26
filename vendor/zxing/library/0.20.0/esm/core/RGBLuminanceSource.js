@@ -27,7 +27,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /*namespace com.google.zxing {*/
-import './InvertedLuminanceSource'; // required because of circular dependencies between LuminanceSource and InvertedLuminanceSource
+import './InvertedLuminanceSource.js'; // required because of circular dependencies between LuminanceSource and InvertedLuminanceSource
 import InvertedLuminanceSource from './InvertedLuminanceSource.js';
 import LuminanceSource from './LuminanceSource.js';
 import System from './util/System.js';
