@@ -62,10 +62,10 @@
 
 <div style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center;">
   <h1 style="font-size: 32px; margin-bottom: 16px">
-  パーソナライズされた商品を見つける
+  生成AI商品検索のテストです
   </h1>
   <p style="margin-bottom: 32px; color: #333">
-    あなたの希望や好みを入力してください。AIが最適な商品をレコメンドします。
+    質問・希望や好み・今の気分を、人と会話するようにを入力してください。AIが最適な商品をレコメンドします。
   </p>
   <div id="suggest-target" style="display: flex; gap: 8px; margin-bottom: 32px;justify-content: center;flex-wrap: wrap;">
     <div class="loading" style="width: 30px; height: 30px; border: 4px solid #cccccc; border-top-color: #0d497f; border-radius: 50%; animation: genai-spin 1s linear infinite; margin: 0 auto;"></div>
@@ -132,4 +132,5 @@ document.getElementById("rtgai-search-form").addEventListener("submit", (e) => {
   const searchText = document.getElementById("rtgai-input").value;
   generateContentForQuery(searchText);
 });
+
 </script>
