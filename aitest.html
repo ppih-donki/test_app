@@ -1,137 +1,156 @@
-<style>
-  .genai-container * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  .genai-container .genai-section {
-    padding: 1.25rem;
-  }
-  .genai-container .genai-section + .genai-section {
-    margin-top: 2.5rem;
-  }
-  .genai-container .genai-caption {
-    color: #333333;
-    font-size: 1.5rem;
-  }
-  .genai-container .genai-items {
-    margin-top: 1.25rem;
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.25rem;
-    padding-left: 0;
-  }
-  .genai-container .genai-image {
-    width: 100%;
-    height: 12.5rem;
-    object-fit: cover;
-  }
-  .genai-container .genai-item {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  .genai-container .genai-text {
-    font-size: 1rem;
-    text-align: left;
-    padding: 0.5rem 0;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .rtgai-search-submit:disabled{
-    cursor:default!important;
-    background-color: #DDDDDD!important;
-    color:black!important;
-  }
-  @keyframes genai-spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .suggest-button{
-    padding: 8px 16px;
-    border: solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-  };
-</style>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生成AI商品検索のテストです</title>
 
-<div style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center;">
-  <h1 style="font-size: 32px; margin-bottom: 16px">
-  生成AI商品検索のテストです
-  </h1>
-  <p style="margin-bottom: 32px; color: #333">
-    質問・希望・好み・今の気分など、人と会話するように入力してください。AIが最適な商品をレコメンドします。
-  </p>
-  <div id="suggest-target" style="display: flex; gap: 8px; margin-bottom: 32px;justify-content: center;flex-wrap: wrap;">
-    <div class="loading" style="width: 30px; height: 30px; border: 4px solid #cccccc; border-top-color: #0d497f; border-radius: 50%; animation: genai-spin 1s linear infinite; margin: 0 auto;"></div>
+  <!-- ▼ 検索にかからない（インデックス禁止・キャッシュ禁止・スニペット禁止）-->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+
+  <!-- ▼ キャッシュ抑止（メタ）。最終的にはサーバーヘッダー推奨 -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- ▼ 参照元を送らない（お好みで） -->
+  <meta name="referrer" content="no-referrer">
+
+  <style>
+    .genai-container * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .genai-container .genai-section {
+      padding: 1.25rem;
+    }
+    .genai-container .genai-section + .genai-section {
+      margin-top: 2.5rem;
+    }
+    .genai-container .genai-caption {
+      color: #333333;
+      font-size: 1.5rem;
+    }
+    .genai-container .genai-items {
+      margin-top: 1.25rem;
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      padding-left: 0;
+    }
+    .genai-container .genai-image {
+      width: 100%;
+      height: 12.5rem;
+      object-fit: cover;
+    }
+    .genai-container .genai-item {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .genai-container .genai-text {
+      font-size: 1rem;
+      text-align: left;
+      padding: 0.5rem 0;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rtgai-search-submit:disabled{
+      cursor:default!important;
+      background-color: #DDDDDD!important;
+      color:black!important;
+    }
+    @keyframes genai-spin {
+      to { transform: rotate(360deg); }
+    }
+    .suggest-button{
+      padding: 8px 16px;
+      border: solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+    };
+  </style>
+</head>
+<body>
+
+  <div style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center;">
+    <h1 style="font-size: 32px; margin-bottom: 16px">
+      生成AI商品検索のテストです
+    </h1>
+    <p style="margin-bottom: 32px; color: #333">
+      質問・希望・好み・今の気分など、人と会話するように入力してください。AIが最適な商品をレコメンドします。
+    </p>
+    <div id="suggest-target" style="display: flex; gap: 8px; margin-bottom: 32px;justify-content: center;flex-wrap: wrap;">
+      <div class="loading" style="width: 30px; height: 30px; border: 4px solid #cccccc; border-top-color: #0d497f; border-radius: 50%; animation: genai-spin 1s linear infinite; margin: 0 auto;"></div>
+    </div>
+    <form id="rtgai-search-form" style="display: flex; gap: 16px; margin: 0 auto 24px; max-width: 800px">
+      <input type="text" id="rtgai-input" placeholder="検索したいキーワードを入力" maxlength="100" required style="flex: 1; padding: 16px 24px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;"/>
+      <button type="submit" class="rtgai-search-submit" style="padding: 16px 32px; background: #000; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">検索</button>
+    </form>
   </div>
-  <form id="rtgai-search-form" style="display: flex; gap: 16px; margin: 0 auto 24px; max-width: 800px">
-    <input type="text" id="rtgai-input" placeholder="検索したいキーワードを入力" maxlength="100" required style="flex: 1; padding: 16px 24px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;"/>
-    <button type="submit" class="rtgai-search-submit" style="padding: 16px 32px; background: #000; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">検索</button>
-  </form>
-</div>
 
-<div id="container-target" ></div><!-- 結果表示箇所 -->
+  <div id="container-target"></div><!-- 結果表示箇所 -->
 
-<script defer src="https://agent.genai.rtoaster.jp/static/RtoasterGenAI.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  RtoasterGenAI.init('GENAI-0nym-2zw5xwy3fu4b');
-});
-
-document.addEventListener('DOMContentLoaded', async function() {
-  const suggestionsContainer = document.getElementById('suggest-target');
-  const suggestions = await RtoasterGenAI.suggest();
-  if (suggestions && Array.isArray(suggestions)) {
-    suggestionsContainer.textContent = '';
-    suggestions.forEach(suggestion => {
-      const suggestionElement = document.createElement('button');
-      suggestionElement.type = 'button';
-      suggestionElement.classList.add('suggest-button','rtgai-example-btn');
-      suggestionElement.textContent = suggestion;
-      suggestionElement.addEventListener("click", (e) => {
-        e.preventDefault();
-        document.getElementById("rtgai-input").value = suggestion;
-        generateContentForQuery(suggestion);
-      });
-      suggestionsContainer.appendChild(suggestionElement);
+  <script defer src="https://agent.genai.rtoaster.jp/static/RtoasterGenAI.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      RtoasterGenAI.init('GENAI-0nym-2zw5xwy3fu4b');
     });
-  } else {
-    // サジェスト候補の取得失敗時のエラー処理をここに記載してください。
-    suggestionsContainer.remove();
-  }
-});
 
-// GenAIによる回答を生成する際に以下のfunctionを呼び出すように実装してください
-async function generateContentForQuery(queryString) {
-  const target = document.querySelector('#container-target');
-  target.innerHTML = '<div class="loading" style="width: 60px; height: 60px; border: 8px solid #cccccc; border-top-color: #0d497f; border-radius: 50%; animation: genai-spin 1s linear infinite; margin: 50px auto;"></div>';
-  const searchSubmitButton = document.querySelector(
-    ".rtgai-search-submit"
-  );
-  if (target != null) {
-    try {
-      searchSubmitButton.disabled = true;
-      target.innerHTML = await RtoasterGenAI.generate('ek6bcx00dz12', queryString);
-    } catch (error) {
-      // エラー時に行う処理をここに記載してください
-      target.innerHTML = "";
-    } finally {
-      // 完了時に行う処理をここに記載してください
-      searchSubmitButton.disabled = false;
+    document.addEventListener('DOMContentLoaded', async function() {
+      const suggestionsContainer = document.getElementById('suggest-target');
+      const suggestions = await RtoasterGenAI.suggest();
+      if (suggestions && Array.isArray(suggestions)) {
+        suggestionsContainer.textContent = '';
+        suggestions.forEach(suggestion => {
+          const suggestionElement = document.createElement('button');
+          suggestionElement.type = 'button';
+          suggestionElement.classList.add('suggest-button','rtgai-example-btn');
+          suggestionElement.textContent = suggestion;
+          suggestionElement.addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById("rtgai-input").value = suggestion;
+            generateContentForQuery(suggestion);
+          });
+          suggestionsContainer.appendChild(suggestionElement);
+        });
+      } else {
+        // サジェスト候補の取得失敗時のエラー処理
+        suggestionsContainer.remove();
+      }
+    });
+
+    // GenAIによる回答を生成する際に以下のfunctionを呼び出すように実装してください
+    async function generateContentForQuery(queryString) {
+      const target = document.querySelector('#container-target');
+      target.innerHTML = '<div class="loading" style="width: 60px; height: 60px; border: 8px solid #cccccc; border-top-color: #0d497f; border-radius: 50%; animation: genai-spin 1s linear infinite; margin: 50px auto;"></div>';
+      const searchSubmitButton = document.querySelector(".rtgai-search-submit");
+      if (target != null) {
+        try {
+          searchSubmitButton.disabled = true;
+          target.innerHTML = await RtoasterGenAI.generate('ek6bcx00dz12', queryString);
+        } catch (error) {
+          // エラー時に行う処理
+          target.innerHTML = "";
+        } finally {
+          // 完了時に行う処理
+          searchSubmitButton.disabled = false;
+        }
+      }
     }
-  }
-}
-document.getElementById("rtgai-search-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const searchText = document.getElementById("rtgai-input").value;
-  generateContentForQuery(searchText);
-});
 
-</script>
-
+    document.getElementById("rtgai-search-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const searchText = document.getElementById("rtgai-input").value;
+      generateContentForQuery(searchText);
+    });
+  </script>
+</body>
+</html>
