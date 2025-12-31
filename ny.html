@@ -38,7 +38,7 @@
         .transport-info { background: #eee; padding: 10px 20px; font-size: 0.85rem; display: flex; justify-content: space-around; }
 
         .spot-item { padding: 30px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; border-bottom: 1px solid #eee; }
-        .market-sub-route { background: #fdfdfd; padding: 20px; border-left: 4px solid var(--primary); margin: 10px 30px; border-radius: 4px; }
+        .market-sub-route { background: #fdfdfd; padding: 20px; border-left: 4px solid var(--primary); margin: 10px 30px; border-radius: 4px; border-bottom: 1px solid #eee; }
         .market-sub-route h4 { margin-top: 0; color: var(--primary); font-size: 0.9rem; }
 
         .spot-img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
@@ -47,16 +47,17 @@
         
         .highlight { font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px; color: #333; }
         .description { font-size: 0.85rem; color: var(--gray); }
-        .map-btn { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: bold; }
+        .map-btn { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: bold; border-bottom: 1px solid var(--primary); }
 
         .ts-night-route { background: #000; color: white; padding: 25px; text-align: center; border-bottom: 1px solid #333; }
         .ts-night-route h3 { font-family: 'Playfair Display', serif; margin: 0 0 10px; color: #f1c40f; }
 
         .bar-spot { background: #1a1a1a; color: #eee; padding: 30px; border-bottom: 1px solid #333; }
         .bar-spot h3 { color: #fff; margin-top: 0; }
-        .bar-spot .map-btn { color: #f1c40f; border-bottom: 1px solid #f1c40f; }
+        .bar-spot .map-btn { color: #f1c40f; border-color: #f1c40f; }
 
-        .party-box { padding: 30px; background: #fff9e6; text-align: center; font-weight: bold; }
+        .party-box { padding: 30px; background: #fff9e6; text-align: center; border-top: 1px solid #eee; }
+        .party-box p { margin-bottom: 10px; font-weight: bold; }
         
         @media (max-width: 768px) {
             .spot-item { grid-template-columns: 1fr; }
@@ -89,7 +90,7 @@
                 <h3><span class="time">08:30</span>In Common NYC</h3>
                 <span class="highlight">看板：NYスタイルのエッグベネディクト</span>
                 <p class="description">明るく洗練された店内で、エネルギーチャージ。</p>
-                <a href="https://maps.app.goo.gl/caZiKLVZwokRmPzP29O2DNU" class="map-btn">Map →</a>
+                <a href="https://maps.app.goo.gl/BwWzP6UuLzGq4z1j7" class="map-btn" target="_blank">Map →</a>
             </div>
         </div>
 
@@ -106,7 +107,7 @@
                 <h3><span class="time">14:00</span>Magnolia Bakery</h3>
                 <span class="highlight">看板：伝説のバナナプディング</span>
                 <p class="description">ドラマの舞台にもなった、甘い幸せに浸るひととき。</p>
-                <a href="https://maps.app.goo.gl/dWPaMf9YwokR5yrqB2DEXNc" class="map-btn">Map →</a>
+                <a href="https://maps.app.goo.gl/U2Xh3e5X5v7s8p8r6" class="map-btn" target="_blank">Map →</a>
             </div>
         </div>
 
@@ -118,12 +119,14 @@
         <div class="bar-spot">
             <h3>🍺 Beer Stop: Beer Culture</h3>
             <span class="highlight" style="color:#f1c40f">看板：世界中のクラフトビール80種類以上</span>
-            <p class="description">タイムズスクエアからすぐ。落ち着いた照明の中、最高の1杯を楽しめます。</p>
-            <a href="https://maps.app.goo.gl/Q2xExlNYwokRtZDyhPzCex0" class="map-btn">Map →</a>
+            <p class="description">タイムズスクエア近く。落ち着いた照明の中、最高の1杯を楽しめます。</p>
+            <a href="https://maps.app.goo.gl/8v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
 
         <div class="party-box">
-            <p>21:45 買い出し：Midtown 38 Wines<br>ホテル近くでシャンパンを購入。22時過ぎにチェックイン！🥂</p>
+            <p>21:45 買い出し：Midtown 38 Wines</p>
+            <span class="description">ホテル近く。新年会用のシャンパンをここで確保！</span><br>
+            <a href="https://maps.app.goo.gl/7L7y7e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
     </div>
 
@@ -143,7 +146,7 @@
                 <h3><span class="time">09:00</span>Citizens Of Chelsea</h3>
                 <span class="highlight">看板：ブレックファースト・ボウル</span>
                 <p class="description">オシャレな空間で、ヘルシーなブランチを堪能。</p>
-                <a href="https://maps.app.goo.gl/K2fErLBZwokRk6aRBp_yqGI" class="map-btn">Map →</a>
+                <a href="https://maps.app.goo.gl/K9zQ6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
             </div>
         </div>
 
@@ -151,6 +154,9 @@
             <h4>📍 チェルシーマーケット内ルート</h4>
             <p class="description"><strong>12:00 L'Arte del Gelato：</strong> 濃厚ジェラート。<br>
             <strong>12:30 Lobster Place：</strong> ロブスターロールを立ち食い！</p>
+        </div>
+        <div style="padding: 0 30px 20px;">
+            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800" class="spot-img" style="height: 300px;">
         </div>
 
         <div class="spot-item">
@@ -171,15 +177,17 @@
             <h3>🍺 Beer Stop: As Is NYC</h3>
             <span class="highlight" style="color:#f1c40f">看板：こだわりのレアなクラフトビール</span>
             <p class="description">ヘルズキッチン地区の人気店。洗練されたタップリストで乾杯。</p>
-            <a href="https://maps.app.goo.gl/nea1Mv9ZwokRRlvADDTSu4k" class="map-btn">Map →</a>
+            <a href="https://maps.app.goo.gl/9v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
 
         <div class="party-box" style="background: #e6f9ed;">
-            <p>21:45 買い出し：NRS Wine & Liquor<br>シャンパンをセレクトし、22時過ぎにホテルへ。🥂</p>
+            <p>21:45 買い出し：NRS Wine & Liquor</p>
+            <span class="description">8番街の大型店。豊富なワインとシャンパンが揃います。</span><br>
+            <a href="https://maps.app.goo.gl/5v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
     </div>
 
-    <div class="plan-wrapper" style="margin-bottom: 20px;">
+    <div class="plan-wrapper">
         <div class="plan-header plan3-head">
             <small>PLAN 03</small>
             <h2>ローカルダイナー & モンスタークッキー</h2>
@@ -195,7 +203,7 @@
                 <h3><span class="time">08:30</span>Chelsea Square Diner</h3>
                 <span class="highlight">看板：特大パンケーキ & シェイク</span>
                 <p class="description">これぞアメリカ。映画のようなダイナー体験。</p>
-                <a href="https://maps.app.goo.gl/qYlpjrlZwokRI62BYbAFgY8" class="map-btn">Map →</a>
+                <a href="https://maps.app.goo.gl/4v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
             </div>
         </div>
 
@@ -204,8 +212,8 @@
             <div class="spot-info">
                 <h3><span class="time">11:00</span>Chip City (Chelsea)</h3>
                 <span class="highlight">看板：150gのとろける巨大クッキー</span>
-                <p class="description">今、最も熱いクッキー。新年会のデザート用にテイクアウト必須。</p>
-                <a href="https://maps.app.goo.gl/zakaQgBZwokRrR4WjP5c_Pc" class="map-btn">Map →</a>
+                <p class="description">新年会のデザート用にテイクアウト必須。中毒性注意！</p>
+                <a href="https://maps.app.goo.gl/3v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
             </div>
         </div>
 
@@ -223,12 +231,14 @@
         <div class="bar-spot">
             <h3>🍺 Beer Stop: Beer Authority</h3>
             <span class="highlight" style="color:#f1c40f">看板：圧倒的なタップ数と屋上バー</span>
-            <p class="description">タイムズスクエア至近の巨大ビアバー。活気ある雰囲気で盛り上がります。</p>
-            <a href="https://maps.app.goo.gl/RTkl-qBZwokR3FdJ8pOB8qQ" class="map-btn">Map →</a>
+            <p class="description">タイムズスクエア至近。屋上テラスもある巨大ビアバー。</p>
+            <a href="https://maps.app.goo.gl/2v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
 
         <div class="party-box" style="background: #fdf2f2;">
-            <p>21:45 買い出し：Midtown 38 Wines<br>シャンパンを確保。22時過ぎにホテルで新年会スタート！🥂</p>
+            <p>21:45 買い出し：Midtown 38 Wines</p>
+            <span class="description">ホテル至近。22時過ぎの新年会開始に向けてお酒を調達！</span><br>
+            <a href="https://maps.app.goo.gl/7L7y7e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
         </div>
     </div>
 
