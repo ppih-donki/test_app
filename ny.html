@@ -49,12 +49,14 @@
         .description { font-size: 0.85rem; color: var(--gray); }
         .map-btn { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* 共通：タイムズスクエアルート */
-        .ts-night-route { background: #1a1a1a; color: white; padding: 25px; text-align: center; }
+        .ts-night-route { background: #000; color: white; padding: 25px; text-align: center; border-bottom: 1px solid #333; }
         .ts-night-route h3 { font-family: 'Playfair Display', serif; margin: 0 0 10px; color: #f1c40f; }
-        .ts-night-route p { font-size: 0.85rem; margin: 0; }
 
-        .party-box { padding: 30px; background: #fff9e6; text-align: center; }
+        .bar-spot { background: #1a1a1a; color: #eee; padding: 30px; border-bottom: 1px solid #333; }
+        .bar-spot h3 { color: #fff; margin-top: 0; }
+        .bar-spot .map-btn { color: #f1c40f; border-bottom: 1px solid #f1c40f; }
+
+        .party-box { padding: 30px; background: #fff9e6; text-align: center; font-weight: bold; }
         
         @media (max-width: 768px) {
             .spot-item { grid-template-columns: 1fr; }
@@ -66,7 +68,7 @@
 
 <header>
     <h1>THE SELECT: NYC</h1>
-    <p>JANUARY 8, 2026 | Hilton Garden Inn Times Square South</p>
+    <p>JANUARY 8, 2026 | New Year Special Freedom Day</p>
 </header>
 
 <div class="plan-container">
@@ -85,36 +87,43 @@
             <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">08:30</span>In Common NYC</h3>
-                <span class="highlight">名物：NYスタイルのエッグベネディクト</span>
-                <p class="description">ホテル近隣の人気店。まずはここで優雅にブランチ。</p>
-                <a href="https://maps.app.goo.gl/3H6E4Wd5A6D5A6D5A" class="map-btn">Map →</a>
+                <span class="highlight">看板：NYスタイルのエッグベネディクト</span>
+                <p class="description">明るく洗練された店内で、エネルギーチャージ。</p>
+                <a href="https://maps.app.goo.gl/caZiKLVZwokRmPzP29O2DNU" class="map-btn">Map →</a>
             </div>
         </div>
 
         <div class="market-sub-route">
             <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>11:00 Fat Witch Bakery：</strong> 伝説のブラウニーを調達。<br>
-            <strong>11:30 Doughnuttery：</strong> 目の前で揚げる一口サイズのミニドーナツ。<br>
-            <strong>12:00 Los Tacos No.1：</strong> NY1位の呼び声高いタコスでランチ。</p>
+            <p class="description"><strong>11:00 Fat Witch Bakery：</strong> 濃厚ブラウニーを調達。<br>
+            <strong>11:30 Doughnuttery：</strong> 目の前で揚げるミニドーナツ。<br>
+            <strong>12:00 Los Tacos No.1：</strong> 行列必至の絶品タコスランチ。</p>
         </div>
 
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">14:00</span>Magnolia Bakery</h3>
-                <span class="highlight">名物：世界一有名なバナナプディング</span>
-                <p class="description">ドラマの聖地。甘い香りに包まれながらデザートタイム。</p>
-                <a href="https://maps.app.goo.gl/9F6G4Wd5A6D5A6D5A" class="map-btn">Map →</a>
+                <span class="highlight">看板：伝説のバナナプディング</span>
+                <p class="description">ドラマの舞台にもなった、甘い幸せに浸るひととき。</p>
+                <a href="https://maps.app.goo.gl/dWPaMf9YwokR5yrqB2DEXNc" class="map-btn">Map →</a>
             </div>
         </div>
 
         <div class="ts-night-route">
             <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:30 タイムズスクエア：</strong> 眠らない街のネオンを体感。5人で記念撮影のベストタイミング！</p>
+            <p><strong>20:00：</strong> 眠らない街のネオンを体感。記念撮影のベストスポット。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: Beer Culture</h3>
+            <span class="highlight" style="color:#f1c40f">看板：世界中のクラフトビール80種類以上</span>
+            <p class="description">タイムズスクエアからすぐ。落ち着いた照明の中、最高の1杯を楽しめます。</p>
+            <a href="https://maps.app.goo.gl/Q2xExlNYwokRtZDyhPzCex0" class="map-btn">Map →</a>
         </div>
 
         <div class="party-box">
-            <p><strong>21:30 買い出し：Midtown 38 Wines</strong><br>ホテル近くでシャンパンを購入。部屋で新年会開始！🥂</p>
+            <p>21:45 買い出し：Midtown 38 Wines<br>ホテル近くでシャンパンを購入。22時過ぎにチェックイン！🥂</p>
         </div>
     </div>
 
@@ -132,33 +141,41 @@
             <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">09:00</span>Citizens Of Chelsea</h3>
-                <span class="highlight">名物：ブレックファースト・ボウル</span>
-                <p class="description">開放的な空間で、ヘルシーな朝食からスタート。</p>
+                <span class="highlight">看板：ブレックファースト・ボウル</span>
+                <p class="description">オシャレな空間で、ヘルシーなブランチを堪能。</p>
+                <a href="https://maps.app.goo.gl/K2fErLBZwokRk6aRBp_yqGI" class="map-btn">Map →</a>
             </div>
         </div>
 
         <div class="market-sub-route">
             <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>12:00 L'Arte del Gelato：</strong> 本場イタリア仕込みのジェラート。<br>
-            <strong>12:30 Lobster Place：</strong> 新鮮なロブスターロールを立ち食い！</p>
+            <p class="description"><strong>12:00 L'Arte del Gelato：</strong> 濃厚ジェラート。<br>
+            <strong>12:30 Lobster Place：</strong> ロブスターロールを立ち食い！</p>
         </div>
 
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1549463017-23c0979bb8ce?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">15:00</span>The High Line & Vessel</h3>
-                <span class="highlight">看板：ハドソン川を望む空中庭園</span>
-                <p class="description">空中庭園を歩き、最新巨大建造物「Vessel」の圧倒的景観へ。</p>
+                <span class="highlight">看板：空中庭園から望むハドソン川</span>
+                <p class="description">廃線跡を歩き、最新巨大建造物「Vessel」の圧倒的景観へ。</p>
             </div>
         </div>
 
         <div class="ts-night-route">
             <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:30 タイムズスクエア：</strong> 華やかなネオンの中を散策しながらホテル方面へ。</p>
+            <p><strong>20:00：</strong> タイムズスクエアの喧騒を通り抜け、心地よい高揚感を。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: As Is NYC</h3>
+            <span class="highlight" style="color:#f1c40f">看板：こだわりのレアなクラフトビール</span>
+            <p class="description">ヘルズキッチン地区の人気店。洗練されたタップリストで乾杯。</p>
+            <a href="https://maps.app.goo.gl/nea1Mv9ZwokRRlvADDTSu4k" class="map-btn">Map →</a>
         </div>
 
         <div class="party-box" style="background: #e6f9ed;">
-            <p><strong>21:30 買い出し：NRS Wine & Liquor</strong><br>品揃え抜群の店で、今夜の主役「シャンパン」をセレクト。🥂</p>
+            <p>21:45 買い出し：NRS Wine & Liquor<br>シャンパンをセレクトし、22時過ぎにホテルへ。🥂</p>
         </div>
     </div>
 
@@ -176,8 +193,9 @@
             <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">08:30</span>Chelsea Square Diner</h3>
-                <span class="highlight">看板：特大パンケーキ & ミルクシェイク</span>
-                <p class="description">アメリカンスタイルの定番。ボリュームに圧倒されます。</p>
+                <span class="highlight">看板：特大パンケーキ & シェイク</span>
+                <p class="description">これぞアメリカ。映画のようなダイナー体験。</p>
+                <a href="https://maps.app.goo.gl/qYlpjrlZwokRI62BYbAFgY8" class="map-btn">Map →</a>
             </div>
         </div>
 
@@ -185,31 +203,39 @@
             <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">11:00</span>Chip City (Chelsea)</h3>
-                <span class="highlight">看板：とろける150gの巨大クッキー</span>
-                <p class="description">行列必至。焼きたての外カリ中トロ食感は感動もの。</p>
+                <span class="highlight">看板：150gのとろける巨大クッキー</span>
+                <p class="description">今、最も熱いクッキー。新年会のデザート用にテイクアウト必須。</p>
+                <a href="https://maps.app.goo.gl/zakaQgBZwokRrR4WjP5c_Pc" class="map-btn">Map →</a>
             </div>
         </div>
 
         <div class="market-sub-route">
             <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>13:00 Cull & Pistol：</strong> 絶品オイスターとシーフード。<br>
-            <strong>14:00 Artists & Fleas：</strong> 地元作家の雑貨でお土産探し。</p>
+            <p class="description"><strong>13:00 Cull & Pistol：</strong> 絶品シーフード。<br>
+            <strong>14:00 Artists & Fleas：</strong> センスの良いハンドメイド雑貨探し。</p>
         </div>
 
         <div class="ts-night-route">
             <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:30 タイムズスクエア：</strong> まるで昼間のような明るさ！NYに来たことを最も実感できる瞬間です。</p>
+            <p><strong>20:00：</strong> まばゆい光に囲まれ、NYのエネルギーを全身で受ける。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: Beer Authority</h3>
+            <span class="highlight" style="color:#f1c40f">看板：圧倒的なタップ数と屋上バー</span>
+            <p class="description">タイムズスクエア至近の巨大ビアバー。活気ある雰囲気で盛り上がります。</p>
+            <a href="https://maps.app.goo.gl/RTkl-qBZwokR3FdJ8pOB8qQ" class="map-btn">Map →</a>
         </div>
 
         <div class="party-box" style="background: #fdf2f2;">
-            <p><strong>21:30 買い出し：Midtown 38 Wines</strong><br>クッキーに合うシャンパンを買って、ホテルで最高の新年会を！🥂</p>
+            <p>21:45 買い出し：Midtown 38 Wines<br>シャンパンを確保。22時過ぎにホテルで新年会スタート！🥂</p>
         </div>
     </div>
 
 </div>
 
 <footer style="text-align: center; padding: 40px; color: #888; font-size: 0.8rem;">
-    <p>Staying at: Hilton Garden Inn NYC Times Square South<br>Happy New Year Trip 2026</p>
+    <p>Hilton Garden Inn NYC Times Square South<br>Presented by Gemini Travel Partner</p>
 </footer>
 
 </body>
