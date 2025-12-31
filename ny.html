@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Freedom Day Plans - Jan 8th</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Gold */
+            --secondary-color: #1a1a1a; /* Black */
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .plan-content {
+            padding: 25px;
+        }
+
+        .plan-tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            font-size: 0.95rem;
+        }
+
+        .timeline li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .plan-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The NYC Select</h1>
+    <p>2026.01.08 | Special One-Day Itinerary</p>
+</header>
+
+<div class="container">
+    <div class="intro">
+        <h2>5名で行く、最高にニューヨークらしい1日を。</h2>
+        <p>「チェルシーマーケット」を軸に、女性も男性も楽しめる3つのスタイルをご提案します。</p>
+    </div>
+
+    <div class="plan-grid">
+        <div class="plan-card">
+            <div class="plan-img" style="background-image: url('https://images.unsplash.com/photo-1541412823149-6573168b4d28?auto=format&fit=crop&w=500&q=80');"></div>
+            <div class="plan-content">
+                <span class="plan-tag">王道・トレンド</span>
+                <div class="plan-title">Plan A: NYスイーツ・コンプリート</div>
+                <ul class="timeline">
+                    <li><strong>08:30</strong> In Common NYC (Breakfast)</li>
+                    <li><strong>11:00</strong> Chelsea Market (Fat Witch & Doughnuttery)</li>
+                    <li><strong>14:00</strong> Magnolia Bakery (Cupcake)</li>
+                    <li><strong>18:00</strong> The Bronx Brewery (Craft Beer)</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Point:</strong> 雑誌やSNSの定番を網羅！初めてのNYならこのコースが一番。
+                </div>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-img" style="background-image: url('https://images.unsplash.com/photo-1546706887-9e0b09dec82c?auto=format&fit=crop&w=500&q=80');"></div>
+            <div class="plan-content">
+                <span class="plan-tag">アート・大人散策</span>
+                <div class="plan-title">Plan B: アートとこだわりグルメ</div>
+                <ul class="timeline">
+                    <li><strong>09:00</strong> Citizens Of Chelsea (Brunch)</li>
+                    <li><strong>12:00</strong> Chelsea Market (Li-Lac Chocolates)</li>
+                    <li><strong>15:00</strong> The High Line (Walk)</li>
+                    <li><strong>18:30</strong> Milk & Hops (Beer & Cheese)</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Point:</strong> 落ち着いたNYを味わいたい方へ。上質なチョコとビールを。
+                </div>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-img" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80');"></div>
+            <div class="plan-content">
+                <span class="plan-tag">ローカル・賑やか</span>
+                <div class="plan-title">Plan C: NYローカル体験コース</div>
+                <ul class="timeline">
+                    <li><strong>08:30</strong> Chelsea Square Diner (Pancakes)</li>
+                    <li><strong>11:00</strong> Chip City (Giant Cookies)</li>
+                    <li><strong>13:00</strong> Chelsea Market & The Donut Pub</li>
+                    <li><strong>19:00</strong> NY Beer Dispensary (Local Beer)</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Point:</strong> 地元民に愛されるダイナーと、今一番熱い巨大クッキーを。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Hilton Garden Inn Times Square South | New Year Celebration 2026</p>
+</footer>
+
+</body>
+</html>
 
