@@ -16,53 +16,31 @@
             --plan3-accent: #e74c3c;
         }
         body { font-family: 'Noto Sans JP', sans-serif; color: var(--black); margin: 0; background: #f8f9fa; line-height: 1.7; }
-        
         header { padding: 40px 20px; text-align: center; background: white; border-bottom: 2px solid var(--primary); }
         header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; letter-spacing: 2px; }
-
         .plan-container { max-width: 900px; margin: 30px auto; padding: 0 15px; }
-        
-        .plan-wrapper { 
-            background: white; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            margin-bottom: 80px; 
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
+        .plan-wrapper { background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 80px; overflow: hidden; border: 1px solid var(--border); }
         .plan-header { padding: 30px; color: white; text-align: center; }
         .plan1-head { background: var(--plan1-accent); }
         .plan2-head { background: var(--plan2-accent); }
         .plan3-head { background: var(--plan3-accent); }
-
-        .transport-info { background: #eee; padding: 10px 20px; font-size: 0.85rem; display: flex; justify-content: space-around; }
-
         .spot-item { padding: 30px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; border-bottom: 1px solid #eee; }
-        .market-sub-route { background: #fdfdfd; padding: 20px; border-left: 4px solid var(--primary); margin: 10px 30px; border-radius: 4px; border-bottom: 1px solid #eee; }
-        .market-sub-route h4 { margin-top: 0; color: var(--primary); font-size: 0.9rem; }
-
         .spot-img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
         .spot-info h3 { margin: 0 0 10px; font-size: 1.2rem; }
         .time { color: var(--primary); font-weight: bold; margin-right: 10px; }
-        
         .highlight { font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px; color: #333; }
-        .description { font-size: 0.85rem; color: var(--gray); }
-        .map-btn { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: bold; border-bottom: 1px solid var(--primary); }
-
-        .ts-night-route { background: #000; color: white; padding: 25px; text-align: center; border-bottom: 1px solid #333; }
-        .ts-night-route h3 { font-family: 'Playfair Display', serif; margin: 0 0 10px; color: #f1c40f; }
-
-        .bar-spot { background: #1a1a1a; color: #eee; padding: 30px; border-bottom: 1px solid #333; }
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        .map-btn, .photo-btn { font-size: 0.8rem; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; border: 1px solid var(--primary); transition: 0.3s; }
+        .map-btn { color: white; background: var(--primary); }
+        .photo-btn { color: var(--primary); background: white; }
+        .map-btn:hover { opacity: 0.8; }
+        .photo-btn:hover { background: var(--primary); color: white; }
+        .market-sub-route { background: #fdfdfd; padding: 20px; border-left: 4px solid var(--primary); margin: 10px 30px; border-radius: 4px; }
+        .ts-night-route { background: #000; color: white; padding: 25px; text-align: center; }
+        .bar-spot { background: #1a1a1a; color: #eee; padding: 30px; border-top: 1px solid #333; }
         .bar-spot h3 { color: #fff; margin-top: 0; }
-        .bar-spot .map-btn { color: #f1c40f; border-color: #f1c40f; }
-
         .party-box { padding: 30px; background: #fff9e6; text-align: center; border-top: 1px solid #eee; }
-        .party-box p { margin-bottom: 10px; font-weight: bold; }
-        
-        @media (max-width: 768px) {
-            .spot-item { grid-template-columns: 1fr; }
-            .market-sub-route { margin: 10px 15px; }
-        }
+        @media (max-width: 768px) { .spot-item { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -75,178 +53,116 @@
 <div class="plan-container">
 
     <div class="plan-wrapper">
-        <div class="plan-header plan1-head">
-            <small>PLAN 01</small>
-            <h2>王道トレンド・スイーツ制覇</h2>
-        </div>
-        <div class="transport-info">
-            <span>🚇 地下鉄利用: $2.90</span>
-            <span>🚕 Uber/Taxi: 約$15〜25/台</span>
-        </div>
-
+        <div class="plan-header plan1-head"><h2>プラン01：王道トレンド</h2></div>
+        
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">08:30</span>In Common NYC</h3>
-                <span class="highlight">看板：NYスタイルのエッグベネディクト</span>
-                <p class="description">明るく洗練された店内で、エネルギーチャージ。</p>
-                <a href="https://maps.app.goo.gl/BwWzP6UuLzGq4z1j7" class="map-btn" target="_blank">Map →</a>
+                <span class="highlight">看板：エッグベネディクト</span>
+                <div class="btn-group">
+                    <a href="https://maps.google.com/?q=In+Common+NYC" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/In+Common+NYC/@40.753835,-73.996243,17z/data=!3m1!4b1!4m2!11m1!2s" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
             </div>
         </div>
 
         <div class="market-sub-route">
-            <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>11:00 Fat Witch Bakery：</strong> 濃厚ブラウニーを調達。<br>
-            <strong>11:30 Doughnuttery：</strong> 目の前で揚げるミニドーナツ。<br>
-            <strong>12:00 Los Tacos No.1：</strong> 行列必至の絶品タコスランチ。</p>
-        </div>
-
-        <div class="spot-item">
-            <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500" class="spot-img">
-            <div class="spot-info">
-                <h3><span class="time">14:00</span>Magnolia Bakery</h3>
-                <span class="highlight">看板：伝説のバナナプディング</span>
-                <p class="description">ドラマの舞台にもなった、甘い幸せに浸るひととき。</p>
-                <a href="https://maps.app.goo.gl/U2Xh3e5X5v7s8p8r6" class="map-btn" target="_blank">Map →</a>
-            </div>
-        </div>
-
-        <div class="ts-night-route">
-            <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:00：</strong> 眠らない街のネオンを体感。記念撮影のベストスポット。</p>
+            <h4>📍 チェルシーマーケット内</h4>
+            <p><strong>Fat Witch Bakery</strong> / <strong>Doughnuttery</strong> / <strong>Los Tacos No.1</strong></p>
+            <a href="https://www.google.com/maps/search/Chelsea+Market+Food" class="photo-btn" target="_blank">📷 マーケットの写真を見る</a>
         </div>
 
         <div class="bar-spot">
             <h3>🍺 Beer Stop: Beer Culture</h3>
-            <span class="highlight" style="color:#f1c40f">看板：世界中のクラフトビール80種類以上</span>
-            <p class="description">タイムズスクエア近く。落ち着いた照明の中、最高の1杯を楽しめます。</p>
-            <a href="https://maps.app.goo.gl/8v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <div class="btn-group">
+                <a href="https://maps.google.com/?q=Beer+Culture+NYC" class="map-btn" target="_blank">Map</a>
+                <a href="https://www.google.com/maps/search/Beer+Culture+NYC" class="photo-btn" target="_blank">📷 写真</a>
+            </div>
         </div>
 
         <div class="party-box">
             <p>21:45 買い出し：Midtown 38 Wines</p>
-            <span class="description">ホテル近く。新年会用のシャンパンをここで確保！</span><br>
-            <a href="https://maps.app.goo.gl/7L7y7e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <a href="https://maps.google.com/?q=Midtown+38+Wines" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
     <div class="plan-wrapper">
-        <div class="plan-header plan2-head">
-            <small>PLAN 02</small>
-            <h2>最先端ウォーターフロント & 絶景散策</h2>
-        </div>
-        <div class="transport-info">
-            <span>🚶 徒歩中心 (ハイライン散策含)</span>
-            <span>🚕 Uber: 約$15〜20/台</span>
-        </div>
-
+        <div class="plan-header plan2-head"><h2>プラン02：ウォーターフロント</h2></div>
+        
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">09:00</span>Citizens Of Chelsea</h3>
-                <span class="highlight">看板：ブレックファースト・ボウル</span>
-                <p class="description">オシャレな空間で、ヘルシーなブランチを堪能。</p>
-                <a href="https://maps.app.goo.gl/K9zQ6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+                <div class="btn-group">
+                    <a href="https://maps.google.com/?q=Citizens+Of+Chelsea" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/Citizens+Of+Chelsea" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
             </div>
         </div>
 
-        <div class="market-sub-route">
-            <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>12:00 L'Arte del Gelato：</strong> 濃厚ジェラート。<br>
-            <strong>12:30 Lobster Place：</strong> ロブスターロールを立ち食い！</p>
-        </div>
-        <div style="padding: 0 30px 20px;">
-            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800" class="spot-img" style="height: 300px;">
-        </div>
-
-        <div class="spot-item">
-            <img src="https://images.unsplash.com/photo-1549463017-23c0979bb8ce?w=500" class="spot-img">
-            <div class="spot-info">
-                <h3><span class="time">15:00</span>The High Line & Vessel</h3>
-                <span class="highlight">看板：空中庭園から望むハドソン川</span>
-                <p class="description">廃線跡を歩き、最新巨大建造物「Vessel」の圧倒的景観へ。</p>
+        <div style="padding: 20px 30px;">
+            <span class="highlight">12:30 Lobster Place：ロブスターロール</span>
+            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800" class="spot-img" style="height: 250px; margin-bottom:10px;">
+            <div class="btn-group">
+                <a href="https://www.google.com/maps/search/Lobster+Place+Chelsea+Market" class="photo-btn" target="_blank">📷 実際のロブスター写真を見る</a>
             </div>
-        </div>
-
-        <div class="ts-night-route">
-            <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:00：</strong> タイムズスクエアの喧騒を通り抜け、心地よい高揚感を。</p>
         </div>
 
         <div class="bar-spot">
             <h3>🍺 Beer Stop: As Is NYC</h3>
-            <span class="highlight" style="color:#f1c40f">看板：こだわりのレアなクラフトビール</span>
-            <p class="description">ヘルズキッチン地区の人気店。洗練されたタップリストで乾杯。</p>
-            <a href="https://maps.app.goo.gl/9v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <div class="btn-group">
+                <a href="https://maps.google.com/?q=As+Is+NYC" class="map-btn" target="_blank">Map</a>
+                <a href="https://www.google.com/maps/search/As+Is+NYC" class="photo-btn" target="_blank">📷 写真</a>
+            </div>
         </div>
 
         <div class="party-box" style="background: #e6f9ed;">
             <p>21:45 買い出し：NRS Wine & Liquor</p>
-            <span class="description">8番街の大型店。豊富なワインとシャンパンが揃います。</span><br>
-            <a href="https://maps.app.goo.gl/5v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <a href="https://maps.google.com/?q=NRS+Wine+%26+Liquor" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
     <div class="plan-wrapper">
-        <div class="plan-header plan3-head">
-            <small>PLAN 03</small>
-            <h2>ローカルダイナー & モンスタークッキー</h2>
-        </div>
-        <div class="transport-info">
-            <span>🚕 Uber推奨: 寒さ対策に</span>
-            <span>🚇 地下鉄利用: $2.90</span>
-        </div>
-
+        <div class="plan-header plan3-head"><h2>プラン03：ローカル体験</h2></div>
+        
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500" class="spot-img">
             <div class="spot-info">
                 <h3><span class="time">08:30</span>Chelsea Square Diner</h3>
-                <span class="highlight">看板：特大パンケーキ & シェイク</span>
-                <p class="description">これぞアメリカ。映画のようなダイナー体験。</p>
-                <a href="https://maps.app.goo.gl/4v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+                <div class="btn-group">
+                    <a href="https://maps.google.com/?q=Chelsea+Square+Diner" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/Chelsea+Square+Diner" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
             </div>
         </div>
 
         <div class="spot-item">
             <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" class="spot-img">
             <div class="spot-info">
-                <h3><span class="time">11:00</span>Chip City (Chelsea)</h3>
-                <span class="highlight">看板：150gのとろける巨大クッキー</span>
-                <p class="description">新年会のデザート用にテイクアウト必須。中毒性注意！</p>
-                <a href="https://maps.app.goo.gl/3v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+                <h3><span class="time">11:00</span>Chip City Chelsea</h3>
+                <div class="btn-group">
+                    <a href="https://maps.google.com/?q=Chip+City+Chelsea" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/Chip+City+Chelsea" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
             </div>
-        </div>
-
-        <div class="market-sub-route">
-            <h4>📍 チェルシーマーケット内ルート</h4>
-            <p class="description"><strong>13:00 Cull & Pistol：</strong> 絶品シーフード。<br>
-            <strong>14:00 Artists & Fleas：</strong> センスの良いハンドメイド雑貨探し。</p>
-        </div>
-
-        <div class="ts-night-route">
-            <h3>🌟 Times Square Night Walk</h3>
-            <p><strong>20:00：</strong> まばゆい光に囲まれ、NYのエネルギーを全身で受ける。</p>
         </div>
 
         <div class="bar-spot">
             <h3>🍺 Beer Stop: Beer Authority</h3>
-            <span class="highlight" style="color:#f1c40f">看板：圧倒的なタップ数と屋上バー</span>
-            <p class="description">タイムズスクエア至近。屋上テラスもある巨大ビアバー。</p>
-            <a href="https://maps.app.goo.gl/2v7T6e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <div class="btn-group">
+                <a href="https://maps.google.com/?q=Beer+Authority+NYC" class="map-btn" target="_blank">Map</a>
+                <a href="https://www.google.com/maps/search/Beer+Authority+NYC" class="photo-btn" target="_blank">📷 写真</a>
+            </div>
         </div>
 
         <div class="party-box" style="background: #fdf2f2;">
             <p>21:45 買い出し：Midtown 38 Wines</p>
-            <span class="description">ホテル至近。22時過ぎの新年会開始に向けてお酒を調達！</span><br>
-            <a href="https://maps.app.goo.gl/7L7y7e6x7U5s8p8r6" class="map-btn" target="_blank">Map →</a>
+            <a href="https://maps.google.com/?q=Midtown+38+Wines" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
 </div>
-
-<footer style="text-align: center; padding: 40px; color: #888; font-size: 0.8rem;">
-    <p>Hilton Garden Inn NYC Times Square South<br>Presented by Gemini Travel Partner</p>
-</footer>
 
 </body>
 </html>
