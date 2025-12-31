@@ -3,254 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Freedom Day - New Year Celebration</title>
+    <title>NYC Jan 8th Select Plan</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #d4af37; /* Gold */
-            --secondary-color: #1a1a1a; /* Black */
-            --accent-color: #c0392b; /* Champagne Red */
-            --bg-color: #f4f4f4;
-            --card-bg: #ffffff;
+            --primary: #c5a059;
+            --black: #1a1a1a;
+            --gray: #666;
+            --gold-bg: #fdfaf4;
         }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--black); margin: 0; background: #fff; line-height: 1.7; }
+        header { padding: 60px 20px; text-align: center; border-bottom: 1px solid #eee; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; letter-spacing: 3px; }
+        .plan-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        
+        .plan-title-block { text-align: center; margin-bottom: 40px; }
+        .plan-no { color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        .plan-title { font-size: 1.8rem; margin: 5px 0 20px; font-weight: 700; }
 
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--secondary-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+        .spot-item { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; margin-bottom: 60px; align-items: start; }
+        .spot-img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .spot-info h3 { margin: 0 0 10px; font-size: 1.4rem; display: flex; justify-content: space-between; align-items: center; }
+        .time-tag { font-size: 0.9rem; color: var(--primary); border: 1px solid var(--primary); padding: 2px 8px; border-radius: 2px; }
+        .spot-desc { font-size: 0.95rem; color: var(--gray); margin-bottom: 15px; }
+        .highlight { font-weight: bold; color: var(--black); display: block; margin-bottom: 10px; }
+        .map-link { display: inline-block; font-size: 0.85rem; color: var(--primary); text-decoration: none; border-bottom: 1px solid var(--primary); }
+        
+        .party-section { background: var(--gold-bg); padding: 40px; text-align: center; border-radius: 8px; margin-top: 20px; }
+        .party-section h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0 0 15px; color: var(--accent-color); }
+        
+        hr { border: 0; border-top: 1px solid #eee; margin: 80px 0; }
 
-        header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1512421915352-0943960cc124?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: -40px auto 50px;
-            padding: 0 20px;
-        }
-
-        .intro {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 50px;
-        }
-
-        .plan-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 60px;
-            border-top: 5px solid var(--primary-color);
-        }
-
-        .plan-header {
-            padding: 40px;
-            background: #fff;
-            text-align: center;
-        }
-
-        .plan-tag {
-            background: var(--primary-color);
-            color: white;
-            padding: 6px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .plan-title {
-            font-size: 2.2rem;
-            margin: 0 0 20px 0;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .spot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 0 20px 20px;
-        }
-
-        .spot-card {
-            background: #fdfdfd;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .time {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .spot-name {
-            font-size: 1.25rem;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 5px;
-        }
-
-        .description { font-size: 0.9rem; color: #555; margin-bottom: 10px; }
-
-        .recommend {
-            font-size: 0.85rem;
-            background: #fff9e6;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 3px solid #e67e22;
-        }
-
-        .party-box {
-            background: #fdf2f2;
-            margin: 0 20px 40px;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px dashed var(--accent-color);
-            text-align: center;
-        }
-
-        .party-box h3 {
-            color: var(--accent-color);
-            margin-top: 0;
-            font-family: 'Playfair Display', serif;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            background: var(--secondary-color);
-            color: #fff;
-        }
-
-        @media (max-width: 600px) {
-            header h1 { font-size: 2rem; }
-            .plan-title { font-size: 1.6rem; }
+        @media (max-width: 768px) {
+            .spot-item { grid-template-columns: 1fr; gap: 15px; }
+            .spot-img { height: 200px; }
+            .plan-title { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>The NYC Select</h1>
-    <p>2026.01.08 | New Year Special Itinerary</p>
+    <h1>THE SELECT: NYC</h1>
+    <p>JANUARY 8, 2026</p>
 </header>
 
-<div class="container">
-    <div class="intro">
-        <h2>最高にニューヨークらしい1日</h2>
-        <p>全てのプランに「チェルシーマーケット」と「夜のビール」を組み込みました。<br>
-        最後はホテル近くで酒類を買い出しし、部屋で2026年の新年会を楽しみましょう！🥂</p>
+<div class="plan-container">
+
+    <div class="plan-title-block">
+        <span class="plan-no">PLAN 01</span>
+        <h2 class="plan-title">Iconic NYC Sweets & Trends</h2>
     </div>
 
-    <section class="plan-section">
-        <div class="plan-header">
-            <span class="plan-tag">PLAN 1</span>
-            <h2 class="plan-title">王道トレンド！スイーツ制覇コース</h2>
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>In Common NYC <span class="time-tag">08:30</span></h3>
+            <span class="highlight">名物：アボカドトースト & エッグベネディクト</span>
+            <p class="spot-desc">ヘルマン・アライアンス・センター内にある洗練されたカフェ。NYの朝に欠かせない、濃厚なポーチドエッグとサクサクのパンの組み合わせが絶品です。</p>
+            <a href="https://maps.app.goo.gl/qY2xK2xK2xK2xK2xK" class="map-link" target="_blank">Google Maps →</a>
         </div>
-        <div class="spot-grid">
-            <div class="spot-card">
-                <span class="time">08:30</span><span class="spot-name">In Common NYC</span>
-                <p class="description">ホテル近く。朝の光が差し込む店内でエッグベネディクトを。</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">11:00</span><span class="spot-name">Chelsea Market</span>
-                <p class="description">Fat Witch Bakeryでブラウニー、Doughnutteryで揚げたてドーナツ。</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">18:00</span><span class="spot-name">The Bronx Brewery</span>
-                <p class="description">ハドソンヤード内のオシャレ醸造所。まずはビールで乾杯！</p>
-            </div>
-        </div>
-        <div class="party-box">
-            <h3>🥂 New Year Party Prep</h3>
-            <p><strong>21:00 買い出し：Midtown 38 Wines</strong><br>
-            ホテル至近のリカーショップで、新年会用のシャンパンやワインを調達。おつまみはチェルシーマーケットで買ったチョコやクッキーで完璧！</p>
-        </div>
-    </section>
+    </div>
 
-    <section class="plan-section" style="border-top-color: #2ecc71;">
-        <div class="plan-header">
-            <span class="plan-tag" style="background:#2ecc71;">PLAN 2</span>
-            <h2 class="plan-title">最先端スポット＆景色満喫コース</h2>
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>Chelsea Market <span class="time-tag">11:00</span></h3>
+            <span class="highlight">名物：Fat Witch Bakeryのブラウニー</span>
+            <p class="spot-desc">ナビスコの工場跡地。特に「Fat Witch」のしっとりとした濃厚ブラウニーは、NY土産の代名詞。揚げたての「Doughnuttery」のミニドーナツも外せません。</p>
+            <a href="https://maps.app.goo.gl/w2lMFL9ZwokRareLA" class="map-link" target="_blank">Google Maps →</a>
         </div>
-        <div class="spot-grid">
-            <div class="spot-card">
-                <span class="time">09:00</span><span class="spot-name">Citizens Of Chelsea</span>
-                <p class="description">オシャレなブランチと、その後のハイライン空中散歩を堪能。</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">12:00</span><span class="spot-name">Chelsea Market</span>
-                <p class="description">老舗のチョコやジェラートをつまみながらマーケットを散策。</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">18:30</span><span class="spot-name">Milk & Hops</span>
-                <p class="description">クラフトビールとチーズが自慢のビアバー。新年会のチーズもここで選べる？</p>
-            </div>
-        </div>
-        <div class="party-box" style="border-color: #2ecc71; background: #f2fdf5;">
-            <h3>🥂 New Year Party Prep</h3>
-            <p><strong>21:00 買い出し：NRS Wine & Liquor</strong><br>
-            8番街沿いの品揃え豊富なショップでシャンパンを。ホテル（ヒルトン）への帰り道にサッと立ち寄れるベストルートです。</p>
-        </div>
-    </section>
+    </div>
 
-    <section class="plan-section" style="border-top-color: #e74c3c;">
-        <div class="plan-header">
-            <span class="plan-tag" style="background:#e74c3c;">PLAN 3</span>
-            <h2 class="plan-title">NYローカル体験＆爆食いコース</h2>
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>Magnolia Bakery <span class="time-tag">14:00</span></h3>
+            <span class="highlight">名物：バナナプディング & カップケーキ</span>
+            <p class="spot-desc">伝説的な海外ドラマで一躍有名になったベーカリー。カスタードとバニラウェハースが絶妙な「バナナプディング」は、NYっ子が愛してやまない味。</p>
+            <a href="https://maps.app.goo.gl/dWPaMf9YwokR5yrqB" class="map-link" target="_blank">Google Maps →</a>
         </div>
-        <div class="spot-grid">
-            <div class="spot-card">
-                <span class="time">08:30</span><span class="spot-name">Chelsea Square Diner</span>
-                <p class="description">正統派ダイナーでパンケーキ。アメリカの洗礼を受けましょう！</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">11:00</span><span class="spot-name">Chip City (Giant Cookie)</span>
-                <p class="description">いまNYで一番人気の巨大クッキー。新年会のデザートに決定。</p>
-            </div>
-            <div class="spot-card">
-                <span class="time">19:00</span><span class="spot-name">NY Beer Dispensary</span>
-                <p class="description">地元民が集う活気あるバー。ビールを堪能したら、いよいよ本番の買い出しへ。</p>
-            </div>
+    </div>
+
+    <div class="party-section">
+        <h4>🥂 New Year Celebration Prep</h4>
+        <p><strong>Midtown 38 Wines</strong><br>ホテル近くのセレクトショップ。シャンパンを調達し、今日買ったブラウニーをデザートに新年会を。</p>
+        <a href="https://maps.app.goo.gl/Ja6n0nKtZwokRaefRv" class="map-link" target="_blank">Google Maps →</a>
+    </div>
+
+    <hr>
+
+    <div class="plan-title-block">
+        <span class="plan-no">PLAN 02</span>
+        <h2 class="plan-title">Modern Waterfront & Landscape</h2>
+    </div>
+
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>Citizens Of Chelsea <span class="time-tag">09:00</span></h3>
+            <span class="highlight">名物：ブレックファースト・ボウル</span>
+            <p class="spot-desc">高い天井とグリーンに囲まれた開放的なカフェ。色彩豊かなフルーツとグラノーラ、ポーチドエッグを添えたプレートが人気です。</p>
+            <a href="https://maps.app.goo.gl/K2fErLBZwokRk6aRB" class="map-link" target="_blank">Google Maps →</a>
         </div>
-        <div class="party-box" style="border-color: #e74c3c; background: #fdf2f2;">
-            <h3>🥂 New Year Party Prep</h3>
-            <p><strong>21:30 買い出し：Midtown 38 Wines</strong><br>
-            甘いクッキーに合うキリッとした辛口シャンパンを選びましょう。ホテルの部屋で盛大に新年会をスタート！</p>
+    </div>
+
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1549463017-23c0979bb8ce?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>The High Line & Vessel <span class="time-tag">15:00</span></h3>
+            <span class="highlight">名物：NYのスカイラインを望む散策</span>
+            <p class="spot-desc">廃線跡を利用した空中庭園。終着地点のハドソンヤードには巨大オブジェ「Vessel」がそびえ立ち、圧巻のフォトスポットになっています。</p>
+            <a href="https://maps.app.goo.gl/wSsT2EZZwokRPCbA4" class="map-link" target="_blank">Google Maps →</a>
         </div>
-    </section>
+    </div>
+
+    <div class="party-section">
+        <h4>🥂 New Year Celebration Prep</h4>
+        <p><strong>NRS Wine & Liquor</strong><br>8番街沿いの品揃え豊富な店。辛口のシャンパンを選び、チェルシーマーケットの老舗チョコと共に優雅な夜を。</p>
+        <a href="https://maps.app.goo.gl/RUFw2LFZwokR9ymOK" class="map-link" target="_blank">Google Maps →</a>
+    </div>
+
+    <hr>
+
+    <div class="plan-title-block">
+        <span class="plan-no">PLAN 03</span>
+        <h2 class="plan-title">Local Diner & Giant Cookies</h2>
+    </div>
+
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>Chelsea Square Diner <span class="time-tag">08:30</span></h3>
+            <span class="highlight">名物：パンケーキ & ミルクシェイク</span>
+            <p class="spot-desc">映画のワンシーンのような24時間営業のダイナー。顔のサイズほどある巨大なパンケーキと、銀のカップで出てくるシェイクはNYの伝統的な朝食です。</p>
+            <a href="https://maps.app.goo.gl/qYlpjrlZwokRI62BY" class="map-link" target="_blank">Google Maps →</a>
+        </div>
+    </div>
+
+    <div class="spot-item">
+        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" class="spot-img">
+        <div class="spot-info">
+            <h3>Chip City (Chelsea) <span class="time-tag">11:00</span></h3>
+            <span class="highlight">名物：とろける巨大クッキー</span>
+            <p class="spot-desc">今、NYで最も熱いクッキーショップ。中からチョコやクリームが溢れ出す焼きたてクッキーは、一度食べたら忘れられない中毒性があります。</p>
+            <a href="https://maps.app.goo.gl/zakaQgBZwokRrR4Wj" class="map-link" target="_blank">Google Maps →</a>
+        </div>
+    </div>
+
+    <div class="party-section">
+        <h4>🥂 New Year Celebration Prep</h4>
+        <p><strong>Midtown 38 Wines</strong><br>最後はここでお酒を確保。Chip Cityのクッキーをメインに、お部屋でカジュアルに楽しむ新年会を。</p>
+        <a href="https://maps.app.goo.gl/Ja6n0nKtZwokRaefRv" class="map-link" target="_blank">Google Maps →</a>
+    </div>
+
 </div>
 
 <footer>
-    <p>Hilton Garden Inn NYC Times Square South<br>
-    Happy New Year 2026!</p>
+    <p>Staying at: Hilton Garden Inn Times Square South</p>
 </footer>
 
 </body>
