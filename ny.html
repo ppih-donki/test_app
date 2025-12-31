@@ -10,275 +10,239 @@
             --primary: #c5a059;
             --black: #1a1a1a;
             --gray: #555;
-            --accent-blue: #3498db;
-            --accent-green: #27ae60;
-            --accent-red: #e74c3c;
-            --bg-light: #fdfdfd;
+            --plan1-accent: #3498db;
+            --plan2-accent: #2ecc71;
+            --plan3-accent: #e74c3c;
         }
         body { font-family: 'Noto Sans JP', sans-serif; color: var(--black); margin: 0; background: #f4f4f4; line-height: 1.8; }
-        
-        /* Layout */
         header { background: #fff; padding: 60px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
         header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin: 0; letter-spacing: 4px; }
-        .container { max-width: 950px; margin: 40px auto; padding: 0 20px; }
-
-        /* Plan Wrapper */
-        .plan-card { background: #fff; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-bottom: 100px; overflow: hidden; }
-        .plan-banner { padding: 40px; color: white; text-align: center; }
-        .p1-bg { background: linear-gradient(135deg, #2980b9, #6dd5fa); }
-        .p2-bg { background: linear-gradient(135deg, #27ae60, #a8ff78); }
-        .p3-bg { background: linear-gradient(135deg, #e74c3c, #ff9966); }
-
-        /* Transport Area */
-        .transport-bar { background: #f9f9f9; padding: 15px 30px; border-bottom: 1px solid #eee; font-size: 0.9rem; display: flex; justify-content: space-between; font-weight: bold; }
-
-        /* Spot Section */
-        .spot { padding: 40px; border-bottom: 1px solid #f0f0f0; }
-        .spot:last-child { border-bottom: none; }
-        .spot-header { display: flex; align-items: center; margin-bottom: 20px; }
-        .time-badge { background: var(--black); color: #fff; padding: 5px 15px; border-radius: 50px; font-weight: bold; margin-right: 15px; }
-        .spot-title { font-size: 1.6rem; margin: 0; font-weight: 700; }
-
-        .spot-content { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
+        .plan-container { max-width: 950px; margin: 40px auto; padding: 0 20px; }
+        .plan-wrapper { background: #fff; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-bottom: 100px; overflow: hidden; }
+        .plan-header { padding: 40px; color: white; text-align: center; }
+        .plan1-head { background: linear-gradient(135deg, #2980b9, #6dd5fa); }
+        .plan2-head { background: linear-gradient(135deg, #27ae60, #a8ff78); }
+        .plan3-head { background: linear-gradient(135deg, #e74c3c, #ff9966); }
+        .transport-bar { background: #f9f9f9; padding: 15px 30px; border-bottom: 1px solid #eee; font-size: 0.9rem; font-weight: bold; }
+        .spot-item { padding: 40px; border-bottom: 1px solid #f0f0f0; display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
         .spot-img { width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; height: 280px; }
-
-        /* Detail Text */
-        .detail-box { font-size: 0.95rem; color: var(--gray); }
-        .recommend { background: #fff9e6; border-left: 4px solid var(--primary); padding: 15px; margin: 15px 0; border-radius: 0 5px 5px 0; }
-        .recommend b { color: var(--black); }
-
-        /* Market Special */
-        .market-inner { background: #fdfaf4; padding: 25px; border-radius: 10px; margin: 20px 0; border: 1px dashed var(--primary); }
-        .market-inner h4 { margin-top: 0; color: var(--primary); }
-
-        /* Times Square & Bar */
-        .night-life { background: #111; color: #fff; padding: 40px; text-align: center; }
-        .night-life h3 { color: var(--primary); font-family: 'Playfair Display', serif; font-size: 1.8rem; }
-
-        /* Buttons */
-        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
-        .btn { flex: 1; padding: 12px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 8px; transition: 0.3s; font-size: 0.9rem; }
-        .btn-map { background: var(--primary); color: white; }
-        .btn-photo { border: 2px solid var(--primary); color: var(--primary); }
-        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
-
-        @media (max-width: 768px) {
-            .spot-content { grid-template-columns: 1fr; }
-            .spot-img { height: 200px; }
-        }
+        .time-badge { background: var(--black); color: #fff; padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; display: inline-block; }
+        .spot-info h3 { font-size: 1.6rem; margin: 0 0 15px 0; font-weight: 700; }
+        .recommend { background: #fff9e6; border-left: 4px solid var(--primary); padding: 15px; margin: 15px 0; border-radius: 0 5px 5px 0; font-size: 0.95rem; }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .map-btn, .photo-btn { flex: 1; padding: 12px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 0.85rem; transition: 0.3s; }
+        .map-btn { background: var(--primary); color: white; }
+        .photo-btn { border: 2px solid var(--primary); color: var(--primary); }
+        .market-sub-route { background: #fdfaf4; padding: 30px; border-left: 6px solid var(--primary); margin: 20px 40px; border-radius: 10px; }
+        .ts-night-route { background: #000; color: white; padding: 40px; text-align: center; }
+        .ts-night-route h3 { color: #f1c40f; font-family: 'Playfair Display', serif; font-size: 1.8rem; }
+        .bar-spot { background: #1a1a1a; color: #eee; padding: 40px; border-top: 1px solid #333; }
+        .party-box { padding: 40px; background: #fff9e6; text-align: center; border-top: 1px solid #eee; }
+        @media (max-width: 768px) { .spot-item { grid-template-columns: 1fr; } .spot-img { height: 200px; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>THE NYC SELECT</h1>
+    <h1>THE SELECT: NYC</h1>
     <p>2026.01.08 — 新年会を彩る究極の1日プラン</p>
 </header>
 
-<div class="container">
+<div class="plan-container">
 
-    <div class="plan-card">
-        <div class="plan-banner p1-bg">
+    <div class="plan-wrapper">
+        <div class="plan-header plan1-head">
             <small>PLAN 01</small>
-            <h2>王道トレンド・スイーツ制覇コース</h2>
-            <p>NYを象徴する甘い香りと最新トレンドを巡る、最も華やかなプラン</p>
+            <h2>王道トレンド・お土産制覇コース</h2>
+            <p>人気店をハシゴして、NYの「今」と「定番」を両取りするプラン</p>
         </div>
-        <div class="transport-bar">
-            <span>🚇 地下鉄 & 徒歩中心</span>
-            <span>💰 交通費目安: $20〜 (地下鉄1回$2.90)</span>
-        </div>
+        <div class="transport-bar">🚇 移動：地下鉄 & 徒歩 (ユニオンスクエア周辺を散策)</div>
 
-        <div class="spot">
-            <div class="spot-header">
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" class="spot-img">
+            <div class="spot-info">
                 <span class="time-badge">08:30</span>
-                <h3 class="spot-title">In Common NYC</h3>
-            </div>
-            <div class="spot-content">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" class="spot-img">
-                <div class="detail-box">
-                    <p>ハドソンヤードのすぐそば、洗練されたガラス張りのモダンカフェ。朝の光を浴びながら、ニューヨーカーに混じって1日をスタートさせましょう。</p>
-                    <div class="recommend">
-                        <b>★推しメニュー:</b> アボカドトースト（ポーチドエッグ乗せ）。NYで最も愛される朝食スタイルです。
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://www.google.com/maps/search/?api=1&query=In+Common+NYC" class="btn btn-map" target="_blank">Google Map</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=In+Common+NYC+photos" class="btn btn-photo" target="_blank">📷 実際の写真</a>
-                    </div>
+                <h3>In Common NYC</h3>
+                <p>ハドソンヤードの麓で優雅な朝食。アボカドトーストが絶品です。</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=In+Common+NYC" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=In+Common+NYC+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="spot">
-            <div class="spot-header">
-                <span class="time-badge">11:00</span>
-                <h3 class="spot-title">Chelsea Market</h3>
-            </div>
-            <div class="market-inner">
-                <h4>🍪 マーケット内・必食リスト</h4>
-                <p>ここはナビスコの旧工場。今では世界中の美食が集まるNYの台所です。</p>
-                <ul>
-                    <li><b>Fat Witch Bakery:</b> NY土産の鉄板！濃厚な「魔女のブラウニー」は小分けで食べ歩きに最適。</li>
-                    <li><b>Doughnuttery:</b> 目の前で揚げるミニドーナツ。シナモンシュガーの香りがたまりません。</li>
-                    <li><b>Los Tacos No.1:</b> 実はNYで一番人気のタコス店。ランチはここの「アドバダ（豚肉）」がおすすめ！</li>
-                </ul>
+        <div class="market-sub-route">
+            <h4>📍 チェルシーマーケット内必食！</h4>
+            <p><strong>Fat Witch Bakery:</strong> 濃厚ブラウニーはお土産に。<br>
+               <strong>Los Tacos No.1:</strong> 行列必至のNo.1タコスランチ！</p>
+        </div>
+
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1555529771-7888783a18d3?w=500" class="spot-img">
+            <div class="spot-info">
+                <span class="time-badge">15:00</span>
+                <h3>Strand Book Store</h3>
+                <p>「18マイルの書棚」で有名な老舗書店。ここでしか買えない「STRAND」ロゴ入りのトートバッグはNY土産の超定番です！</p>
+                <div class="recommend">★バラマキ土産にロゴ入りポーチやマグネットもおすすめ。</div>
                 <div class="btn-group">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Market" class="btn btn-map" target="_blank">Google Map</a>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Market+food+photos" class="btn btn-photo" target="_blank">📷 写真を見る</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Strand+Book+Store" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Strand+Book+Store+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="night-life">
-            <h3>20:30 — Times Square Magic</h3>
-            <p>光り輝く電光掲示板、押し寄せる人々。NYに来たことを最も実感できる瞬間です。</p>
-            <div class="spot" style="background:#1a1a1a; border:none;">
-                <h3>🍺 Beer Culture (21:00)</h3>
-                <p>世界のクラフトビールが80種以上揃う、ビール好きの聖地。タイムズスクエアの喧騒から少し離れた落ち着いた空間で、極上の1杯を。</p>
-                <div class="btn-group">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Beer+Culture+NYC" class="btn btn-map" target="_blank">Map</a>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Beer+Culture+NYC+interior" class="btn btn-photo" target="_blank">📷 写真</a>
-                </div>
+        <div class="ts-night-route">
+            <h3>🌟 20:00 Times Square Night</h3>
+            <p>眩い光の海。これぞNYという景色の中で最高の記念撮影を。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: Beer Culture</h3>
+            <p>タイムズスクエアからすぐ。80種以上のビールから最高の一杯を。</p>
+            <div class="btn-group">
+                <a href="https://www.google.com/maps/search/?api=1&query=Beer+Culture+NYC" class="map-btn" target="_blank">Map</a>
             </div>
-            <div class="recommend" style="background:#333; color:#fff; border-color:var(--primary);">
-                <b>🍾 21:45 新年会買い出し:</b> <b>Midtown 38 Wines</b><br>
-                ホテルから徒歩数分。お部屋での新年会用に、冷えたシャンパンやワインをゲット！
-            </div>
+        </div>
+
+        <div class="party-box">
+            <p>21:45 買い出し：Midtown 38 Wines</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Midtown+38+Wines" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
-    <div class="plan-card">
-        <div class="plan-banner p2-bg">
+    <div class="plan-wrapper">
+        <div class="plan-header plan2-head">
             <small>PLAN 02</small>
-            <h2>最先端ウォーターフロント・絶景コース</h2>
-            <p>NYの「今」を象徴する建築と、海を感じる開放的な1日</p>
+            <h2>絶景散策・最新NYお土産コース</h2>
+            <p>空中庭園を歩き、ハドソンヤードの最新スポットを制覇するプラン</p>
         </div>
-        <div class="transport-bar">
-            <span>🚶 徒歩 & ハイライン散策</span>
-            <span>💰 交通費目安: $15〜</span>
-        </div>
+        <div class="transport-bar">🚶 移動：ハイライン散策 & 徒歩 (5番街エリアへ)</div>
 
-        <div class="spot">
-            <div class="spot-header">
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500" class="spot-img">
+            <div class="spot-info">
                 <span class="time-badge">09:00</span>
-                <h3 class="spot-title">Citizens Of Chelsea</h3>
-            </div>
-            <div class="spot-content">
-                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500" class="spot-img">
-                <div class="detail-box">
-                    <p>観葉植物に囲まれた、チェルシーで最もフォトジェニックなカフェ。オーストラリアスタイルの「ブレックファーストボウル」が名物です。</p>
-                    <div class="btn-group">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Citizens+Of+Chelsea" class="btn btn-map" target="_blank">Google Map</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Citizens+Of+Chelsea+menu" class="btn btn-photo" target="_blank">📷 写真</a>
-                    </div>
+                <h3>Citizens Of Chelsea</h3>
+                <p>グリーン溢れる店内で、ヘルシーな朝食からスタートしましょう。</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Citizens+Of+Chelsea" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Citizens+Of+Chelsea+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="spot">
-            <div class="spot-header">
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800" class="spot-img">
+            <div class="spot-info">
                 <span class="time-badge">12:30</span>
-                <h3 class="spot-title">The Lobster Place</h3>
-            </div>
-            <div class="spot-content">
-                <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800" class="spot-img">
-                <div class="detail-box">
-                    <p>チェルシーマーケット内にある魚市場。目の前で調理される新鮮なロブスターは圧巻です。</p>
-                    <div class="recommend">
-                        <b>★推しメニュー:</b> ロブスターロール。ぷりぷりの身を溶かしバターとレモンでいただく、究極の贅沢ランチ。
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://www.google.com/maps/search/?api=1&query=The+Lobster+Place+Chelsea" class="btn btn-map" target="_blank">Map</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=The+Lobster+Place+lobster+roll+photos" class="btn btn-photo" target="_blank">📷 実物の写真</a>
-                    </div>
+                <h3>The Lobster Place</h3>
+                <p>新鮮なロブスターロールを立ち食いスタイルで！</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Lobster+Place+Chelsea+Market" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Lobster+Place+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="night-life">
-            <h3>21:00 — As Is NYC</h3>
-            <p>ヘルズキッチンにある、NYで最も「ビール通」が集まるバー。最新のタップリストは毎日変わります。</p>
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1627915597920-802c6791b8d5?w=500" class="spot-img">
+            <div class="spot-info">
+                <span class="time-badge">15:30</span>
+                <h3>Little Island & Starbucks Reserve</h3>
+                <p>ハドソン川に浮かぶ最新公園「Little Island」を散策後、世界最大級のスタバ・リザーブへ。ここでしか買えない限定タンブラーは要チェック！</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Starbucks+Reserve+Roastery+New+York" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Starbucks+Reserve+Roastery+New+York+photos" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ts-night-route">
+            <h3>🌟 20:00 Times Square Night</h3>
+            <p>まさに世界の交差点。夜でも眩しいネオンに圧倒されます。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: As Is NYC</h3>
+            <p>こだわりのクラフトビールでNYの夜を締めくくる。</p>
             <div class="btn-group">
-                <a href="https://www.google.com/maps/search/?api=1&query=As+Is+NYC+bar" class="btn btn-map" target="_blank">Map</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=As+Is+NYC+beer+list" class="btn btn-photo" target="_blank">📷 写真</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=As+Is+NYC" class="map-btn" target="_blank">Map</a>
             </div>
-            <div class="recommend" style="background:#333; color:#fff; border-color:var(--accent-green);">
-                <b>🍾 21:45 買い出し:</b> <b>NRS Wine & Liquor</b><br>
-                品揃えはミッドタウン随一。お部屋飲みの主役を探しましょう！
-            </div>
+        </div>
+
+        <div class="party-box" style="background: #e6f9ed;">
+            <p>21:45 買い出し：NRS Wine & Liquor</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=NRS+Wine+%26+Liquor" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
-    <div class="plan-card">
-        <div class="plan-banner p3-bg">
+    <div class="plan-wrapper">
+        <div class="plan-header plan3-head">
             <small>PLAN 03</small>
-            <h2>ローカル体験・爆食いコース</h2>
-            <p>映画の主人公気分でパンケーキを頬張り、最新の巨大クッキーに挑む</p>
+            <h2>伝説のグルメ・デパート巡りコース</h2>
+            <p>NYの伝統グルメを味わい尽くし、巨大百貨店でお宝を探すプラン</p>
         </div>
-        <div class="transport-bar">
-            <span>🚕 Uber & 徒歩</span>
-            <span>💰 交通費目安: $30〜</span>
-        </div>
+        <div class="transport-bar">🚕 移動：Uber & 徒歩 (ヘラルドスクエア周辺)</div>
 
-        <div class="spot">
-            <div class="spot-header">
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500" class="spot-img">
+            <div class="spot-info">
                 <span class="time-badge">08:30</span>
-                <h3 class="spot-title">Chelsea Square Diner</h3>
-            </div>
-            <div class="spot-content">
-                <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=500" class="spot-img">
-                <div class="detail-box">
-                    <p>24時間営業、銀色のカウンター。まさに「アメリカのダイナー」そのもの。ボリュームに圧倒されること間違いなし！</p>
-                    <div class="recommend">
-                        <b>★推しメニュー:</b> チョコチップパンケーキ。ホイップクリームを追加して、アメリカの洗礼を受けてください。
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Square+Diner" class="btn btn-map" target="_blank">Google Map</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Square+Diner+pancakes" class="btn btn-photo" target="_blank">📷 写真</a>
-                    </div>
+                <h3>Chelsea Square Diner</h3>
+                <p>映画のセットのようなダイナーで、特大パンケーキに挑戦！</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Square+Diner" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Chelsea+Square+Diner+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="spot">
-            <div class="spot-header">
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" class="spot-img">
+            <div class="spot-info">
                 <span class="time-badge">11:00</span>
-                <h3 class="spot-title">Chip City Chelsea</h3>
-            </div>
-            <div class="spot-content">
-                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500" class="spot-img">
-                <div class="detail-box">
-                    <p>今、NYで最も勢いのある巨大クッキー店。重さなんと150g以上！外はカリッと、中は半生でトロトロの食感が革命的です。</p>
-                    <div class="recommend">
-                        <b>★ポイント:</b> 新年会の夜食用にテイクアウトしましょう。深夜に食べる背徳感は格別です。
-                    </div>
-                    <div class="btn-group">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Chip+City+Chelsea" class="btn btn-map" target="_blank">Map</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Chip+City+cookies+photos" class="btn btn-photo" target="_blank">📷 写真</a>
-                    </div>
+                <h3>Chip City Chelsea</h3>
+                <p>焼きたて熱々、150gの巨大クッキーをゲット。</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Chip+City+Chelsea" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Chip+City+Chelsea+photos" class="photo-btn" target="_blank">📷 写真</a>
                 </div>
             </div>
         </div>
 
-        <div class="night-life">
-            <h3>21:00 — Beer Authority</h3>
-            <p>タイムズスクエアのすぐそば、3フロアに渡る巨大なビアバー。屋上テラスからはミッドタウンの摩天楼が見えます。</p>
+        <div class="spot-item">
+            <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=500" class="spot-img">
+            <div class="spot-info">
+                <span class="time-badge">16:00</span>
+                <h3>Macy's Herald Square</h3>
+                <p>世界最大の百貨店。歴史的な木製エスカレーターに乗るだけでも価値あり。NYロゴ入りの衣類やGODIVAのNY限定缶など、お土産の宝庫です！</p>
+                <div class="btn-group">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Macy's+Herald+Square" class="map-btn" target="_blank">Map</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Macy's+Herald+Square+photos" class="photo-btn" target="_blank">📷 写真</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ts-night-route">
+            <h3>🌟 20:00 Times Square Night</h3>
+            <p>世界の中心で、最高の新年を祝う1枚を。</p>
+        </div>
+
+        <div class="bar-spot">
+            <h3>🍺 Beer Stop: Beer Authority</h3>
+            <p>巨大なビアホール。屋上テラスからの景色は最高です。</p>
             <div class="btn-group">
-                <a href="https://www.google.com/maps/search/?api=1&query=Beer+Authority+NYC" class="btn btn-map" target="_blank">Map</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Beer+Authority+NYC+rooftop" class="btn btn-photo" target="_blank">📷 写真</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Beer+Authority+NYC" class="map-btn" target="_blank">Map</a>
             </div>
-            <div class="recommend" style="background:#333; color:#fff; border-color:var(--accent-red);">
-                <b>🍾 21:45 買い出し:</b> <b>Midtown 38 Wines</b><br>
-                ホテル（ヒルトン）への帰り道にサッと寄れる最強の立地です。
-            </div>
+        </div>
+
+        <div class="party-box" style="background: #fdf2f2;">
+            <p>21:45 買い出し：Midtown 38 Wines</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Midtown+38+Wines" class="map-btn" target="_blank">Map</a>
         </div>
     </div>
 
 </div>
-
-<footer style="text-align: center; padding: 50px; background: #fff; border-top: 1px solid #eee;">
-    <p>Staying at: <b>Hilton Garden Inn NYC Times Square South</b></p>
-    <p style="color:var(--gray); font-size: 0.8rem;">2026.01.08 New Year Celebration Program</p>
-</footer>
 
 </body>
 </html>
