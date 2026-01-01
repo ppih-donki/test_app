@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Canvas Fireworks</title>
+  <title>Fireworks + Text Fireworks</title>
   <style>
     html, body {
       margin: 0;
@@ -26,9 +26,9 @@
       position: fixed;
       left: 12px;
       bottom: 12px;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.78);
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.45;
       padding: 10px 12px;
       border: 1px solid rgba(255,255,255,0.18);
       border-radius: 10px;
@@ -45,8 +45,8 @@
   <div class="hud">
     <strong>花火</strong><br />
     ・自動で打ち上げ<br />
-    ・画面タップ/クリックでも発射<br />
-    ・文字花火も定期表示
+    ・タップ/クリックでも発射<br />
+    ・文字花火は必ず定期表示（2026 / Happy New Year）
   </div>
 
   <script>
@@ -66,9 +66,10 @@
         canvas.style.height = H + "px";
         ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
         ctx.imageSmoothingEnabled = true;
+
+        textFX.rebuild(); // 文字点群を作り直して確実表示
       }
       window.addEventListener("resize", resize, { passive: true });
-      resize();
 
       // ---- util ----
       const rand = (a, b) => a + Math.random() * (b - a);
@@ -80,7 +81,7 @@
       const AIR_DRAG = 0.985;
       const ROCKET_DRAG = 0.992;
 
-      // ---- particle systems ----
+      // ---- systems ----
       const fireworks = [];
       const particles = [];
 
@@ -128,54 +129,43 @@
       }
 
       class Firework {
-        constructor(sx, sy, tx, ty, opts = {}) {
+        constructor(sx, sy, tx, ty) {
           this.sx = sx; this.sy = sy;
           this.x = sx; this.y = sy;
           this.tx = tx; this.ty = ty;
 
           const angle = Math.atan2(ty - sy, tx - sx);
           const d = dist(sx, sy, tx, ty);
-
           const speed = clamp(d / 18, 10, 22);
+
           this.vx = Math.cos(angle) * speed;
           this.vy = Math.sin(angle) * speed;
 
-          this.hue = (typeof opts.hue === "number") ? opts.hue : rand(0, 360);
-          this.small = !!opts.small;
-
+          this.hue = rand(0, 360);
           this.trail = [];
-          this.trailMax = this.small ? 10 : 14;
+          this.trailMax = 14;
           this.exploded = false;
         }
 
         explode() {
           this.exploded = true;
 
+          const count = Math.floor(rand(70, 140));
           const baseHue = this.hue;
-
-          // 通常花火
-          const ring = !this.small && Math.random() < 0.35;
-          const chrys = !this.small && Math.random() < 0.40;
-          const crackle = !this.small && Math.random() < 0.30;
-
-          // 文字用は軽め
-          const count = this.small
-            ? Math.floor(rand(18, 34))
-            : Math.floor(rand(70, 140));
+          const ring = Math.random() < 0.35;
+          const chrys = Math.random() < 0.40;
+          const crackle = Math.random() < 0.30;
 
           for (let i = 0; i < count; i++) {
             const a = ring ? (i / count) * Math.PI * 2 : rand(0, Math.PI * 2);
-            const sp = this.small
-              ? rand(1.4, 3.2)
-              : (chrys ? rand(2.8, 6.8) : rand(2.2, 7.6));
+            const sp = chrys ? rand(2.8, 6.8) : rand(2.2, 7.6);
 
             const vx = Math.cos(a) * sp * rand(0.85, 1.15);
             const vy = Math.sin(a) * sp * rand(0.85, 1.15);
+            const hue = (baseHue + rand(-18, 18) + (Math.random() < 0.15 ? 60 : 0)) % 360;
 
-            const hue = (baseHue + rand(-18, 18) + (!this.small && Math.random() < 0.15 ? 60 : 0)) % 360;
-            const life = this.small ? Math.floor(rand(22, 40)) : Math.floor(rand(45, 95));
-            const size = this.small ? rand(0.9, 1.5) : rand(1.1, 2.2);
-
+            const life = Math.floor(rand(45, 95));
+            const size = rand(1.1, 2.2);
             particles.push(new Particle(this.x, this.y, vx, vy, hue, life, size, true));
 
             if (crackle && Math.random() < 0.18) {
@@ -195,12 +185,10 @@
           this.x += this.vx;
           this.y += this.vy;
 
-          const reached = dist(this.x, this.y, this.tx, this.ty) < (this.small ? 14 : 18);
+          const reached = dist(this.x, this.y, this.tx, this.ty) < 18;
           const peaked = this.vy >= -0.5 && this.y < this.sy - 120;
 
-          if (!this.exploded && (reached || peaked)) {
-            this.explode();
-          }
+          if (!this.exploded && (reached || peaked)) this.explode();
         }
 
         draw(ctx) {
@@ -213,16 +201,16 @@
             ctx.globalAlpha = (0.05 + 0.35 * t);
             ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, (this.small ? 1.0 : 1.2) + (this.small ? 1.2 : 1.6) * t, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, 1.2 + 1.6 * t, 0, Math.PI * 2);
             ctx.fill();
           }
 
           ctx.globalAlpha = 1;
-          ctx.shadowBlur = this.small ? 14 : 18;
+          ctx.shadowBlur = 18;
           ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 1)`;
           ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
           ctx.beginPath();
-          ctx.arc(this.x, this.y, this.small ? 1.8 : 2.2, 0, Math.PI * 2);
+          ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
           ctx.fill();
 
           ctx.restore();
@@ -231,12 +219,12 @@
         get dead() { return this.exploded; }
       }
 
-      function launchTo(x, y, opts = {}) {
+      function launchTo(x, y) {
         const sx = rand(W * 0.2, W * 0.8);
         const sy = H + 10;
         const tx = clamp(x, 20, W - 20);
         const ty = clamp(y, 40, H * 0.80);
-        fireworks.push(new Firework(sx, sy, tx, ty, opts));
+        fireworks.push(new Firework(sx, sy, tx, ty));
       }
 
       function autoLaunch() {
@@ -245,13 +233,12 @@
         launchTo(x, y);
       }
 
-      // input (tap/click)
+      // ---- input ----
       function pointerPos(e) {
         if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
         if (e.changedTouches && e.changedTouches[0]) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
         return { x: e.clientX, y: e.clientY };
       }
-
       const onDown = (e) => {
         e.preventDefault();
         const p = pointerPos(e);
@@ -259,126 +246,202 @@
         for (let i = 0; i < burst; i++) {
           launchTo(p.x + rand(-40, 40), p.y + rand(-30, 30));
         }
+        // タップで文字花火を強制発動（確実に見せたい時用）
+        textFX.forceStart(performance.now());
       };
-
       canvas.addEventListener("mousedown", onDown);
       canvas.addEventListener("touchstart", onDown, { passive: false });
 
-      // ---- text fireworks ----
-      const textCanvas = document.createElement("canvas");
-      const textCtx = textCanvas.getContext("2d");
+      // =========================================================
+      // TEXT FIREWORKS (Guaranteed)
+      // 文字は「点群を毎フレーム必ず描く」＝必ず見える
+      // =========================================================
+      const textFX = (() => {
+        const off = document.createElement("canvas");
+        const offCtx = off.getContext("2d");
 
-      let textQueue = [];
-      let nextTextLaunchAt = 0;
+        let points = [];
+        let isActive = false;
+        let startAt = 0;
 
-      function buildTextPoints() {
-        textCanvas.width = W;
-        textCanvas.height = H;
+        // 表示周期（必ず出す）
+        const PERIOD_MS = 15000;   // 15秒おき
+        const SHOW_MS   = 5200;    // 5.2秒表示（読める長さ）
+        let nextAutoAt = performance.now() + 1200; // 最初はすぐ
 
-        textCtx.clearRect(0, 0, W, H);
+        function rebuild() {
+          if (!W || !H) return;
 
-        // 文字の配置（上寄り）
-        const y1 = H * 0.26;
-        const y2 = H * 0.40;
+          off.width = W;
+          off.height = H;
+          offCtx.clearRect(0, 0, W, H);
 
-        // フォントサイズ（端末に合わせて）
-        const size1 = clamp(H * 0.20, 72, 220);   // 2026
-        const size2 = clamp(H * 0.085, 28, 90);   // Happy New Year
+          // 文字位置
+          const y1 = H * 0.26;
+          const y2 = H * 0.40;
 
-        textCtx.textAlign = "center";
-        textCtx.textBaseline = "middle";
+          // フォント（太く）
+          const size1 = clamp(H * 0.20, 72, 240);
+          const size2 = clamp(H * 0.085, 28, 96);
 
-        // 少し太めにして点が拾いやすいように
-        textCtx.fillStyle = "rgba(255,255,255,1)";
+          offCtx.textAlign = "center";
+          offCtx.textBaseline = "middle";
+          offCtx.fillStyle = "rgba(255,255,255,1)";
 
-        textCtx.font = `800 ${Math.floor(size1)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
-        textCtx.fillText("2026", W / 2, y1);
+          offCtx.font = `900 ${Math.floor(size1)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
+          offCtx.fillText("2026", W / 2, y1);
 
-        textCtx.font = `800 ${Math.floor(size2)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
-        textCtx.fillText("Happy New Year", W / 2, y2);
+          offCtx.font = `900 ${Math.floor(size2)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
+          offCtx.fillText("Happy New Year", W / 2, y2);
 
-        const img = textCtx.getImageData(0, 0, W, H).data;
+          const img = offCtx.getImageData(0, 0, W, H).data;
 
-        // ピクセルの間引き（負荷対策）
-        const step = clamp(Math.floor(Math.min(W, H) / 140), 4, 8);
+          // 端末に合わせて密度を調整（多いほどくっきり）
+          // ただし重くならないよう上限を持つ
+          let step = (W < 420) ? 4 : 3;
 
-        const points = [];
-        for (let y = 0; y < H; y += step) {
-          for (let x = 0; x < W; x += step) {
-            const a = img[(y * W + x) * 4 + 3];
-            if (a > 160) points.push({ x, y });
+          const raw = [];
+          for (let y = 0; y < H; y += step) {
+            for (let x = 0; x < W; x += step) {
+              const a = img[(y * W + x) * 4 + 3];
+              if (a > 160) raw.push({ x, y });
+            }
+          }
+
+          // 上限（ここを上げるほどさらにくっきり。ただし負荷増）
+          const maxPoints = (W < 420) ? 1400 : 2200;
+          if (raw.length > maxPoints) {
+            // ランダム抽出すると輪郭が欠けやすいので、
+            // “規則的に間引く”ことで全体を維持
+            const ratio = raw.length / maxPoints;
+            points = [];
+            for (let i = 0; i < raw.length; i += ratio) {
+              points.push(raw[Math.floor(i)]);
+            }
+          } else {
+            points = raw;
+          }
+
+          // 点ごとに色・位相を持たせる（キラつき）
+          const palette = [48, 210, 280, 330]; // 金/青/紫/ピンク
+          for (let i = 0; i < points.length; i++) {
+            const hue = palette[(Math.random() * palette.length) | 0] + rand(-10, 10);
+            points[i].hue = hue;
+            points[i].phase = rand(0, Math.PI * 2);
+            points[i].tw = Math.random() < 0.65;
           }
         }
 
-        // 点が多すぎると重いので上限をかける
-        const maxPoints = 520;
-        if (points.length > maxPoints) {
-          // シャッフルしてランダムに抽出
-          for (let i = points.length - 1; i > 0; i--) {
-            const j = (Math.random() * (i + 1)) | 0;
-            const tmp = points[i];
-            points[i] = points[j];
-            points[j] = tmp;
-          }
-          points.length = maxPoints;
+        function forceStart(now) {
+          startAt = now;
+          isActive = true;
+          nextAutoAt = now + PERIOD_MS; // 次回は周期で
         }
 
-        return points;
-      }
+        function tick(now) {
+          if (now >= nextAutoAt) {
+            // 必ず再生開始
+            startAt = now;
+            isActive = true;
+            nextAutoAt = now + PERIOD_MS;
+          }
+          if (isActive && (now - startAt) > SHOW_MS) {
+            isActive = false;
+          }
+        }
 
-      function startTextFireworks(now) {
-        const pts = buildTextPoints();
-        // “描いていく感”を出すために、上から順に軽くソート（同じ高さはランダム）
-        pts.sort((a, b) => (a.y - b.y) + rand(-3, 3));
-        textQueue = pts;
-        nextTextLaunchAt = now + 80;
-      }
+        function draw(now) {
+          if (!isActive || points.length === 0) return;
+
+          // 文字表示中はフェードを弱くして読みやすくするため、
+          // 背景側の処理で参照できるようにフラグを返す
+          // （ここでは描画のみ）
+          ctx.save();
+          ctx.globalCompositeOperation = "lighter";
+
+          // 表示開始直後〜終了に向けて少しだけフェード（でも必ず見える）
+          const t = clamp((now - startAt) / SHOW_MS, 0, 1);
+          const baseA = 0.95 - 0.15 * t; // 0.95 -> 0.80
+
+          // 点のサイズ（見えない問題の根本：小さすぎると消える）
+          const r = (W < 420) ? 1.7 : 1.9;
+
+          // まとめ描画（高輝度・強いグロー）
+          for (let i = 0; i < points.length; i++) {
+            const p = points[i];
+            const pulse = p.tw ? (0.72 + 0.28 * Math.sin(now * 0.010 + p.phase)) : 1.0;
+
+            ctx.globalAlpha = baseA * pulse;
+
+            ctx.shadowBlur = 26;
+            ctx.shadowColor = `hsla(${p.hue}, 100%, 65%, 1)`;
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 65%, 1)`;
+
+            // 点（文字の輪郭）
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 小さなスパーク（花火っぽさ：輪郭は崩さない）
+            if ((i & 31) === 0) { // 32点に1回程度
+              ctx.globalAlpha = baseA * 0.55 * pulse;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(p.x - 3, p.y);
+              ctx.lineTo(p.x + 3, p.y);
+              ctx.moveTo(p.x, p.y - 3);
+              ctx.lineTo(p.x, p.y + 3);
+              ctx.strokeStyle = `hsla(${p.hue}, 100%, 70%, 1)`;
+              ctx.stroke();
+            }
+          }
+
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = 1;
+          ctx.restore();
+
+          // “花火”感を追加：文字の周りに控えめに通常花火を1発
+          if ((now - startAt) < 120) {
+            // 表示開始の瞬間にだけ、上部へ1発
+            const x = W / 2 + rand(-W * 0.12, W * 0.12);
+            const y = H * 0.18 + rand(-20, 20);
+            launchTo(x, y);
+          }
+        }
+
+        function isShowing() { return isActive; }
+
+        return { rebuild, forceStart, tick, draw, isShowing };
+      })();
+
+      // 初期化
+      resize();
 
       // ---- main loop ----
       let last = performance.now();
       let nextAuto = 0;
-      let nextTextShow = performance.now() + 1200;
 
       function frame(now) {
         const dt = clamp(now - last, 0, 34);
         last = now;
 
-        // 背景フェード（残像）
+        // 文字花火の状態更新（必ず周期で発動）
+        textFX.tick(now);
+
+        // 背景フェード（文字表示中は弱めて視認性を保証）
+        const fadeAlpha = textFX.isShowing() ? 0.10 : 0.18;
+
         ctx.globalCompositeOperation = "source-over";
-        ctx.globalAlpha = 0.18;
+        ctx.globalAlpha = fadeAlpha;
         ctx.fillStyle = "rgb(0,0,0)";
         ctx.fillRect(0, 0, W, H);
         ctx.globalAlpha = 1;
 
-        // 自動打ち上げ
+        // 通常の自動花火（文字表示中は控えめに）
         if (now > nextAuto) {
-          if (fireworks.length < 10 && particles.length < 1800) autoLaunch();
+          const maxFw = textFX.isShowing() ? 6 : 10;
+          if (fireworks.length < maxFw && particles.length < 1800) autoLaunch();
           nextAuto = now + rand(450, 950);
-        }
-
-        // 文字花火（定期）
-        if (now > nextTextShow) {
-          startTextFireworks(now);
-          nextTextShow = now + 14000; // 14秒おき
-        }
-
-        // 文字の点へ順番に小花火
-        if (textQueue.length > 0 && now > nextTextLaunchAt) {
-          // 1フレームに複数点出して密度を上げる
-          const perTick = (W < 420) ? 2 : 3;
-
-          for (let k = 0; k < perTick; k++) {
-            if (textQueue.length === 0) break;
-            const p = textQueue.shift();
-
-            // 金/青/紫あたりで年末感
-            const palette = [48, 210, 280, 330];
-            const hue = palette[(Math.random() * palette.length) | 0] + rand(-12, 12);
-
-            launchTo(p.x + rand(-6, 6), p.y + rand(-6, 6), { small: true, hue });
-          }
-
-          nextTextLaunchAt = now + rand(18, 32);
         }
 
         // rockets
@@ -399,10 +462,13 @@
         }
         ctx.globalCompositeOperation = "source-over";
 
+        // 文字花火（ここが“保証描画”）
+        textFX.draw(now);
+
         requestAnimationFrame(frame);
       }
 
-      // 初期背景を黒で塗る
+      // 初期背景
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.fillRect(0, 0, W, H);
 
