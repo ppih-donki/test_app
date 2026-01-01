@@ -26,8 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;                 /* ふだんは黒（透明で下のbody黒が見える） */
-      pointer-events: none;       /* タップを邪魔しない */
+      opacity: 0;           /* ふだんは黒 */
+      pointer-events: none; /* タップを邪魔しない */
       z-index: 0;
     }
 
@@ -35,7 +35,7 @@
     #bgImg {
       width: 100vw;
       height: 100vh;
-      object-fit: contain;        /* 重要：はみ出さない */
+      object-fit: contain;
       object-position: center;
       display: block;
     }
@@ -80,7 +80,7 @@
 
   <div class="hud">
     <strong>花火 + 背景切替</strong><br />
-    ・タップで花火を打ち上げる
+    タップで花火を打ち上げる
   </div>
 
   <script>
@@ -101,14 +101,16 @@
         "IMG_9710.jpeg"
       ];
       const BASE = "images/";
-      const FADE_MS = 1000; // ★ここが「1秒」の調整場所
+      const FADE_MS = 1000; // ★1秒
 
       const bgWrap = document.getElementById("bgWrap");
       const bgImg = document.getElementById("bgImg");
 
       let bgIndex = -1;
       let bgPreloaded = false;
-      let fadeInProgress = false;
+
+      let fadeTimer = null;
+      let rafId = null;
 
       function preloadBackgrounds() {
         if (bgPreloaded) return;
@@ -119,33 +121,40 @@
         }
       }
 
-      function showAndFadeImage(src) {
-        // 連打対策：毎回「確実に見える → 1秒で消える」を作る
-        fadeInProgress = true;
+      function startFadeOut() {
+        // 途中の制御をリセット
+        if (fadeTimer) { clearTimeout(fadeTimer); fadeTimer = null; }
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
 
-        // まず遷移を切って、いったん0に戻す（前回の途中をリセット）
+        // まず「即表示（opacity 1）」＝フェードインはしない
         bgWrap.style.transition = "none";
-        bgWrap.style.opacity = "0";
-
-        // 強制リフロー（これを入れるとiOSでも切替が安定）
-        void bgWrap.offsetHeight;
-
-        // 画像差し替え
-        bgImg.src = src;
-
-        // フェード設定
-        bgWrap.style.transition = `opacity ${FADE_MS}ms linear`;
-
-        // いったん「1」にして表示
         bgWrap.style.opacity = "1";
+        void bgWrap.offsetHeight; // reflow（iOS安定化）
 
-        // 次のフレームで「0」に戻して1秒フェードアウト
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            bgWrap.style.opacity = "0";
-            fadeInProgress = false;
-          });
+        // 1秒で黒へ（opacity 0）
+        bgWrap.style.transition = `opacity ${FADE_MS}ms linear`;
+        rafId = requestAnimationFrame(() => {
+          bgWrap.style.opacity = "0";
+          rafId = null;
         });
+
+        // 完了後に掃除（任意）
+        fadeTimer = setTimeout(() => {
+          fadeTimer = null;
+        }, FADE_MS + 50);
+      }
+
+      function showAndFadeImage(src) {
+        // srcを変えるたび、読み込み完了後に必ず表示→フェード
+        bgImg.onload = () => {
+          startFadeOut();
+        };
+        bgImg.onerror = () => {
+          // 画像が読めないなら何もしない（黒のまま）
+        };
+
+        // キャッシュでも確実にonloadを取りたいので、同一URLでも再設定する
+        bgImg.src = src;
       }
 
       function nextBackgroundWithFade() {
@@ -340,18 +349,15 @@
       let nextAuto = 0;
 
       function frame(now) {
-        // 背景を隠さない残像：既存ピクセルを透明方向へフェード
         ctx.globalCompositeOperation = "destination-out";
         ctx.fillStyle = "rgba(0,0,0,0.18)";
         ctx.fillRect(0, 0, W, H);
 
-        // 自動打ち上げ
         if (now > nextAuto) {
           if (fireworks.length < 10 && particles.length < 2000) autoLaunch();
           nextAuto = now + rand(450, 950);
         }
 
-        // rockets
         for (let i = fireworks.length - 1; i >= 0; i--) {
           const f = fireworks[i];
           f.step();
@@ -359,7 +365,6 @@
           if (f.dead) fireworks.splice(i, 1);
         }
 
-        // particles
         ctx.globalCompositeOperation = "lighter";
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
@@ -373,7 +378,7 @@
       requestAnimationFrame(frame);
 
       // =========================
-      // タップ：背景切替（表示→1秒で黒へ） + 花火発射
+      // タップ：背景切替 + 花火
       // =========================
       function burstAt(x, y) {
         const count = (Math.random() < 0.35) ? 2 : 1;
@@ -388,8 +393,15 @@
         return { x: e.clientX, y: e.clientY };
       }
 
+      // ★iOS二重発火対策
+      let lastTouchAt = 0;
+
       function onTap(e) {
+        if (e.type === "click" && Date.now() - lastTouchAt < 700) return;
+        if (e.type === "touchstart") lastTouchAt = Date.now();
+
         e.preventDefault();
+
         nextBackgroundWithFade();
         const p = getPoint(e);
         burstAt(p.x, p.y);
