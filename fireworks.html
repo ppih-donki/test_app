@@ -45,7 +45,8 @@
   <div class="hud">
     <strong>花火</strong><br />
     ・自動で打ち上げ<br />
-    ・画面タップ/クリックでも発射
+    ・画面タップ/クリックでも発射<br />
+    ・文字花火も定期表示
   </div>
 
   <script>
@@ -127,7 +128,7 @@
       }
 
       class Firework {
-        constructor(sx, sy, tx, ty) {
+        constructor(sx, sy, tx, ty, opts = {}) {
           this.sx = sx; this.sy = sy;
           this.x = sx; this.y = sy;
           this.tx = tx; this.ty = ty;
@@ -135,39 +136,49 @@
           const angle = Math.atan2(ty - sy, tx - sx);
           const d = dist(sx, sy, tx, ty);
 
-          // 速さは距離で少し変える
           const speed = clamp(d / 18, 10, 22);
-
           this.vx = Math.cos(angle) * speed;
           this.vy = Math.sin(angle) * speed;
 
-          this.hue = rand(0, 360);
+          this.hue = (typeof opts.hue === "number") ? opts.hue : rand(0, 360);
+          this.small = !!opts.small;
+
           this.trail = [];
-          this.trailMax = 14;
+          this.trailMax = this.small ? 10 : 14;
           this.exploded = false;
         }
 
         explode() {
           this.exploded = true;
 
-          const count = Math.floor(rand(70, 140));
           const baseHue = this.hue;
-          const ring = Math.random() < 0.35;       // リング状
-          const chrys = Math.random() < 0.40;      // 菊花っぽい
-          const crackle = Math.random() < 0.30;    // ぱちぱち
+
+          // 通常花火
+          const ring = !this.small && Math.random() < 0.35;
+          const chrys = !this.small && Math.random() < 0.40;
+          const crackle = !this.small && Math.random() < 0.30;
+
+          // 文字用は軽め
+          const count = this.small
+            ? Math.floor(rand(18, 34))
+            : Math.floor(rand(70, 140));
 
           for (let i = 0; i < count; i++) {
             const a = ring ? (i / count) * Math.PI * 2 : rand(0, Math.PI * 2);
-            const sp = chrys ? rand(2.8, 6.8) : rand(2.2, 7.6);
+            const sp = this.small
+              ? rand(1.4, 3.2)
+              : (chrys ? rand(2.8, 6.8) : rand(2.2, 7.6));
+
             const vx = Math.cos(a) * sp * rand(0.85, 1.15);
             const vy = Math.sin(a) * sp * rand(0.85, 1.15);
-            const hue = (baseHue + rand(-18, 18) + (Math.random() < 0.15 ? 60 : 0)) % 360;
-            const life = Math.floor(rand(45, 95));
-            const size = rand(1.1, 2.2);
+
+            const hue = (baseHue + rand(-18, 18) + (!this.small && Math.random() < 0.15 ? 60 : 0)) % 360;
+            const life = this.small ? Math.floor(rand(22, 40)) : Math.floor(rand(45, 95));
+            const size = this.small ? rand(0.9, 1.5) : rand(1.1, 2.2);
+
             particles.push(new Particle(this.x, this.y, vx, vy, hue, life, size, true));
 
             if (crackle && Math.random() < 0.18) {
-              // 爆発点付近に小さな火花（短命）
               const vx2 = vx * rand(0.2, 0.55) + rand(-0.6, 0.6);
               const vy2 = vy * rand(0.2, 0.55) + rand(-0.6, 0.6);
               particles.push(new Particle(this.x, this.y, vx2, vy2, hue, Math.floor(rand(18, 32)), rand(0.8, 1.4), false));
@@ -176,18 +187,15 @@
         }
 
         step() {
-          // 轨跡
           this.trail.push({ x: this.x, y: this.y });
           if (this.trail.length > this.trailMax) this.trail.shift();
 
-          // 移動
           this.vx *= ROCKET_DRAG;
-          this.vy = this.vy * ROCKET_DRAG - 0.015; // 少し上向き補正
+          this.vy = this.vy * ROCKET_DRAG - 0.015;
           this.x += this.vx;
           this.y += this.vy;
 
-          // ターゲット到達 or 上がり切り判定
-          const reached = dist(this.x, this.y, this.tx, this.ty) < 18;
+          const reached = dist(this.x, this.y, this.tx, this.ty) < (this.small ? 14 : 18);
           const peaked = this.vy >= -0.5 && this.y < this.sy - 120;
 
           if (!this.exploded && (reached || peaked)) {
@@ -196,7 +204,6 @@
         }
 
         draw(ctx) {
-          // trail
           ctx.save();
           ctx.globalCompositeOperation = "lighter";
 
@@ -206,17 +213,16 @@
             ctx.globalAlpha = (0.05 + 0.35 * t);
             ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 1.2 + 1.6 * t, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, (this.small ? 1.0 : 1.2) + (this.small ? 1.2 : 1.6) * t, 0, Math.PI * 2);
             ctx.fill();
           }
 
-          // head
           ctx.globalAlpha = 1;
-          ctx.shadowBlur = 18;
+          ctx.shadowBlur = this.small ? 14 : 18;
           ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 1)`;
           ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
           ctx.beginPath();
-          ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+          ctx.arc(this.x, this.y, this.small ? 1.8 : 2.2, 0, Math.PI * 2);
           ctx.fill();
 
           ctx.restore();
@@ -225,13 +231,12 @@
         get dead() { return this.exploded; }
       }
 
-      // ---- launch helpers ----
-      function launchTo(x, y) {
+      function launchTo(x, y, opts = {}) {
         const sx = rand(W * 0.2, W * 0.8);
         const sy = H + 10;
         const tx = clamp(x, 20, W - 20);
-        const ty = clamp(y, 40, H * 0.75);
-        fireworks.push(new Firework(sx, sy, tx, ty));
+        const ty = clamp(y, 40, H * 0.80);
+        fireworks.push(new Firework(sx, sy, tx, ty, opts));
       }
 
       function autoLaunch() {
@@ -250,7 +255,6 @@
       const onDown = (e) => {
         e.preventDefault();
         const p = pointerPos(e);
-        // 連打で複数発
         const burst = Math.random() < 0.35 ? 2 : 1;
         for (let i = 0; i < burst; i++) {
           launchTo(p.x + rand(-40, 40), p.y + rand(-30, 30));
@@ -260,27 +264,121 @@
       canvas.addEventListener("mousedown", onDown);
       canvas.addEventListener("touchstart", onDown, { passive: false });
 
+      // ---- text fireworks ----
+      const textCanvas = document.createElement("canvas");
+      const textCtx = textCanvas.getContext("2d");
+
+      let textQueue = [];
+      let nextTextLaunchAt = 0;
+
+      function buildTextPoints() {
+        textCanvas.width = W;
+        textCanvas.height = H;
+
+        textCtx.clearRect(0, 0, W, H);
+
+        // 文字の配置（上寄り）
+        const y1 = H * 0.26;
+        const y2 = H * 0.40;
+
+        // フォントサイズ（端末に合わせて）
+        const size1 = clamp(H * 0.20, 72, 220);   // 2026
+        const size2 = clamp(H * 0.085, 28, 90);   // Happy New Year
+
+        textCtx.textAlign = "center";
+        textCtx.textBaseline = "middle";
+
+        // 少し太めにして点が拾いやすいように
+        textCtx.fillStyle = "rgba(255,255,255,1)";
+
+        textCtx.font = `800 ${Math.floor(size1)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
+        textCtx.fillText("2026", W / 2, y1);
+
+        textCtx.font = `800 ${Math.floor(size2)}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif`;
+        textCtx.fillText("Happy New Year", W / 2, y2);
+
+        const img = textCtx.getImageData(0, 0, W, H).data;
+
+        // ピクセルの間引き（負荷対策）
+        const step = clamp(Math.floor(Math.min(W, H) / 140), 4, 8);
+
+        const points = [];
+        for (let y = 0; y < H; y += step) {
+          for (let x = 0; x < W; x += step) {
+            const a = img[(y * W + x) * 4 + 3];
+            if (a > 160) points.push({ x, y });
+          }
+        }
+
+        // 点が多すぎると重いので上限をかける
+        const maxPoints = 520;
+        if (points.length > maxPoints) {
+          // シャッフルしてランダムに抽出
+          for (let i = points.length - 1; i > 0; i--) {
+            const j = (Math.random() * (i + 1)) | 0;
+            const tmp = points[i];
+            points[i] = points[j];
+            points[j] = tmp;
+          }
+          points.length = maxPoints;
+        }
+
+        return points;
+      }
+
+      function startTextFireworks(now) {
+        const pts = buildTextPoints();
+        // “描いていく感”を出すために、上から順に軽くソート（同じ高さはランダム）
+        pts.sort((a, b) => (a.y - b.y) + rand(-3, 3));
+        textQueue = pts;
+        nextTextLaunchAt = now + 80;
+      }
+
       // ---- main loop ----
       let last = performance.now();
-      let acc = 0;
       let nextAuto = 0;
+      let nextTextShow = performance.now() + 1200;
 
       function frame(now) {
         const dt = clamp(now - last, 0, 34);
         last = now;
-        acc += dt;
 
-        // 背景を少し残してフェード（残像）
+        // 背景フェード（残像）
         ctx.globalCompositeOperation = "source-over";
         ctx.globalAlpha = 0.18;
         ctx.fillStyle = "rgb(0,0,0)";
         ctx.fillRect(0, 0, W, H);
         ctx.globalAlpha = 1;
 
-        // 自動打ち上げ（端末負荷に合わせて間隔ランダム）
+        // 自動打ち上げ
         if (now > nextAuto) {
           if (fireworks.length < 10 && particles.length < 1800) autoLaunch();
           nextAuto = now + rand(450, 950);
+        }
+
+        // 文字花火（定期）
+        if (now > nextTextShow) {
+          startTextFireworks(now);
+          nextTextShow = now + 14000; // 14秒おき
+        }
+
+        // 文字の点へ順番に小花火
+        if (textQueue.length > 0 && now > nextTextLaunchAt) {
+          // 1フレームに複数点出して密度を上げる
+          const perTick = (W < 420) ? 2 : 3;
+
+          for (let k = 0; k < perTick; k++) {
+            if (textQueue.length === 0) break;
+            const p = textQueue.shift();
+
+            // 金/青/紫あたりで年末感
+            const palette = [48, 210, 280, 330];
+            const hue = palette[(Math.random() * palette.length) | 0] + rand(-12, 12);
+
+            launchTo(p.x + rand(-6, 6), p.y + rand(-6, 6), { small: true, hue });
+          }
+
+          nextTextLaunchAt = now + rand(18, 32);
         }
 
         // rockets
