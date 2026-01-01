@@ -12,7 +12,7 @@
       height: 100%;
       overflow: hidden;
 
-      /* 初期は黒背景 */
+      /* 初期は黒背景（ここが背景画像に置き換わる） */
       background: #000;
       background-image: none;
       background-size: cover;
@@ -25,13 +25,15 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
     }
 
+    /* Canvasは透明で上に重ねる（背景を隠さない） */
     canvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       display: block;
-      pointer-events: none; /* 背景タップを邪魔しない */
+      pointer-events: none;
+      background: transparent;
     }
 
     .hud {
@@ -56,7 +58,10 @@
   <canvas id="c"></canvas>
   <div class="hud">
     <strong>花火 + 背景切替</strong><br />
-  　・タップで花火を発射
+    ・初期は黒背景<br />
+    ・タップで背景が次へ（images/）<br />
+    ・タップで花火も発射<br />
+    ・花火は自動でも打ち上げ
   </div>
 
   <script>
@@ -65,25 +70,26 @@
       // 背景画像（タップで切替）
       // =========================
       const FILENAMES = [
-        "IMG_9704.jpeg",
         "IMG_9701.jpeg",
-        "IMG_9707.jpeg",
-        "IMG_9710.jpeg",
-        "IMG_9709.jpeg",
-        "IMG_9706.jpeg",
-        "IMG_9705.jpeg",
-        "IMG_9708.jpeg",
         "IMG_9702.jpeg",
-        "IMG_9703.jpeg"
+        "IMG_9703.jpeg",
+        "IMG_9704.jpeg",
+        "IMG_9705.jpeg",
+        "IMG_9706.jpeg",
+        "IMG_9707.jpeg",
+        "IMG_9708.jpeg",
+        "IMG_9709.jpeg",
+        "IMG_9710.jpeg"
       ];
-      const BASE = "images/";
+      const BASE = "images/"; // https://ppih-donki.github.io/test_app/images/...
+
       let bgIndex = -1; // 初期は黒（次のタップで0番）
+      let bgPreloaded = false;
 
       function setBackground(url) {
         document.body.style.backgroundImage = url ? `url("${url}")` : "none";
       }
 
-      let bgPreloaded = false;
       function preloadBackgrounds() {
         if (bgPreloaded) return;
         bgPreloaded = true;
@@ -120,6 +126,9 @@
         canvas.style.height = H + "px";
         ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
         ctx.imageSmoothingEnabled = true;
+
+        // 透明で開始（背景を隠さない）
+        ctx.clearRect(0, 0, W, H);
       }
       window.addEventListener("resize", resize, { passive: true });
       resize();
@@ -288,13 +297,12 @@
       let nextAuto = 0;
 
       function frame(now) {
-        const dt = clamp(now - last, 0, 34);
         last = now;
 
-        // 軽い残像（透明に黒を被せる：背景画像はCSS側にあるので消えない）
+        // 透明Canvasに「半透明黒」を重ねて残像（背景画像を隠さない）
         ctx.globalCompositeOperation = "source-over";
-        ctx.globalAlpha = 0.18;
-        ctx.fillStyle = "rgba(0,0,0,1)";
+        ctx.globalAlpha = 0.20;
+        ctx.fillStyle = "rgba(0,0,0,0.20)";
         ctx.fillRect(0, 0, W, H);
         ctx.globalAlpha = 1;
 
@@ -325,9 +333,6 @@
         requestAnimationFrame(frame);
       }
 
-      // 初期：キャンバスも黒塗り
-      ctx.fillStyle = "rgba(0,0,0,1)";
-      ctx.fillRect(0, 0, W, H);
       requestAnimationFrame(frame);
 
       // =========================
@@ -357,7 +362,6 @@
         burstAt(p.x, p.y);
       }
 
-      // iOS含め確実に
       document.addEventListener("touchstart", onTap, { passive: false });
       document.addEventListener("click", onTap, { passive: false });
     })();
