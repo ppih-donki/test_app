@@ -1,1 +1,421 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Fireworks + Tap Background (Fade Out)</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+    }
 
+    /* 背景画像レイヤー（表示して1秒で透明→黒に戻る） */
+    #bgWrap {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;           /* ふだんは黒 */
+      pointer-events: none; /* タップを邪魔しない */
+      z-index: 0;
+    }
+
+    /* 画像は枠内に収める（はみ出し防止、上下黒帯OK） */
+    #bgImg {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    /* 花火レイヤー */
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      pointer-events: none;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .hud {
+      position: fixed;
+      left: 12px;
+      bottom: 12px;
+      color: rgba(255,255,255,0.80);
+      font-size: 12px;
+      line-height: 1.45;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hud strong { color: rgba(255,255,255,0.95); }
+  </style>
+</head>
+<body>
+  <div id="bgWrap">
+    <img id="bgImg" alt="">
+  </div>
+
+  <canvas id="c"></canvas>
+
+  <div class="hud">
+    <strong>花火 + 背景切替</strong><br />
+    ・タップで花火を打ち上げる
+  </div>
+
+  <script>
+    (() => {
+      // =========================
+      // 背景（タップで切替 → 1秒で黒へフェードアウト）
+      // =========================
+      const FILENAMES = [
+        "IMG_9701.jpeg",
+        "IMG_9702.jpeg",
+        "IMG_9703.jpeg",
+        "IMG_9704.jpeg",
+        "IMG_9705.jpeg",
+        "IMG_9706.jpeg",
+        "IMG_9707.jpeg",
+        "IMG_9708.jpeg",
+        "IMG_9709.jpeg",
+        "IMG_9710.jpeg",
+        "IMG_9714.jpeg",
+        "IMG_9715.jpeg",
+        "IMG_9716.jpeg",
+        "IMG_9717.jpeg",
+        "IMG_9718.jpeg",
+        "IMG_9719.jpeg"
+      ];
+      const BASE = "images/";
+      const FADE_MS = 1000; // ★1秒
+
+      const bgWrap = document.getElementById("bgWrap");
+      const bgImg = document.getElementById("bgImg");
+
+      let bgIndex = -1;
+      let bgPreloaded = false;
+
+      let fadeTimer = null;
+      let rafId = null;
+
+      function preloadBackgrounds() {
+        if (bgPreloaded) return;
+        bgPreloaded = true;
+        for (const name of FILENAMES) {
+          const img = new Image();
+          img.src = BASE + name;
+        }
+      }
+
+      function startFadeOut() {
+        // 途中の制御をリセット
+        if (fadeTimer) { clearTimeout(fadeTimer); fadeTimer = null; }
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+
+        // まず「即表示（opacity 1）」＝フェードインはしない
+        bgWrap.style.transition = "none";
+        bgWrap.style.opacity = "1";
+        void bgWrap.offsetHeight; // reflow（iOS安定化）
+
+        // 1秒で黒へ（opacity 0）
+        bgWrap.style.transition = `opacity ${FADE_MS}ms linear`;
+        rafId = requestAnimationFrame(() => {
+          bgWrap.style.opacity = "0";
+          rafId = null;
+        });
+
+        // 完了後に掃除（任意）
+        fadeTimer = setTimeout(() => {
+          fadeTimer = null;
+        }, FADE_MS + 50);
+      }
+
+      function showAndFadeImage(src) {
+        // srcを変えるたび、読み込み完了後に必ず表示→フェード
+        bgImg.onload = () => {
+          startFadeOut();
+        };
+        bgImg.onerror = () => {
+          // 画像が読めないなら何もしない（黒のまま）
+        };
+
+        // キャッシュでも確実にonloadを取りたいので、同一URLでも再設定する
+        bgImg.src = src;
+      }
+
+      function nextBackgroundWithFade() {
+        preloadBackgrounds();
+        bgIndex = (bgIndex + 1) % FILENAMES.length;
+        const src = BASE + FILENAMES[bgIndex];
+        showAndFadeImage(src);
+      }
+
+      // =========================
+      // 花火（Canvas）
+      // =========================
+      const canvas = document.getElementById("c");
+      const ctx = canvas.getContext("2d", { alpha: true });
+
+      let W = 0, H = 0, DPR = 1;
+
+      function resize() {
+        DPR = Math.min(2, window.devicePixelRatio || 1);
+        W = Math.floor(window.innerWidth);
+        H = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        ctx.imageSmoothingEnabled = true;
+        ctx.clearRect(0, 0, W, H);
+      }
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      const rand = (a, b) => a + Math.random() * (b - a);
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const dist = (x1, y1, x2, y2) => Math.hypot(x2 - x1, y2 - y1);
+
+      const GRAVITY = 0.075;
+      const AIR_DRAG = 0.985;
+      const ROCKET_DRAG = 0.992;
+
+      const fireworks = [];
+      const particles = [];
+
+      class Particle {
+        constructor(x, y, vx, vy, hue, life, size, glow) {
+          this.x = x; this.y = y;
+          this.vx = vx; this.vy = vy;
+          this.hue = hue;
+          this.life = life;
+          this.maxLife = life;
+          this.size = size;
+          this.glow = glow;
+          this.twinkle = Math.random() < 0.35;
+        }
+        step() {
+          this.vx *= AIR_DRAG;
+          this.vy = this.vy * AIR_DRAG + GRAVITY;
+          this.x += this.vx;
+          this.y += this.vy;
+          this.life -= 1;
+        }
+        draw(ctx) {
+          const t = this.life / this.maxLife;
+          const alpha = clamp(t, 0, 1);
+          const flicker = this.twinkle ? (0.75 + 0.25 * Math.sin((this.maxLife - this.life) * 0.35)) : 1.0;
+
+          ctx.globalAlpha = alpha * flicker;
+          ctx.fillStyle = `hsla(${this.hue}, 100%, 60%, 1)`;
+
+          if (this.glow) {
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = `hsla(${this.hue}, 100%, 60%, 1)`;
+          } else {
+            ctx.shadowBlur = 0;
+          }
+
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, Math.max(0.7, this.size), 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = 1;
+        }
+        get dead() { return this.life <= 0; }
+      }
+
+      class Firework {
+        constructor(sx, sy, tx, ty, hue = null) {
+          this.sx = sx; this.sy = sy;
+          this.x = sx; this.y = sy;
+          this.tx = tx; this.ty = ty;
+
+          const angle = Math.atan2(ty - sy, tx - sx);
+          const d = dist(sx, sy, tx, ty);
+          const speed = clamp(d / 18, 10, 22);
+
+          this.vx = Math.cos(angle) * speed;
+          this.vy = Math.sin(angle) * speed;
+
+          this.hue = (typeof hue === "number") ? hue : rand(0, 360);
+          this.trail = [];
+          this.trailMax = 14;
+          this.exploded = false;
+        }
+
+        explode() {
+          this.exploded = true;
+
+          const count = Math.floor(rand(70, 140));
+          const baseHue = this.hue;
+          const ring = Math.random() < 0.35;
+          const chrys = Math.random() < 0.40;
+          const crackle = Math.random() < 0.30;
+
+          for (let i = 0; i < count; i++) {
+            const a = ring ? (i / count) * Math.PI * 2 : rand(0, Math.PI * 2);
+            const sp = chrys ? rand(2.8, 6.8) : rand(2.2, 7.6);
+
+            const vx = Math.cos(a) * sp * rand(0.85, 1.15);
+            const vy = Math.sin(a) * sp * rand(0.85, 1.15);
+            const hue = (baseHue + rand(-18, 18) + (Math.random() < 0.15 ? 60 : 0)) % 360;
+
+            const life = Math.floor(rand(45, 95));
+            const size = rand(1.1, 2.2);
+            particles.push(new Particle(this.x, this.y, vx, vy, hue, life, size, true));
+
+            if (crackle && Math.random() < 0.18) {
+              const vx2 = vx * rand(0.2, 0.55) + rand(-0.6, 0.6);
+              const vy2 = vy * rand(0.2, 0.55) + rand(-0.6, 0.6);
+              particles.push(new Particle(this.x, this.y, vx2, vy2, hue, Math.floor(rand(18, 32)), rand(0.8, 1.4), false));
+            }
+          }
+        }
+
+        step() {
+          this.trail.push({ x: this.x, y: this.y });
+          if (this.trail.length > this.trailMax) this.trail.shift();
+
+          this.vx *= ROCKET_DRAG;
+          this.vy = this.vy * ROCKET_DRAG - 0.015;
+          this.x += this.vx;
+          this.y += this.vy;
+
+          const reached = dist(this.x, this.y, this.tx, this.ty) < 18;
+          const peaked = this.vy >= -0.5 && this.y < this.sy - 120;
+
+          if (!this.exploded && (reached || peaked)) this.explode();
+        }
+
+        draw(ctx) {
+          ctx.save();
+          ctx.globalCompositeOperation = "lighter";
+
+          for (let i = 0; i < this.trail.length; i++) {
+            const p = this.trail[i];
+            const t = i / this.trail.length;
+            ctx.globalAlpha = (0.05 + 0.35 * t);
+            ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 1.2 + 1.6 * t, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.globalAlpha = 1;
+          ctx.shadowBlur = 18;
+          ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 1)`;
+          ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, 1)`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        }
+
+        get dead() { return this.exploded; }
+      }
+
+      function launchTo(x, y, hue = null) {
+        const sx = rand(W * 0.2, W * 0.8);
+        const sy = H + 10;
+        const tx = clamp(x, 20, W - 20);
+        const ty = clamp(y, 40, H * 0.80);
+        fireworks.push(new Firework(sx, sy, tx, ty, hue));
+      }
+
+      function autoLaunch() {
+        const x = rand(W * 0.15, W * 0.85);
+        const y = rand(H * 0.12, H * 0.55);
+        launchTo(x, y);
+      }
+
+      let nextAuto = 0;
+
+      function frame(now) {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillStyle = "rgba(0,0,0,0.18)";
+        ctx.fillRect(0, 0, W, H);
+
+        if (now > nextAuto) {
+          if (fireworks.length < 10 && particles.length < 2000) autoLaunch();
+          nextAuto = now + rand(450, 950);
+        }
+
+        for (let i = fireworks.length - 1; i >= 0; i--) {
+          const f = fireworks[i];
+          f.step();
+          f.draw(ctx);
+          if (f.dead) fireworks.splice(i, 1);
+        }
+
+        ctx.globalCompositeOperation = "lighter";
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.step();
+          p.draw(ctx);
+          if (p.dead || p.y > H + 60) particles.splice(i, 1);
+        }
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+
+      // =========================
+      // タップ：背景切替 + 花火
+      // =========================
+      function burstAt(x, y) {
+        const count = (Math.random() < 0.35) ? 2 : 1;
+        for (let i = 0; i < count; i++) {
+          launchTo(x + rand(-40, 40), y + rand(-30, 30));
+        }
+      }
+
+      function getPoint(e) {
+        if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        if (e.changedTouches && e.changedTouches[0]) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+        return { x: e.clientX, y: e.clientY };
+      }
+
+      // ★iOS二重発火対策
+      let lastTouchAt = 0;
+
+      function onTap(e) {
+        if (e.type === "click" && Date.now() - lastTouchAt < 700) return;
+        if (e.type === "touchstart") lastTouchAt = Date.now();
+
+        e.preventDefault();
+
+        nextBackgroundWithFade();
+        const p = getPoint(e);
+        burstAt(p.x, p.y);
+      }
+
+      document.addEventListener("touchstart", onTap, { passive: false });
+      document.addEventListener("click", onTap, { passive: false });
+    })();
+  </script>
+</body>
+</html>
