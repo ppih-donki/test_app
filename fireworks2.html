@@ -4,28 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Fireworks + Tap Background</title>
+  <title>Fireworks + Tap Background (Fade Out)</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
-
-      /* 初期は黒背景（タップで画像に切替） */
       background: #000;
-      background-image: none;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-
       touch-action: none;
       -webkit-user-select: none;
       user-select: none;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
     }
 
-    /* Canvasは透明のまま上に重ねる */
+    /* 背景画像レイヤー（表示して1秒で透明→黒に戻る） */
+    #bgWrap {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;                 /* ふだんは黒（透明で下のbody黒が見える） */
+      pointer-events: none;       /* タップを邪魔しない */
+      z-index: 0;
+    }
+
+    /* 画像は枠内に収める（はみ出し防止、上下黒帯OK） */
+    #bgImg {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;        /* 重要：はみ出さない */
+      object-position: center;
+      display: block;
+    }
+
+    /* 花火レイヤー */
     canvas {
       position: fixed;
       inset: 0;
@@ -34,6 +49,7 @@
       display: block;
       pointer-events: none;
       background: transparent;
+      z-index: 1;
     }
 
     .hud {
@@ -50,12 +66,18 @@
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       pointer-events: none;
+      z-index: 2;
     }
     .hud strong { color: rgba(255,255,255,0.95); }
   </style>
 </head>
 <body>
+  <div id="bgWrap">
+    <img id="bgImg" alt="">
+  </div>
+
   <canvas id="c"></canvas>
+
   <div class="hud">
     <strong>花火 + 背景切替</strong><br />
     ・タップで花火を打ち上げる
@@ -64,7 +86,7 @@
   <script>
     (() => {
       // =========================
-      // 背景画像（タップで切替）
+      // 背景（タップで切替 → 1秒で黒へフェードアウト）
       // =========================
       const FILENAMES = [
         "IMG_9701.jpeg",
@@ -79,13 +101,14 @@
         "IMG_9710.jpeg"
       ];
       const BASE = "images/";
+      const FADE_MS = 1000; // ★ここが「1秒」の調整場所
 
-      let bgIndex = -1; // 初期は黒（次のタップで0番）
+      const bgWrap = document.getElementById("bgWrap");
+      const bgImg = document.getElementById("bgImg");
+
+      let bgIndex = -1;
       let bgPreloaded = false;
-
-      function setBackground(url) {
-        document.body.style.backgroundImage = url ? `url("${url}")` : "none";
-      }
+      let fadeInProgress = false;
 
       function preloadBackgrounds() {
         if (bgPreloaded) return;
@@ -96,13 +119,41 @@
         }
       }
 
-      function nextBackground() {
-        preloadBackgrounds();
-        bgIndex = (bgIndex + 1) % FILENAMES.length;
-        setBackground(BASE + FILENAMES[bgIndex]);
+      function showAndFadeImage(src) {
+        // 連打対策：毎回「確実に見える → 1秒で消える」を作る
+        fadeInProgress = true;
+
+        // まず遷移を切って、いったん0に戻す（前回の途中をリセット）
+        bgWrap.style.transition = "none";
+        bgWrap.style.opacity = "0";
+
+        // 強制リフロー（これを入れるとiOSでも切替が安定）
+        void bgWrap.offsetHeight;
+
+        // 画像差し替え
+        bgImg.src = src;
+
+        // フェード設定
+        bgWrap.style.transition = `opacity ${FADE_MS}ms linear`;
+
+        // いったん「1」にして表示
+        bgWrap.style.opacity = "1";
+
+        // 次のフレームで「0」に戻して1秒フェードアウト
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            bgWrap.style.opacity = "0";
+            fadeInProgress = false;
+          });
+        });
       }
 
-      setBackground(null);
+      function nextBackgroundWithFade() {
+        preloadBackgrounds();
+        bgIndex = (bgIndex + 1) % FILENAMES.length;
+        const src = BASE + FILENAMES[bgIndex];
+        showAndFadeImage(src);
+      }
 
       // =========================
       // 花火（Canvas）
@@ -122,8 +173,6 @@
         canvas.style.height = H + "px";
         ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
         ctx.imageSmoothingEnabled = true;
-
-        // 透明で開始
         ctx.clearRect(0, 0, W, H);
       }
       window.addEventListener("resize", resize, { passive: true });
@@ -288,14 +337,12 @@
         launchTo(x, y);
       }
 
-      // メインループ
       let nextAuto = 0;
 
       function frame(now) {
-        // ★ここが重要：黒を“足す”のではなく、既存ピクセルを“消す”ことで残像を作る
-        // destination-out で透明方向へフェード
+        // 背景を隠さない残像：既存ピクセルを透明方向へフェード
         ctx.globalCompositeOperation = "destination-out";
-        ctx.fillStyle = "rgba(0,0,0,0.18)"; // 値を小さくすると残像長め（0.12〜0.22で調整）
+        ctx.fillStyle = "rgba(0,0,0,0.18)";
         ctx.fillRect(0, 0, W, H);
 
         // 自動打ち上げ
@@ -323,11 +370,10 @@
 
         requestAnimationFrame(frame);
       }
-
       requestAnimationFrame(frame);
 
       // =========================
-      // タップ時：背景切替 + 花火発射
+      // タップ：背景切替（表示→1秒で黒へ） + 花火発射
       // =========================
       function burstAt(x, y) {
         const count = (Math.random() < 0.35) ? 2 : 1;
@@ -344,7 +390,7 @@
 
       function onTap(e) {
         e.preventDefault();
-        nextBackground();
+        nextBackgroundWithFade();
         const p = getPoint(e);
         burstAt(p.x, p.y);
       }
