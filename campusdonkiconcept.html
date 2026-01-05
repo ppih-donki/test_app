@@ -1,1 +1,577 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Campus Donki LAB｜経営層向けコンセプト要約</title>
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --panel:#121212;
+      --panel2:#171717;
+      --fg:#ffffff;
+      --muted:#c9c9c9;
+      --muted2:#9a9a9a;
+      --accent:#ffd400;
+      --line:#242424;
+      --shadow: 0 8px 22px rgba(0,0,0,.35);
+      --radius: 14px;
+      --maxw: 1100px;
+      --tocw: 300px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans JP","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      line-height:1.7;
+    }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .wrap{
+      display:flex;
+      min-height:100vh;
+    }
 
+    /* TOC (left fixed) */
+    .toc{
+      width:var(--tocw);
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      padding:18px 14px 14px;
+      background:linear-gradient(180deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.98) 55%, rgba(18,18,18,0.94) 100%);
+      border-right:1px solid var(--line);
+      overflow:auto;
+      z-index:10;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 10px 14px;
+      margin-bottom:10px;
+      border-bottom:1px solid var(--line);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      background:var(--accent);
+      color:#000;
+      font-weight:800;
+      box-shadow: var(--shadow);
+      flex:0 0 auto;
+    }
+    .brand h1{
+      font-size:14px;
+      margin:0;
+      line-height:1.2;
+    }
+    .brand .sub{
+      display:block;
+      font-size:12px;
+      color:var(--muted2);
+      font-weight:500;
+      margin-top:2px;
+    }
+    .toc .hint{
+      font-size:12px;
+      color:var(--muted2);
+      margin:8px 10px 10px;
+    }
+    .tocnav{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:6px 6px 14px;
+    }
+    .tocnav a{
+      display:block;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      background:transparent;
+      font-size:13px;
+      color:var(--muted);
+      transition:transform .05s ease, background .15s ease, border-color .15s ease;
+    }
+    .tocnav a:hover{
+      background:var(--panel2);
+      border-color:var(--line);
+      text-decoration:none;
+    }
+    .tocnav a.active{
+      background:rgba(255,212,0,.12);
+      border-color:rgba(255,212,0,.35);
+      color:var(--fg);
+    }
+    .tocfooter{
+      margin-top:10px;
+      padding:12px 10px 14px;
+      border-top:1px solid var(--line);
+      color:var(--muted2);
+      font-size:12px;
+    }
+    .pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      margin:4px 6px 0 0;
+    }
+
+    /* Main */
+    main{
+      margin-left:var(--tocw);
+      width:100%;
+      padding:24px 18px 80px;
+    }
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+    .hero{
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(255,212,0,.18), rgba(0,0,0,0)),
+                  radial-gradient(900px 500px at 90% 20%, rgba(255,255,255,.07), rgba(0,0,0,0));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:20px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom:18px;
+    }
+    .hero h2{
+      margin:0 0 10px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    section{
+      margin-top:18px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    section h3{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .kicker{
+      display:inline-block;
+      font-size:12px;
+      color:#000;
+      background:var(--accent);
+      border-radius:999px;
+      padding:4px 10px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    ul{
+      margin:10px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+    }
+    li{ margin:6px 0; }
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    .card{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:14px 14px 12px;
+    }
+    .card h4{
+      margin:0 0 6px;
+      font-size:14px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .quote{
+      margin-top:10px;
+      padding:12px 14px;
+      border-left:4px solid rgba(255,212,0,.55);
+      background:rgba(255,212,0,.08);
+      border-radius:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .metric{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .metric .pill{
+      background:rgba(255,212,0,.10);
+      border-color:rgba(255,212,0,.25);
+      color:var(--fg);
+    }
+    .callout{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,212,0,.25);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .small{
+      color:var(--muted2);
+      font-size:12px;
+      margin-top:10px;
+    }
+    .hr{
+      height:1px;
+      background:var(--line);
+      margin:14px 0;
+    }
+
+    /* Mobile */
+    .topbar{
+      display:none;
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(11,11,11,.9);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+      padding:10px 12px;
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--fg);
+      padding:8px 10px;
+      border-radius:12px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .btn:active{ transform:translateY(1px); }
+
+    @media (max-width: 980px){
+      .toc{
+        transform: translateX(-102%);
+        transition: transform .18s ease;
+        box-shadow: var(--shadow);
+      }
+      .toc.open{
+        transform: translateX(0);
+      }
+      main{
+        margin-left:0;
+        padding:14px 12px 70px;
+      }
+      .topbar{ display:block; }
+      .grid2{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="badge" aria-hidden="true">LAB</span>
+        <div style="line-height:1.2;">
+          <div style="font-weight:800;font-size:13px;">Campus Donki LAB</div>
+          <div style="color:var(--muted2);font-size:12px;">経営層向けコンセプト要約</div>
+        </div>
+      </div>
+      <button class="btn" id="tocBtn" aria-controls="toc" aria-expanded="false">目次</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <aside class="toc" id="toc" aria-label="目次">
+      <div class="brand">
+        <div class="badge" aria-hidden="true">LAB</div>
+        <div>
+          <h1>Campus Donki LAB<span class="sub">経営層向けコンセプト要約</span></h1>
+        </div>
+      </div>
+
+      <div class="hint">左の目次から各章にジャンプできます。</div>
+
+      <nav class="tocnav" id="tocNav">
+        <a href="#s1">1. 背景と課題</a>
+        <a href="#s2">2. 目標（最優先は採用）</a>
+        <a href="#s3">3. コンセプト：参加型の特殊店舗</a>
+        <a href="#s4">4. なぜ「キャンパスドンキ」が必須か</a>
+        <a href="#s5">5. 仕組み：店頭サイネージ×参加導線</a>
+        <a href="#s6">6. 情報拡散：公式SNS×外部発信価値</a>
+        <a href="#s7">7. 成功指標（売上/利益ではない）</a>
+        <a href="#s8">8. 現場モチベーション：店長/支社長の評価設計</a>
+        <a href="#s9">9. 体制：現場の意見取り込み</a>
+        <a href="#s10">10. 期待アウトカムと位置づけ</a>
+        <a href="#s11">11. 次のアクション</a>
+      </nav>
+
+      <div class="tocfooter">
+        <div class="pill">大阪電気通信大学</div>
+        <div class="pill">桃山学院大学</div>
+        <div class="pill">関西外語大学（検討）</div>
+        <div class="small">※内容はコンセプト整理。具体施策は別途設計。</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="container">
+        <header class="hero">
+          <h2>Campus Donki LAB（キャンパスドンキ・ラボ）</h2>
+          <p>
+            キャンパスドンキを「ただの店舗」ではなく、<b>学生が参加し、実績が残り、採用につながる</b>“参加型の特殊店舗”として再定義する。
+            店舗正面の大型サイネージと公式SNSを使い、学内外へ発信する。
+          </p>
+        </header>
+
+        <section id="s1">
+          <div class="kicker">背景と課題</div>
+          <h3>1. 背景と課題</h3>
+          <ul>
+            <li>キャンパスドンキは棚本数が少なく、売上・利益のアッパーは限定的。</li>
+            <li>したがって、売上/営業利益を主評価指標にすると現実と目的が乖離しやすい。</li>
+            <li>目的は売上ではなく、<b>学生との接点創出 → ファン層形成 → 採用 → 将来のLTV土台</b>。</li>
+            <li>「ありがちな産学連携（例：学生棚・共同商品開発）」だけでは、大学内の他社施策に埋もれやすい。</li>
+          </ul>
+        </section>
+
+        <section id="s2">
+          <div class="kicker">目標</div>
+          <h3>2. 目標（最優先は採用）</h3>
+          <div class="grid2">
+            <div class="card">
+              <h4>最優先：採用の定量成果</h4>
+              <p>定性的な“良い取り組み”ではなく、参加・継続・選考転換などの<b>数字で示せる実績</b>を残す。</p>
+            </div>
+            <div class="card">
+              <h4>副次効果：ファン形成と将来LTV</h4>
+              <p>学生生活の形成期に、記憶に残る体験の入口を作り、卒業後にも続く接点の土台を作る。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="s3">
+          <div class="kicker">コンセプト</div>
+          <h3>3. コンセプト：参加型の特殊店舗「Campus Donki LAB」</h3>
+          <ul>
+            <li>店舗の役割を「買う場所」から<b>参加して実績が積み上がる拠点</b>へ拡張する。</li>
+            <li>ビジュアル（看板）で、ただの店舗ではなく<b>LAB（実験/実務/発信拠点）</b>であることを直感的に伝える。</li>
+            <li>具体内容は店舗正面の大型サイネージで告知し、参加導線を作る。</li>
+          </ul>
+          <div class="quote">
+            看板の狙い：<b>「ここは普通の店舗ではない」</b>という期待値を一瞬で作り、参加意欲の起点にする。
+          </div>
+        </section>
+
+        <section id="s4">
+          <div class="kicker">店が必要な理由</div>
+          <h3>4. なぜ「キャンパスドンキ」が必須か（インターン単体との差）</h3>
+          <ul>
+            <li>インターンだけなら、人事・リクルート部門で完結し「店舗がなくてもできる」になりやすい。</li>
+            <li>しかしキャンパスドンキには、<b>学内常設の接点</b>と<b>店頭サイネージ</b>という“参加を生む装置”がある。</li>
+            <li>さらにユニークユーザーを100%特定できるため、<b>参加・継続・転換</b>を定量で追える。</li>
+          </ul>
+          <div class="callout">
+            結論：キャンパスドンキがあるからこそ、<b>日常利用者の母集団</b>から参加を生み、実績で採用につなげる“装置化”ができる。
+          </div>
+        </section>
+
+        <section id="s5">
+          <div class="kicker">仕組み</div>
+          <h3>5. 仕組み：店頭サイネージ×参加導線（学部に刺す）</h3>
+          <ul>
+            <li>店舗正面の大型サイネージに「参加型の募集」を常設表示（例：学部ごとに興味のあるリアル業務への参加）。</li>
+            <li>学部別の関心に合わせて入口を設計（例：経営/インバウンド/店舗づくり/デジタルなど）。</li>
+            <li>キャンパスドンキの商品選定・改善提案・コンテンツ制作など、<b>実務に近い体験</b>へつなぐ。</li>
+          </ul>
+          <div class="small">※具体施策の詳細は、運営条件（オペ負荷/更新頻度/権限範囲）と合わせて別資料で設計。</div>
+        </section>
+
+        <section id="s6">
+          <div class="kicker">拡散</div>
+          <h3>6. 情報拡散：公式SNS×外部発信価値</h3>
+          <ul>
+            <li>学内だけで閉じず、公式SNSで「Campus Donki LAB」を大々的に告知する。</li>
+            <li>出店校の学生以外にも情報が届くことで、参加母集団と採用母集団を拡張できる。</li>
+            <li>高校生が興味を持てば、大学入学の動機の一部になり得る（大学側メリットとして語れる）。</li>
+          </ul>
+          <div class="quote">
+            外部発信の価値：<b>「学生がリアルな小売の仕事に参加し、成果が可視化される」</b>ストーリーはメディアに載せやすい。
+          </div>
+        </section>
+
+        <section id="s7">
+          <div class="kicker">成功指標</div>
+          <h3>7. 成功指標（売上/利益ではない）</h3>
+          <ul>
+            <li>棚が小さいため、売上・利益を主KPIに置くのは不適切（上振れの限界が小さい）。</li>
+            <li>代わりに、採用に直結する<b>参加と転換</b>、および取り組みの<b>外部発信価値</b>を中心に据える。</li>
+          </ul>
+          <div class="metric" aria-label="主要KPI">
+            <span class="pill">参加UU（週次/月次）</span>
+            <span class="pill">継続率（翌週/4週）</span>
+            <span class="pill">成果物数（実装/公開）</span>
+            <span class="pill">採用ファネル転換（参加→面談→応募→内定）</span>
+            <span class="pill">外部露出（SNS/メディア）</span>
+          </div>
+        </section>
+
+        <section id="s8">
+          <div class="kicker">現場モチベーション</div>
+          <h3>8. 現場モチベーション：店長/支社長の評価設計</h3>
+          <ul>
+            <li>キャンパスドンキの運営は、大学に最も近いドンキ店舗が担っている。</li>
+            <li>店長・支社長の協力があって初めて継続運用できるため、<b>新しい挑戦を経営層が評価する仕組み</b>が重要。</li>
+            <li>売上で評価しにくいからこそ、<b>採用・参加・外部発信</b>などの成果で評価する必要がある。</li>
+          </ul>
+          <div class="callout">
+            重要なメッセージ：<b>「新しいことに取り組む店長・支社長が正当に評価される」</b>ことが、継続のモチベーションになる。
+          </div>
+        </section>
+
+        <section id="s9">
+          <div class="kicker">体制</div>
+          <h3>9. 体制：現場の意見取り込み（通しやすさの鍵）</h3>
+          <ul>
+            <li>店長・支社長の意見を取り込むと、企画の実装性が担保され、意思決定が通りやすくなる。</li>
+            <li>ヒアリングは「企画の是非」ではなく、<b>成立条件（オペ負荷・安全・更新頻度・権限範囲・成功指標）</b>に絞る。</li>
+            <li>経営層資料には、現場の“成立コメント”を短く引用して入れる。</li>
+          </ul>
+          <div class="quote">
+            店長コメント枠（取得後に差し替え）：<br />
+            「（例）サイネージとQR導線中心なら、オペ負荷を増やさず継続可能」
+          </div>
+          <div class="quote">
+            支社長コメント枠（取得後に差し替え）：<br />
+            「（例）型ができれば横展開できる。支社として受け皿になれる」
+          </div>
+        </section>
+
+        <section id="s10">
+          <div class="kicker">位置づけ</div>
+          <h3>10. 期待アウトカムと位置づけ（差別化ストーリー）</h3>
+          <ul>
+            <li>キャンパスドンキは、単体で完結する施策ではなく、<b>差別化された施策群のフック／キー／タッチポイント</b>になり得る。</li>
+            <li>「参加型の特殊店舗」という独自性が、採用・ファン形成・発信価値を同時に押し上げる。</li>
+            <li>結果として他社や他組織が模倣しにくい“仕組み”として確立できる。</li>
+          </ul>
+          <div class="callout">
+            ストーリー：<b>Campus Donki LAB</b> を核に、学部に刺さる実務参加と情報発信を束ね、採用の定量成果を積み上げる。
+          </div>
+        </section>
+
+        <section id="s11">
+          <div class="kicker">次のアクション</div>
+          <h3>11. 次のアクション（コンセプト→実装へ）</h3>
+          <ul>
+            <li>店長・支社長ヒアリング：成立条件（NG・更新頻度・協力範囲・成功指標）を確定</li>
+            <li>看板/ビジュアル案：Campus Donki LABの世界観（イラスト含む）を作成</li>
+            <li>サイネージ運用設計：常設枠・掲出テンプレ・QR導線を標準化</li>
+            <li>KPI設計：参加・継続・成果物・採用転換・外部露出のレポートフォーマット作成</li>
+            <li>公式SNS発信設計：シリーズ化（3校の特性を活かした発信）</li>
+          </ul>
+          <div class="small">
+            ※本ページは「経営層向けにコンセプトを簡潔に要約」したもの。具体施策（ミッション設計・学部別トラック・運用フロー）は次資料で詳細化。
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const toc = document.getElementById('toc');
+      const tocBtn = document.getElementById('tocBtn');
+      const tocLinks = Array.from(document.querySelectorAll('#tocNav a'));
+      const sections = tocLinks
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      // Smooth scroll
+      tocLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          const el = document.querySelector(id);
+          if(!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Close toc on mobile
+          if (window.matchMedia('(max-width: 980px)').matches) {
+            toc.classList.remove('open');
+            if (tocBtn) tocBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Active section highlight
+      const setActive = () => {
+        const y = window.scrollY + 120;
+        let idx = 0;
+        for (let i=0; i<sections.length; i++){
+          const s = sections[i];
+          if (s && s.offsetTop <= y) idx = i;
+        }
+        tocLinks.forEach((a,i)=> a.classList.toggle('active', i===idx));
+      };
+
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+
+      // Mobile TOC toggle
+      if (tocBtn) {
+        tocBtn.addEventListener('click', () => {
+          const isOpen = toc.classList.toggle('open');
+          tocBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      }
+
+      // Close toc when tapping outside (mobile)
+      document.addEventListener('click', (e) => {
+        if (!window.matchMedia('(max-width: 980px)').matches) return;
+        const target = e.target;
+        const insideToc = toc.contains(target);
+        const insideBtn = tocBtn && tocBtn.contains(target);
+        if (!insideToc && !insideBtn) {
+          toc.classList.remove('open');
+          if (tocBtn) tocBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
