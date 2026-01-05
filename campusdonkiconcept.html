@@ -7,15 +7,15 @@
   <title>Campus Donki LAB｜経営層向けコンセプト要約</title>
   <style>
     :root{
-      --bg:#0b0b0b;
-      --panel:#121212;
-      --panel2:#171717;
-      --fg:#ffffff;
-      --muted:#c9c9c9;
-      --muted2:#9a9a9a;
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --panel2:#f6f7f9;
+      --fg:#111111;
+      --muted:#4b5563;
+      --muted2:#6b7280;
       --accent:#ffd400;
-      --line:#242424;
-      --shadow: 0 8px 22px rgba(0,0,0,.35);
+      --line:#e5e7eb;
+      --shadow: 0 10px 26px rgba(17,17,17,.08);
       --radius: 14px;
       --maxw: 1100px;
       --tocw: 300px;
@@ -44,7 +44,7 @@
       left:0;
       bottom:0;
       padding:18px 14px 14px;
-      background:linear-gradient(180deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.98) 55%, rgba(18,18,18,0.94) 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 55%, rgba(255,255,255,0.94) 100%);
       border-right:1px solid var(--line);
       overflow:auto;
       z-index:10;
@@ -109,8 +109,8 @@
       text-decoration:none;
     }
     .tocnav a.active{
-      background:rgba(255,212,0,.12);
-      border-color:rgba(255,212,0,.35);
+      background:rgba(255,212,0,.18);
+      border-color:rgba(255,212,0,.45);
       color:var(--fg);
     }
     .tocfooter{
@@ -124,7 +124,7 @@
       display:inline-block;
       padding:4px 10px;
       border-radius:999px;
-      background:rgba(255,255,255,.06);
+      background:rgba(17,17,17,.04);
       border:1px solid var(--line);
       color:var(--muted);
       font-size:12px;
@@ -142,8 +142,8 @@
       margin:0 auto;
     }
     .hero{
-      background: radial-gradient(1200px 500px at 20% 0%, rgba(255,212,0,.18), rgba(0,0,0,0)),
-                  radial-gradient(900px 500px at 90% 20%, rgba(255,255,255,.07), rgba(0,0,0,0));
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(255,212,0,.22), rgba(255,255,255,0)),
+                  radial-gradient(900px 500px at 90% 20%, rgba(0,0,0,.04), rgba(255,255,255,0));
       border:1px solid var(--line);
       border-radius: var(--radius);
       padding:20px 18px;
@@ -197,7 +197,7 @@
       margin-top:10px;
     }
     .card{
-      background:rgba(255,255,255,.03);
+      background:rgba(17,17,17,.02);
       border:1px solid var(--line);
       border-radius: 14px;
       padding:14px 14px 12px;
@@ -214,8 +214,8 @@
     .quote{
       margin-top:10px;
       padding:12px 14px;
-      border-left:4px solid rgba(255,212,0,.55);
-      background:rgba(255,212,0,.08);
+      border-left:4px solid rgba(255,212,0,.75);
+      background:rgba(255,212,0,.12);
       border-radius:12px;
       color:var(--muted);
       font-size:13px;
@@ -227,16 +227,16 @@
       margin-top:10px;
     }
     .metric .pill{
-      background:rgba(255,212,0,.10);
-      border-color:rgba(255,212,0,.25);
+      background:rgba(255,212,0,.14);
+      border-color:rgba(255,212,0,.35);
       color:var(--fg);
     }
     .callout{
       margin-top:10px;
       padding:12px 14px;
       border-radius:14px;
-      border:1px solid rgba(255,212,0,.25);
-      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,212,0,.35);
+      background:rgba(17,17,17,.02);
       color:var(--muted);
       font-size:13px;
     }
@@ -245,11 +245,6 @@
       font-size:12px;
       margin-top:10px;
     }
-    .hr{
-      height:1px;
-      background:var(--line);
-      margin:14px 0;
-    }
 
     /* Mobile */
     .topbar{
@@ -257,7 +252,7 @@
       position:sticky;
       top:0;
       z-index:20;
-      background:rgba(11,11,11,.9);
+      background:rgba(255,255,255,.92);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
       padding:10px 12px;
@@ -273,7 +268,7 @@
     .btn{
       appearance:none;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
+      background:rgba(17,17,17,.03);
       color:var(--fg);
       padding:8px 10px;
       border-radius:12px;
@@ -327,16 +322,13 @@
 
       <nav class="tocnav" id="tocNav">
         <a href="#s1">1. 背景と課題</a>
-        <a href="#s2">2. 目標（最優先は採用）</a>
+        <a href="#s2">2. 目標（リクルート）</a>
         <a href="#s3">3. コンセプト：参加型の特殊店舗</a>
         <a href="#s4">4. なぜ「キャンパスドンキ」が必須か</a>
         <a href="#s5">5. 仕組み：店頭サイネージ×参加導線</a>
         <a href="#s6">6. 情報拡散：公式SNS×外部発信価値</a>
         <a href="#s7">7. 成功指標（売上/利益ではない）</a>
         <a href="#s8">8. 現場モチベーション：店長/支社長の評価設計</a>
-        <a href="#s9">9. 体制：現場の意見取り込み</a>
-        <a href="#s10">10. 期待アウトカムと位置づけ</a>
-        <a href="#s11">11. 次のアクション</a>
       </nav>
 
       <div class="tocfooter">
@@ -352,7 +344,7 @@
         <header class="hero">
           <h2>Campus Donki LAB（キャンパスドンキ・ラボ）</h2>
           <p>
-            キャンパスドンキを「ただの店舗」ではなく、<b>学生が参加し、実績が残り、採用につながる</b>“参加型の特殊店舗”として再定義する。
+            キャンパスドンキを「ただの店舗」ではなく、<b>学生が参加し、実績が残り、リクルートにつながる</b>“参加型の特殊店舗”として再定義する。
             店舗正面の大型サイネージと公式SNSを使い、学内外へ発信する。
           </p>
         </header>
@@ -362,18 +354,18 @@
           <h3>1. 背景と課題</h3>
           <ul>
             <li>キャンパスドンキは棚本数が少なく、売上・利益のアッパーは限定的。</li>
-            <li>したがって、売上/営業利益を主評価指標にすると現実と目的が乖離しやすい。</li>
-            <li>目的は売上ではなく、<b>学生との接点創出 → ファン層形成 → 採用 → 将来のLTV土台</b>。</li>
+            <li>したがって、売上/営業利益を評価指標にすると現実と目的が乖離しやすい。</li>
+            <li>目的は売上ではなく、<b>学生との接点創出 → ファン層形成 → リクルート → 将来のLTV土台</b>。</li>
             <li>「ありがちな産学連携（例：学生棚・共同商品開発）」だけでは、大学内の他社施策に埋もれやすい。</li>
           </ul>
         </section>
 
         <section id="s2">
           <div class="kicker">目標</div>
-          <h3>2. 目標（最優先は採用）</h3>
+          <h3>2. 目標（リクルート）</h3>
           <div class="grid2">
             <div class="card">
-              <h4>最優先：採用の定量成果</h4>
+              <h4>最優先：リクルートの定量成果</h4>
               <p>定性的な“良い取り組み”ではなく、参加・継続・選考転換などの<b>数字で示せる実績</b>を残す。</p>
             </div>
             <div class="card">
@@ -405,7 +397,7 @@
             <li>さらにユニークユーザーを100%特定できるため、<b>参加・継続・転換</b>を定量で追える。</li>
           </ul>
           <div class="callout">
-            結論：キャンパスドンキがあるからこそ、<b>日常利用者の母集団</b>から参加を生み、実績で採用につなげる“装置化”ができる。
+            結論：キャンパスドンキがあるからこそ、<b>日常利用者の母集団</b>から参加を生み、実績でリクルートにつなげる“装置化”ができる。
           </div>
         </section>
 
@@ -425,7 +417,7 @@
           <h3>6. 情報拡散：公式SNS×外部発信価値</h3>
           <ul>
             <li>学内だけで閉じず、公式SNSで「Campus Donki LAB」を大々的に告知する。</li>
-            <li>出店校の学生以外にも情報が届くことで、参加母集団と採用母集団を拡張できる。</li>
+            <li>出店校の学生以外にも情報が届くことで、参加母集団とリクルート母集団を拡張できる。</li>
             <li>高校生が興味を持てば、大学入学の動機の一部になり得る（大学側メリットとして語れる）。</li>
           </ul>
           <div class="quote">
@@ -438,7 +430,7 @@
           <h3>7. 成功指標（売上/利益ではない）</h3>
           <ul>
             <li>棚が小さいため、売上・利益を主KPIに置くのは不適切（上振れの限界が小さい）。</li>
-            <li>代わりに、採用に直結する<b>参加と転換</b>、および取り組みの<b>外部発信価値</b>を中心に据える。</li>
+            <li>代わりに、リクルートに直結する<b>参加と転換</b>、および取り組みの<b>外部発信価値</b>を中心に据える。</li>
           </ul>
           <div class="metric" aria-label="主要KPI">
             <span class="pill">参加UU（週次/月次）</span>
@@ -453,58 +445,13 @@
           <div class="kicker">現場モチベーション</div>
           <h3>8. 現場モチベーション：店長/支社長の評価設計</h3>
           <ul>
-            <li>キャンパスドンキの運営は、大学に最も近いドンキ店舗が担っている。</li>
-            <li>店長・支社長の協力があって初めて継続運用できるため、<b>新しい挑戦を経営層が評価する仕組み</b>が重要。</li>
-            <li>売上で評価しにくいからこそ、<b>採用・参加・外部発信</b>などの成果で評価する必要がある。</li>
+            <li>キャンパスドンキは棚本数が少なく、売上/利益では評価されにくい構造。</li>
+            <li>そのため、<b>新しいことに取り組む店長・支社長が経営層に評価される</b>仕組みが、継続のモチベーション維持に重要。</li>
+            <li>評価は、リクルートに直結する<b>参加・継続・転換</b>、および<b>外部発信価値</b>を軸に設計する。</li>
+            <li>店長・支社長の協力があって初めて継続運用できるため、現場の納得が取れる指標で評価する。</li>
           </ul>
           <div class="callout">
-            重要なメッセージ：<b>「新しいことに取り組む店長・支社長が正当に評価される」</b>ことが、継続のモチベーションになる。
-          </div>
-        </section>
-
-        <section id="s9">
-          <div class="kicker">体制</div>
-          <h3>9. 体制：現場の意見取り込み（通しやすさの鍵）</h3>
-          <ul>
-            <li>店長・支社長の意見を取り込むと、企画の実装性が担保され、意思決定が通りやすくなる。</li>
-            <li>ヒアリングは「企画の是非」ではなく、<b>成立条件（オペ負荷・安全・更新頻度・権限範囲・成功指標）</b>に絞る。</li>
-            <li>経営層資料には、現場の“成立コメント”を短く引用して入れる。</li>
-          </ul>
-          <div class="quote">
-            店長コメント枠（取得後に差し替え）：<br />
-            「（例）サイネージとQR導線中心なら、オペ負荷を増やさず継続可能」
-          </div>
-          <div class="quote">
-            支社長コメント枠（取得後に差し替え）：<br />
-            「（例）型ができれば横展開できる。支社として受け皿になれる」
-          </div>
-        </section>
-
-        <section id="s10">
-          <div class="kicker">位置づけ</div>
-          <h3>10. 期待アウトカムと位置づけ（差別化ストーリー）</h3>
-          <ul>
-            <li>キャンパスドンキは、単体で完結する施策ではなく、<b>差別化された施策群のフック／キー／タッチポイント</b>になり得る。</li>
-            <li>「参加型の特殊店舗」という独自性が、採用・ファン形成・発信価値を同時に押し上げる。</li>
-            <li>結果として他社や他組織が模倣しにくい“仕組み”として確立できる。</li>
-          </ul>
-          <div class="callout">
-            ストーリー：<b>Campus Donki LAB</b> を核に、学部に刺さる実務参加と情報発信を束ね、採用の定量成果を積み上げる。
-          </div>
-        </section>
-
-        <section id="s11">
-          <div class="kicker">次のアクション</div>
-          <h3>11. 次のアクション（コンセプト→実装へ）</h3>
-          <ul>
-            <li>店長・支社長ヒアリング：成立条件（NG・更新頻度・協力範囲・成功指標）を確定</li>
-            <li>看板/ビジュアル案：Campus Donki LABの世界観（イラスト含む）を作成</li>
-            <li>サイネージ運用設計：常設枠・掲出テンプレ・QR導線を標準化</li>
-            <li>KPI設計：参加・継続・成果物・採用転換・外部露出のレポートフォーマット作成</li>
-            <li>公式SNS発信設計：シリーズ化（3校の特性を活かした発信）</li>
-          </ul>
-          <div class="small">
-            ※本ページは「経営層向けにコンセプトを簡潔に要約」したもの。具体施策（ミッション設計・学部別トラック・運用フロー）は次資料で詳細化。
+            重要なメッセージ：<b>「新しい挑戦を進める現場が正当に評価される」</b>ことが、企画を継続・定着させるための前提になる。
           </div>
         </section>
       </div>
